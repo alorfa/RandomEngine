@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Game\main.cpp" />
+    <ClCompile Include="RandomEngine\API\Application.cpp" />
+    <ClCompile Include="RandomEngine\API\Math\Math.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\Circle.cpp" />
+    <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\Sprite.cpp" />
+    <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
+    <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RandomEngine\API\Applicatopn.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\Camera.hpp" />
+    <ClInclude Include="RandomEngine\API\Math.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\vec2.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\Trig.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\Circle.hpp" />
+    <ClInclude Include="RandomEngine\API\System\types.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\Interpolation.hpp" />
+    <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
+    <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />
+    <ClInclude Include="RandomEngine\API\System\Mouse.hpp" />
+    <ClInclude Include="RandomEngine\API\GameArchitecture\Scene.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\Sprite.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\ResourceLoader.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\TextureLoader.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RandomEngine\API\Graphics\Camera.cpp" />
+  </ItemGroup>
+</Project>
