@@ -49,6 +49,7 @@ namespace random_engine
 
 		window.setFramerateLimit(60);
 
+		loadResources();
 		appInit();
 
 		while (window.isOpen())

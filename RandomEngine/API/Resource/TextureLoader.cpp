@@ -4,8 +4,13 @@ namespace random_engine
 {
 	Texture* TextureLoader::loadFromFile(const std::filesystem::path& path, int flags)
 	{
+		sf::Image img;
+		if (not img.loadFromFile(path.generic_u8string()))
+			return nullptr;
+
+		img.flipVertically();
 		Texture* result = new Texture();
-		if (not result->loadFromFile(path.generic_u8string()))
+		if (not result->loadFromImage(img))
 		{
 			delete result;
 			return nullptr;

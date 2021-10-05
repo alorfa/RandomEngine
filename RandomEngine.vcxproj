@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\main.cpp" />
+    <ClCompile Include="Game\Object\RectangleObject.cpp" />
     <ClCompile Include="RandomEngine\API\Application.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Circle.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Sprite.cpp" />
@@ -165,10 +166,17 @@
     <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Level.hpp" />
+    <ClInclude Include="Game\Object\Group.hpp" />
+    <ClInclude Include="Game\Object\ProcessGroup.hpp" />
+    <ClInclude Include="Game\Level\Part.hpp" />
+    <ClInclude Include="Game\Object.hpp" />
+    <ClInclude Include="Game\Object\RectangleObject.hpp" />
+    <ClInclude Include="Game\Object\VertexObject.hpp" />
+    <ClInclude Include="Game\Player.hpp" />
     <ClInclude Include="RandomEngine\API\Applicatopn.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />
-    <ClInclude Include="RandomEngine\API\GameArchitecture\Scene.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Camera.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Circle.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Sprite.hpp" />

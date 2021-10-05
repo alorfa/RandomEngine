@@ -15,7 +15,7 @@ namespace random_engine
 		sf::RenderWindow renderwindow;
 
 		sf::Clock clock;
-	public:
+
 		Camera native_camera;
 	protected:
 		sf::Window& window;
@@ -25,6 +25,7 @@ namespace random_engine
 		sf::Color clear_color;
 		sf::Transformable camera;
 
+		virtual void loadResources() = 0;
 		virtual void appInit() = 0;
 		virtual vec2 handleNativeCameraSize(const vec2& native_camera_size) const;
 		virtual void handleEvent(const sf::Event& event) = 0;
@@ -37,6 +38,7 @@ namespace random_engine
 
 		float aspectRatio() const;
 		const Camera& nativeCamera() const;
+
 	public:
 		std::filesystem::path res;
 
@@ -45,7 +47,5 @@ namespace random_engine
 
 		void run(const sf::Vector2u window_size, const sf::String& title, uint32_t style = sf::Style::Default, 
 			const sf::ContextSettings& settings = sf::ContextSettings());
-
-
 	};
 }

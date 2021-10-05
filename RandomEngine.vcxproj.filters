@@ -9,6 +9,7 @@
     <ClCompile Include="RandomEngine\API\Graphics\Sprite.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
+    <ClCompile Include="Game\Object\RectangleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Applicatopn.hpp" />
@@ -22,10 +23,17 @@
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />
     <ClInclude Include="RandomEngine\API\System\Mouse.hpp" />
-    <ClInclude Include="RandomEngine\API\GameArchitecture\Scene.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Sprite.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\ResourceLoader.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\TextureLoader.hpp" />
+    <ClInclude Include="Game\Level.hpp" />
+    <ClInclude Include="Game\Object.hpp" />
+    <ClInclude Include="Game\Player.hpp" />
+    <ClInclude Include="Game\Object\VertexObject.hpp" />
+    <ClInclude Include="Game\Object\RectangleObject.hpp" />
+    <ClInclude Include="Game\Level\Part.hpp" />
+    <ClInclude Include="Game\Object\ProcessGroup.hpp" />
+    <ClInclude Include="Game\Object\Group.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />

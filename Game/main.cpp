@@ -1,5 +1,5 @@
 #include <iostream>
-#include <RandomEngine/API/Applicatopn.hpp>
+#include <RandomEngine/API/Application.hpp>
 
 #include <RandomEngine/API/Math.hpp>
 #include <RandomEngine/API/Graphics/Circle.hpp>
