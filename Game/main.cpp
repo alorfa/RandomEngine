@@ -6,6 +6,7 @@
 #include <RandomEngine/API/System/Mouse.hpp>
 #include <RandomEngine/API/Resource/TextureLoader.hpp>
 #include <RandomEngine/API/Graphics/Sprite.hpp>
+#include <RandomEngine/API/Math/MovementSmoother.hpp>
 
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
@@ -39,8 +40,6 @@ class MyGame : public Application
 protected:
 	void appInit() override
 	{
-		loadResources();
-
 		camera.setScale({ 1, 1 });
 		camera.setPosition({0, 0});
 
@@ -69,11 +68,9 @@ protected:
 
 		camera.setPosition(events.player_pos);
 
-		//PRINT(camera.getPosition());
-
 		vec2 mouse_position = Mouse::getPosition();
 
-		vec2 next_pos = Interpolation::linear<vec2>(circle.getPosition(), mouse_position, 10.f * delta);
+		vec2 next_pos = Interpolation::linear<vec2>(circle.getPosition(), mouse_position, 120.f * delta);
 		circle.setPosition(next_pos);
 	}
 	void draw(sf::RenderTarget& window) const override
