@@ -25,11 +25,12 @@ namespace random_engine
 		sf::Color clear_color;
 		sf::Transformable camera;
 
-		virtual void loadResources() = 0;
 		virtual void appInit() = 0;
+		virtual void loadResources() = 0;
+		virtual void startGame() = 0;
 		virtual vec2 handleNativeCameraSize(const vec2& native_camera_size) const;
 		virtual void handleEvent(const sf::Event& event) = 0;
-		virtual void everyFrame(float base_delta, float delta) = 0;
+		virtual void update(float base_delta, float delta) = 0;
 		virtual void draw(sf::RenderTarget& window) const = 0;
 		virtual void appEnd() = 0;
 

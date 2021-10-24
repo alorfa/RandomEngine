@@ -1,4 +1,4 @@
-#include "Applicatopn.hpp"
+#include "Application.hpp"
 
 #include <iostream>
 #include <RandomEngine/API/System/Mouse.hpp>
@@ -47,10 +47,11 @@ namespace random_engine
 		random_engine::Mouse::window = &window;
 		random_engine::Mouse::camera = &native_camera;
 
-		window.setFramerateLimit(60);
+		window.setFramerateLimit(120);
 
-		loadResources();
 		appInit();
+		loadResources();
+		startGame();
 
 		while (window.isOpen())
 		{
@@ -72,8 +73,8 @@ namespace random_engine
 			auto new_size = handleNativeCameraSize(native_camera.getSize());
 			native_camera.setSize(new_size);
 			renderwindow.setView(native_camera.getSFMLView());
+			update(base_delta, delta);
 			renderwindow.clear(clear_color);
-			everyFrame(base_delta, delta);
 			draw(renderwindow);
 			window.display();
 		}

@@ -21,8 +21,9 @@ namespace random_engine
 	{
 	protected:
 		Texture* loadFromFile(const std::filesystem::path& path, int flags = Texture::Default) override;
-		Resource& getDefault() const override;
 	public:
+		Texture& getDefault() const override;
+
 		Texture& load(const std::filesystem::path& path, int flags = Texture::Default) override;
 	};
 	extern TextureLoader textureLoader;

@@ -6,7 +6,7 @@
 #include <RandomEngine/API/System/Mouse.hpp>
 #include <RandomEngine/API/Resource/TextureLoader.hpp>
 #include <RandomEngine/API/Graphics/Sprite.hpp>
-#include <RandomEngine/API/Math/MovementSmoother.hpp>
+#include <RandomEngine/API/Math/Smoother.hpp>
 
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
@@ -29,23 +29,25 @@ class MyGame : public Application
 	Circle circle;
 	Sprite sprite;
 
+	Texture t;
 
-	void loadResources()
-	{
-		sprite.texture = &textureLoader.load(res / "img/image.jpg");
-		vec2 size = sprite.texture->getSize();
-		float max = std::max(size.x, size.y);
-		sprite.setScale(size.x / max, size.y / max);
-	}
 protected:
 	void appInit() override
 	{
 		camera.setScale({ 1, 1 });
-		camera.setPosition({0, 0});
+		camera.setPosition({ 0, 0 });
 
 		circle.create(50);
 		circle.setScale({ 0.5f, 0.5f });
-		sprite.setArea({ 0.f, 0.f }, { 1.f, 1.f });
+	}
+	void loadResources() override
+	{
+		sprite.setTexture(textureLoader.load(res / "img/image.jpg"));
+		sprite.align(Sprite::MaxOne);
+	}
+	void startGame() override
+	{
+
 	}
 	void handleEvent(const sf::Event& e) override
 	{
@@ -62,16 +64,18 @@ protected:
 
 		events.player_direction.normalize();
 	}
-	void everyFrame(float base_delta, float delta) override
+	void update(float base_delta, float delta) override
 	{
 		events.player_pos += events.player_direction * delta * 2.f;
 
-		camera.setPosition(events.player_pos);
+		camera.setPosition(Smoother::linear(camera.getPosition(), events.player_pos, 20.f, delta));
 
 		vec2 mouse_position = Mouse::getPosition();
 
-		vec2 next_pos = Interpolation::linear<vec2>(circle.getPosition(), mouse_position, 120.f * delta);
+		vec2 next_pos = Smoother::linear(circle.getPosition(), mouse_position, 1.f, delta);
 		circle.setPosition(next_pos);
+
+		PRINTR(1.f / delta);
 	}
 	void draw(sf::RenderTarget& window) const override
 	{
@@ -83,7 +87,6 @@ protected:
 
 	}
 public:
-	//MyGame() {}
 };
 
 int main()

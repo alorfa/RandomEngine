@@ -10,9 +10,10 @@
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="Game\Object\RectangleObject.cpp" />
+    <ClCompile Include="RandomEngine\API\Math\Smoother.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RandomEngine\API\Applicatopn.hpp" />
+    <ClInclude Include="RandomEngine\API\Application.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Camera.hpp" />
     <ClInclude Include="RandomEngine\API\Math.hpp" />
     <ClInclude Include="RandomEngine\API\Math\vec2.hpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="Game\Level\Part.hpp" />
     <ClInclude Include="Game\Object\ProcessGroup.hpp" />
     <ClInclude Include="Game\Object\Group.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\Smoother.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />

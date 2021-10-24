@@ -1,4 +1,4 @@
-#include "MovementSmoother.hpp"
+#include "Smoother.hpp"
 
 #include "RandomEngine/API/Math/Interpolation.hpp"
 
@@ -17,7 +17,7 @@ namespace
 
 namespace random_engine
 {
-	vec2 MovementSmoother::linear(const vec2& cur_pos, const vec2& end_pos, float speed, float delta)
+	vec2 Smoother::linear(const vec2& cur_pos, const vec2& end_pos, float speed, float delta)
 	{
 		float offset = speed * delta;
 		offset = clamp(offset, 0.f, 1.f);

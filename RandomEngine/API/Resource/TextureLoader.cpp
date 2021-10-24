@@ -23,7 +23,7 @@ namespace random_engine
 			result->generateMipmap();
 		return result;
 	}
-	Resource& TextureLoader::getDefault() const
+	Texture& TextureLoader::getDefault() const
 	{
 		static Texture* t = new Texture;
 		return *t;

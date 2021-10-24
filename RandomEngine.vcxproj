@@ -161,6 +161,7 @@
     <ClCompile Include="RandomEngine\API\Graphics\Circle.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Sprite.cpp" />
     <ClCompile Include="RandomEngine\API\Math\Math.cpp" />
+    <ClCompile Include="RandomEngine\API\Math\Smoother.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
@@ -174,7 +175,7 @@
     <ClInclude Include="Game\Object\RectangleObject.hpp" />
     <ClInclude Include="Game\Object\VertexObject.hpp" />
     <ClInclude Include="Game\Player.hpp" />
-    <ClInclude Include="RandomEngine\API\Applicatopn.hpp" />
+    <ClInclude Include="RandomEngine\API\Application.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Camera.hpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="RandomEngine\API\Graphics\Sprite.hpp" />
     <ClInclude Include="RandomEngine\API\Math.hpp" />
     <ClInclude Include="RandomEngine\API\Math\Interpolation.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\Smoother.hpp" />
     <ClInclude Include="RandomEngine\API\Math\Trig.hpp" />
     <ClInclude Include="RandomEngine\API\Math\vec2.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\ResourceLoader.hpp" />
