@@ -11,6 +11,7 @@
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="Game\Object\RectangleObject.cpp" />
     <ClCompile Include="RandomEngine\API\Math\Smoother.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\CircleDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -36,6 +37,11 @@
     <ClInclude Include="Game\Object\ProcessGroup.hpp" />
     <ClInclude Include="Game\Object\Group.hpp" />
     <ClInclude Include="RandomEngine\API\Math\Smoother.hpp" />
+    <ClInclude Include="Game\Object\CircleObject.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\color.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\CircleDrawer.hpp" />
+    <ClInclude Include="RandomEngine\API\Tests\CircleTests.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\Object.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />

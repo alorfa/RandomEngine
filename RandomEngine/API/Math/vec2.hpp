@@ -51,11 +51,20 @@ namespace random_engine
 		}
 	};
 	template <typename T>
-	al_vec<T> operator*(const al_vec<T>& v1, const al_vec<T>& v2)
+	al_vec<T> operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
 	{
 		return al_vec<T>(
 			v1.x * v2.x,
 			v1.y * v2.y
+			);
+	}
+
+	template <typename T>
+	al_vec<T> operator/(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	{
+		return al_vec<T>(
+			v1.x / v2.x,
+			v1.y / v2.y
 			);
 	}
 
