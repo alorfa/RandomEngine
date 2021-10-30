@@ -16,4 +16,7 @@ namespace random_engine
 
 	typedef float f32;
 	typedef double f64;
+
+	//float value, which must be from 0 to 1
+	typedef float float01;
 }
