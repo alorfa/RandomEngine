@@ -1,14 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics/Vertex.hpp>
-#include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <RandomEngine/API/Math/vec2.hpp>
-#include <RandomEngine/API/Resource/TextureLoader.hpp>
+#include "RandomEngine/API/Math/vec2.hpp"
+#include "RandomEngine/API/Resource/TextureLoader.hpp"
+#include "RandomEngine/API/Graphics/Object.hpp"
 
 namespace random_engine
 {
-	class Sprite : public sf::Transformable, public sf::Drawable
+	class Sprite : public Object
 	{
 		inline static sf::Shader* shader = nullptr;
 	protected:

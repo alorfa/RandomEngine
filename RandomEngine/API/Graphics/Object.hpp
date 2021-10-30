@@ -7,6 +7,8 @@ namespace random_engine
 {
 	class Object : public sf::Transformable, public sf::Drawable
 	{
+		//const Object* owner;
 	public:
+
 	};
 }

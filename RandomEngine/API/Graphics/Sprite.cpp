@@ -33,7 +33,7 @@ namespace random_engine
 {
 	void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		states.transform = this->getTransform();
+		states.transform *= getTransform();
 		states.texture = texture;
 		states.shader = shader;
 		target.draw(verticies, 4, sf::TriangleFan, states);
