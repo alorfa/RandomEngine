@@ -8,9 +8,16 @@
     <ClCompile Include="RandomEngine\API\Graphics\Sprite.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
-    <ClCompile Include="Game\Object\RectangleObject.cpp" />
+    <ClCompile Include="Game\Object\SpriteObject.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\VertexObject.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Shape.cpp" />
+    <ClCompile Include="Game\Level\Bound.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\Level.cpp" />
+    <ClCompile Include="Game\Object.cpp" />
+    <ClCompile Include="Game\IGameObject.cpp" />
+    <ClCompile Include="Game\Collision\CollisionArea.cpp" />
+    <ClCompile Include="RandomEngine\API\Math\color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -28,11 +35,10 @@
     <ClInclude Include="Game\Object.hpp" />
     <ClInclude Include="Game\Player.hpp" />
     <ClInclude Include="Game\Object\VertexObject.hpp" />
-    <ClInclude Include="Game\Object\RectangleObject.hpp" />
+    <ClInclude Include="Game\Object\SpriteObject.hpp" />
     <ClInclude Include="Game\Level\Part.hpp" />
     <ClInclude Include="Game\Object\ProcessGroup.hpp" />
     <ClInclude Include="Game\Object\Group.hpp" />
-    <ClInclude Include="Game\Object\CircleObject.hpp" />
     <ClInclude Include="RandomEngine\API\Math\color.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\ShapeTests.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Object.hpp" />
@@ -40,6 +46,11 @@
     <ClInclude Include="RandomEngine\API\Graphics\VertexObject.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Shape.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\Assert.hpp" />
+    <ClInclude Include="Game\Level\Bound.hpp" />
+    <ClInclude Include="Game\Collision\StaticBody.hpp" />
+    <ClInclude Include="Game\IGameObject.hpp" />
+    <ClInclude Include="Game\Collision\RectangleArea.hpp" />
+    <ClInclude Include="Game\Collision\CollisionArea.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />

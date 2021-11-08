@@ -1,18 +1,19 @@
 #pragma once
 
-#include "SFML/Graphics/Drawable.hpp"
-#include "SFML/Graphics/Transformable.hpp"
+#include <RandomEngine/API/Graphics/Object.hpp>
+#include "Game/Collision/StaticBody.hpp"
 #include "Game/Object/Group.hpp"
 #include <vector>
 
+using namespace random_engine;
+
 namespace game
 {
-	class Object : public sf::Drawable, public sf::Transformable
+	class Object : public random_engine::Object, public StaticBody
 	{
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 	public:
 		std::vector<Group> groups;
 
-		virtual ~Object() = default;
+		void update(float delta);
 	};
 }

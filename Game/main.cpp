@@ -14,90 +14,113 @@
 
 #include <RandomEngine/API/Tests/ShapeTests.hpp>
 
-using namespace random_engine;
+#include "Game/Level.hpp"
+#include "Game/Object/SpriteObject.hpp"
 
-namespace
-{
-}
+using namespace random_engine;
+using namespace game;
 
 class MyGame : public Application
 {
 	struct EventData
 	{
-		vec2 player_direction;
-		vec2 player_pos;
-	};
-	EventData events;
 
-	VertexObject circles[2];
-	Sprite sprite;
+	} events;
 
-	Texture t;
+	Level level;
+
+	SpriteObject* obj = nullptr;
 
 protected:
 	void appInit() override
 	{
-		camera.setScale({ 1, 1 });
-		camera.setPosition({ 0, 0 });
+		camera.setScale(20, 20);
 
-		circles[0].vertices = circles[1].vertices = Shape::createCircle(100);
-		circles[0].drawVertCount = circles[1].drawVertCount = Shape::getVertexCount(50, sf::TriangleFan);
-		circles[0].setScale({ 0.5f, 0.5f });
-		circles[0].setPosition({-0.25f, 0.f});
-		circles[1].setScale({ 1.f, 1.f });
-		circles[1].setPosition({ 0.5f, 0.f });
+		level.loadBounds(res / "img/Ground.png");
+		level.loadPlayer(res / "img/Cube004.png");
+		level.player.setPosition(0.f, 2.f);
+		obj = new SpriteObject();
+		obj->load(res / "img/block1.jpg");
+		obj->setPosition(5.f, 0.f);
+		obj->collisionMode = obj->Touch;
+		obj->action = [](Player& p) {
+			p.setColor({ 1.f, 0.f, 0.f });
+		};
+		level.objects.push_back(obj);
+		for (auto* ptr : level.objects)
+			level.collisionBodies.push_back(ptr);
+		PRINT(level.collisionBodies.size());
+
+		level.bottom.posY = -0.5f;
+		level.top.posY = 7.5f;
 	}
 	void loadResources() override
 	{
-		sprite.setTexture(textureLoader.load(res / "img/image.jpg"));
-		sprite.align(Sprite::MaxOne);
+		
 	}
 	void startGame() override
 	{
-
+		/*level.player.setOnHoldCallback([](Player& p, float delta) {
+			p.direction.y += 100.f * delta * -Math::sign(p.gravity); 
+		});*/
+		level.player.setOnHoldOnGroundCallback([](Player& p, float delta) {
+			p.jump(14.f);
+		});
+		/*level.player.setOnClickCallback([](Player& p, float delta) {
+			p.gravity = -p.gravity;
+		});*/
+		/*level.player.setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) {
+			dir.y = dir.x * (1.f / p.getScale().x) * Math::sign(p.gravity);
+			return dir;
+		});
+		level.player.setOnHoldCallback([](Player& p, float delta) {
+			p.direction.y = -p.direction.y;
+		});*/
+		time_speed = 1.0f;
 	}
 	void handleEvent(const sf::Event& e) override
 	{
-		events.player_direction = vec2();
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			events.player_direction.x -= 1.f;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			events.player_direction.x += 1.f;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			events.player_direction.y -= 1.f;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			events.player_direction.y += 1.f;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			circles[0].rotate(-10.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			circles[0].rotate(10.f);
-
-		events.player_direction.normalize();
+		if (e.type == e.MouseWheelScrolled)
+		{
+			if (e.mouseWheelScroll.delta > 0)
+				camera.scale(0.9f, 0.9f);
+			if (e.mouseWheelScroll.delta < 0)
+				camera.scale(1.1f, 1.1f);
+		}
+		if (e.type == e.KeyPressed)
+		{
+			if (e.key.code == sf::Keyboard::Down)
+				level.player.scale(0.5f, 0.5f);
+			if (e.key.code == sf::Keyboard::Up)
+				level.player.scale(2.f, 2.f);
+		}
+		level.handleEvents(e);
 	}
 	void update(float base_delta, float delta) override
 	{
-		events.player_pos += events.player_direction * delta * 2.f;
+		level.update(delta);
 
-		camera.setPosition(Math::linearSmooth(camera.getPosition(), events.player_pos, 20.f, delta));
 
-		vec2 mouse_position = Mouse::getPosition();
+		//PRINTR(level.player.direction);
 
-		vec2 next_pos = Math::linearSmooth(circles[0].getPosition(), mouse_position, 10.f, delta);
-		circles[0].setPosition(next_pos);
-
-		//PRINTR(1.f / delta);
+		camera.setPosition(level.player.getPosition() - vec2{ 0.f, 0.5f });
+		obj->setPosition(Mouse::getPosition());
 	}
 	void draw(sf::RenderTarget& window) const override
 	{
-		window.draw(circles[0]);
-		window.draw(circles[1]);
+		window.clear({ 127, 127, 127, 255 });
+		window.draw(level);
 	}
 	void appEnd() override
 	{
 
 	}
 public:
+	MyGame()
+		: level(nativeCamera())
+	{
+
+	}
 };
 
 int main()

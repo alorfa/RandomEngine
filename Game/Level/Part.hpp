@@ -7,6 +7,9 @@ namespace game
 {
 	class Part
 	{
-		std::vector<ProcessGroup> groups;
+		//std::vector<ProcessGroup> localGroups;
+		std::vector<Object*> objects;
+	public:
+
 	};
 }
