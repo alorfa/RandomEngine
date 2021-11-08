@@ -69,12 +69,11 @@ namespace random_engine
 				}
 				handleEvent(e);
 			}
+			update(base_delta, delta);
 			native_camera.setTransform(camera);
 			auto new_size = handleNativeCameraSize(native_camera.getSize());
 			native_camera.setSize(new_size);
 			renderwindow.setView(native_camera.getSFMLView());
-			update(base_delta, delta);
-			renderwindow.clear(clear_color);
 			draw(renderwindow);
 			window.display();
 		}

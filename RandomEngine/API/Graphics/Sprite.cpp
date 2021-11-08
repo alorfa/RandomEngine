@@ -36,7 +36,7 @@ namespace random_engine
 		states.transform *= getTransform();
 		states.texture = texture;
 		states.shader = shader;
-		target.draw(verticies, 4, sf::TriangleFan, states);
+		target.draw(vertices, 4, sf::TriangleFan, states);
 	}
 
 	Sprite::Sprite()
@@ -45,10 +45,10 @@ namespace random_engine
 
 	Sprite::Sprite(const Texture& t)
 	{
-		verticies[0].position = { -0.5f, -0.5f };
-		verticies[1].position = { -0.5f, 0.5f };
-		verticies[2].position = { 0.5f, 0.5f };
-		verticies[3].position = { 0.5f, -0.5f };
+		vertices[0].position = { -0.5f, -0.5f };
+		vertices[1].position = { -0.5f, 0.5f };
+		vertices[2].position = { 0.5f, 0.5f };
+		vertices[3].position = { 0.5f, -0.5f };
 
 		setArea({ 0.f, 0.f }, { 1.f, 1.f });
 
@@ -62,10 +62,10 @@ namespace random_engine
 	}
 	void Sprite::setArea(const vec2& p1, const vec2& p2)
 	{
-		verticies[0].texCoords = p1;
-		verticies[1].texCoords = { p1.x, p2.y };
-		verticies[2].texCoords = p2;
-		verticies[3].texCoords = { p2.x, p1.y };
+		vertices[0].texCoords = p1;
+		vertices[1].texCoords = { p1.x, p2.y };
+		vertices[2].texCoords = p2;
+		vertices[3].texCoords = { p2.x, p1.y };
 	}
 	const Texture& Sprite::getTexture() const
 	{

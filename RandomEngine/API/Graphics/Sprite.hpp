@@ -11,7 +11,7 @@ namespace random_engine
 	{
 		inline static sf::Shader* shader = nullptr;
 	protected:
-		sf::Vertex verticies[4];
+		sf::Vertex vertices[4];
 		const Texture* texture = nullptr;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -30,8 +30,11 @@ namespace random_engine
 		void setAlignment(ScaleMode mode);
 		void align(ScaleMode mode);
 
-		inline const sf::Vertex* getVerticies() const {
-			return verticies;
+		inline const sf::Vertex* getVertices() const {
+			return vertices;
+		}
+		inline sf::Vertex* changeVertices() {
+			return vertices;
 		}
 	};
 }

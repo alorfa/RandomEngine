@@ -22,7 +22,6 @@ namespace random_engine
 
 		float time_speed = 1.f;
 
-		sf::Color clear_color;
 		sf::Transformable camera;
 
 		virtual void appInit() = 0;
@@ -39,7 +38,6 @@ namespace random_engine
 
 		float aspectRatio() const;
 		const Camera& nativeCamera() const;
-
 	public:
 		std::filesystem::path res;
 
