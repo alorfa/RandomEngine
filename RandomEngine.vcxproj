@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Collision\CollisionArea.cpp" />
+    <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Level.cpp" />
     <ClCompile Include="Game\Level\Bound.cpp" />
@@ -171,10 +172,13 @@
     <ClCompile Include="RandomEngine\API\Math\Functions.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
+    <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
     <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Collision\CollisionArea.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
     <ClInclude Include="Game\IGameObject.hpp" />
     <ClInclude Include="Game\Level.hpp" />
     <ClInclude Include="Game\Level\Bound.hpp" />
@@ -188,6 +192,7 @@
     <ClInclude Include="RandomEngine\API\Application.hpp" />
     <ClInclude Include="Game\Collision\RectangleArea.hpp" />
     <ClInclude Include="Game\Collision\StaticBody.hpp" />
+    <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\Assert.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />

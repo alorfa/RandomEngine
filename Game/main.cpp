@@ -16,6 +16,7 @@
 
 #include "Game/Level.hpp"
 #include "Game/Object/SpriteObject.hpp"
+#include <RandomEngine/API/System/Keyboard.hpp>
 
 using namespace random_engine;
 using namespace game;
@@ -42,7 +43,8 @@ protected:
 		obj = new SpriteObject();
 		obj->load(res / "img/block1.jpg");
 		obj->setPosition(5.f, 0.f);
-		obj->collisionMode = obj->Touch;
+		obj->setScale(3.f, 1.f);
+		obj->collisionMode = obj->Repulsion;
 		obj->action = [](Player& p) {
 			p.setColor({ 1.f, 0.f, 0.f });
 		};
@@ -68,8 +70,8 @@ protected:
 		});
 		/*level.player.setOnClickCallback([](Player& p, float delta) {
 			p.gravity = -p.gravity;
-		});*/
-		/*level.player.setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) {
+		});
+		level.player.setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) {
 			dir.y = dir.x * (1.f / p.getScale().x) * Math::sign(p.gravity);
 			return dir;
 		});
@@ -100,11 +102,7 @@ protected:
 	{
 		level.update(delta);
 
-
-		//PRINTR(level.player.direction);
-
-		camera.setPosition(level.player.getPosition() - vec2{ 0.f, 0.5f });
-		obj->setPosition(Mouse::getPosition());
+		camera.setPosition(0.f, 0.5f);
 	}
 	void draw(sf::RenderTarget& window) const override
 	{

@@ -15,6 +15,7 @@ namespace game
 		mutable Sprite sprite;
 
 		bool actionIsCommited = false;
+		vec2 prev_position = vec2();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
@@ -54,6 +55,9 @@ namespace game
 		void setTexture(const Texture& t);
 
 		void collisionProcess(const std::vector<const StaticBody*>& bodies);
+		inline const vec2& getPrevPos() const {
+			return prev_position;
+		}
 
 		void setColor(const color3f& color);
 	};

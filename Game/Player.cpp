@@ -1,6 +1,8 @@
 #include "Player.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <RandomEngine/API/Math/Functions.hpp>
+#include <RandomEngine/API/Auxiliary/DEBUG.hpp>
+#include <RandomEngine/API/System/Mouse.hpp>
 
 namespace game
 {
@@ -103,8 +105,9 @@ namespace game
 	}
 	void Player::update(float delta)
 	{
+		prev_position = getPosition();
 		direction = updateDirCallback(*this, direction, delta);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (Mouse::isPressed(sf::Mouse::Left))
 		{
 			onClickOnGround();
 			onClick();
@@ -131,9 +134,9 @@ namespace game
 				auto result = body->getRepulsionVector(*this);
 				if (result.touches)
 				{
-					direction.y = 0;
-					move(result.direction);
-					touchVectors.push_back(-result.direction);
+					direction = result.direction;
+					move(result.offset);
+					touchVectors.push_back(-result.offset);
 				}
 				break;
 			}

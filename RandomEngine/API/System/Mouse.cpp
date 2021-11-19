@@ -29,6 +29,12 @@ namespace random_engine
 	{
 		Mouse::camera = &camera;
 	}
+	bool Mouse::isPressed(Button button)
+	{
+		return window &&
+			window->hasFocus() &&
+			sf::Mouse::isButtonPressed(button);
+	}
 	const sf::Window* Mouse::window = nullptr;
 	const Camera* Mouse::camera = nullptr;
 }

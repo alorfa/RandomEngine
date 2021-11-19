@@ -2,6 +2,7 @@
 
 #include <RandomEngine/API/Graphics/Camera.hpp>
 #include <SFML/Window/Window.hpp>
+#include <SFML/Window/Mouse.hpp>
 
 namespace random_engine
 {
@@ -14,8 +15,12 @@ namespace random_engine
 
 		friend class Application;
 	public:
+		using Button = sf::Mouse::Button;
+
 		static vec2 getPosition(const Camera& relative_to);
 		static vec2 getPosition();
+
+		static bool isPressed(Button button);
 
 		static void setDefaultCamera(const Camera& camera);
 	};

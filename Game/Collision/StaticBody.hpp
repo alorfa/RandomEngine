@@ -1,6 +1,7 @@
 #pragma once
 
 #include <RandomEngine/API/Math/vec2.hpp>
+#include <RandomEngine/API/Math/RepulsionResult.hpp>
 
 using namespace random_engine;
 
@@ -20,13 +21,6 @@ namespace game
 			// nothing reaction
 			None
 		}; 
-		struct RepulsionResult {
-			bool touches;
-			vec2 direction;
-
-			inline RepulsionResult()
-				: touches(false), direction() {}
-		};
 		using Action = void (*)(Player&); 
 
 		Action action = nullptr;

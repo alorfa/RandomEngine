@@ -10,9 +10,9 @@ namespace game
 		return false;
 	}
 
-	StaticBody::RepulsionResult RectangleArea::getRepulsionVector(const Player& p) const
+	RepulsionResult RectangleArea::getRepulsionVector(const Player& p) const
 	{
-		return StaticBody::RepulsionResult();
+		return RepulsionResult();
 	}
 
 

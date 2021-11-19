@@ -28,6 +28,7 @@ namespace random_engine
 		virtual void loadResources() = 0;
 		virtual void startGame() = 0;
 		virtual vec2 handleNativeCameraSize(const vec2& native_camera_size) const;
+		virtual float handleDelta(float base_delta) const;
 		virtual void handleEvent(const sf::Event& event) = 0;
 		virtual void update(float base_delta, float delta) = 0;
 		virtual void draw(sf::RenderTarget& window) const = 0;

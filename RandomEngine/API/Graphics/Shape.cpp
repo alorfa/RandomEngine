@@ -37,6 +37,7 @@ namespace random_engine
 		case sf::Quads:
 			return vertCount / 4;
 		}
+		return 0;
 	}
 	size_t Shape::getVertexCount(size_t shapeCount, sf::PrimitiveType drawMode)
 	{
@@ -59,5 +60,6 @@ namespace random_engine
 		case sf::TriangleFan:
 			return shapeCount + 2;
 		}
+		return 0;
 	}
 }

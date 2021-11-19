@@ -18,6 +18,8 @@
     <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Collision\CollisionArea.cpp" />
     <ClCompile Include="RandomEngine\API\Math\color.cpp" />
+    <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
+    <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -51,6 +53,9 @@
     <ClInclude Include="Game\IGameObject.hpp" />
     <ClInclude Include="Game\Collision\RectangleArea.hpp" />
     <ClInclude Include="Game\Collision\CollisionArea.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
+    <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />

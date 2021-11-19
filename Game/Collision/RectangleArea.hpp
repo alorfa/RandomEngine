@@ -17,6 +17,6 @@ namespace game
 		RectangleArea(const vec2& pos, const vec2& size, float rotation);
 
 		bool touches(const Player&) const ;
-		StaticBody::RepulsionResult getRepulsionVector(const Player&) const;
+		RepulsionResult getRepulsionVector(const Player&) const;
 	};
 }

@@ -8,6 +8,6 @@ namespace game
 	{
 	public:
 		virtual bool touches(const Player&) const = 0;
-		virtual StaticBody::RepulsionResult getRepulsionVector(const Player&) const = 0;
+		virtual RepulsionResult getRepulsionVector(const Player&) const = 0;
 	};
 }

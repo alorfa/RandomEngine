@@ -47,7 +47,7 @@ namespace game
 		}
 		return false;
 	}
-	Bound::RepulsionResult Bound::getRepulsionVector(const Player& player) const
+	RepulsionResult Bound::getRepulsionVector(const Player& player) const
 	{
 		RepulsionResult result;
 		if (location == Bound::Bottom)
@@ -56,7 +56,7 @@ namespace game
 			const float offset = posY - (player.getPosition().y - player.getScale().y * 0.5f);
 			if (offset > 0.f)
 			{
-				result.direction = { 0.f, offset };
+				result.offset = { 0.f, offset };
 				result.touches = true;
 			}
 			return result;
@@ -66,10 +66,9 @@ namespace game
 			const float offset = posY - (player.getPosition().y + player.getScale().y * 0.5f);
 			if (offset < 0.f)
 			{
-				result.direction = { 0.f, offset };
+				result.offset = { 0.f, offset };
 				result.touches = true;
 			}
-			return result;
 		}
 		return result;
 	}
