@@ -1,6 +1,6 @@
 #pragma once
 
-#include <RandomEngine/API/Math/vec2.hpp>
+#include <RandomEngine/API/Math/Vec2.hpp>
 #include <RandomEngine/API/Math/RepulsionResult.hpp>
 
 using namespace random_engine;

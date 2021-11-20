@@ -6,9 +6,9 @@
 
 namespace random_engine
 {
-	vec2 Application::handleNativeCameraSize(const vec2& size) const
+	Vec2 Application::handleNativeCameraSize(const Vec2& size) const
 	{
-		return vec2(size.x * aspectRatio(), size.y);
+		return Vec2(size.x * aspectRatio(), size.y);
 	}
 	float Application::handleDelta(float base_delta) const
 	{
@@ -25,7 +25,7 @@ namespace random_engine
 	}
 	float Application::aspectRatio() const
 	{
-		const vec2 size = window.getSize();
+		const Vec2 size = window.getSize();
 		return size.x / size.y;
 	}
 	const Camera& Application::nativeCamera() const

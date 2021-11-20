@@ -17,7 +17,7 @@ namespace game
 	{
 		direction.x = 0.6f;
 
-		setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) -> vec2 {
+		setUpdateDirectionCallback([](const Player& p, Vec2 dir, float delta) -> Vec2 {
 			dir.y += p.gravity * delta;
 			return dir;
 		});

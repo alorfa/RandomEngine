@@ -13,8 +13,8 @@ namespace game
 {
 	namespace
 	{
-		RepulsionResult handleRects(const vec2& p1, const vec2& p2,
-			const vec2& r1, const vec2& r2, const Player& player, const Object& obj)
+		RepulsionResult handleRects(const Vec2& p1, const Vec2& p2,
+			const Vec2& r1, const Vec2& r2, const Player& player, const Object& obj)
 		{
 			RepulsionResult result;
 			result.touches = (p2.x >= r1.x &&
@@ -47,20 +47,17 @@ namespace game
 	}
 	bool SpriteObject::touches(const Player& p) const
 	{
-		Rect player(p.getPosition() - p.getScale() * 0.5f);
-		player.p2 = player.p1 + p.getScale();
-		Rect obj(getPosition() - getScale() * 0.5f);
-		obj.p2 = obj.p1 + getScale();
-
-		return Collision::RectTouchesRect(player, obj);
+		auto player = AxisAlignedBox::fromCenterScale(p.getPosition(), p.getScale() * 0.5f);
+		auto obj = AxisAlignedBox::fromCenterScale(getPosition(), getScale() * 0.5f);
+		return Collision::areIntersected(player, obj);
 	}
 	RepulsionResult SpriteObject::getRepulsionVector(const Player& p) const
 	{
-		const vec2 p1 = p.getPosition() - p.getScale() * 0.5f;
-		const vec2 p2 = p1 + p.getScale();
+		const Vec2 p1 = p.getPosition() - p.getScale() * 0.5f;
+		const Vec2 p2 = p1 + p.getScale();
 
-		const vec2 r1 = getPosition() - getScale() * 0.5f;
-		const vec2 r2 = r1 + getScale();
+		const Vec2 r1 = getPosition() - getScale() * 0.5f;
+		const Vec2 r2 = r1 + getScale();
 
 		return handleRects(p1, p2, r1, r2, p, *this);
 	}

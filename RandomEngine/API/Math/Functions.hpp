@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RandomEngine/API/Math/vec2.hpp"
+#include "RandomEngine/API/Math/Vec2.hpp"
 
 namespace random_engine
 {
@@ -14,7 +14,7 @@ namespace random_engine
 		static float cos(float angle);
 		static float rad(float deg);
 		static float deg(float rad);
-		static vec2 getCirclePoint(float rad, const vec2& size);
+		static Vec2 getCirclePoint(float rad, const Vec2& size);
 
 		template <typename T>
 		static T sign(T value)
@@ -39,6 +39,6 @@ namespace random_engine
 		{
 			return a + (b - a) * t;
 		}
-		static vec2 linearSmooth(const vec2& cur_pos, const vec2& end_pos, float speed, float delta);
+		static Vec2 linearSmooth(const Vec2& cur_pos, const Vec2& end_pos, float speed, float delta);
 	};
 }

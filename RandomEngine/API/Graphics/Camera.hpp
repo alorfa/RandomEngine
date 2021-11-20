@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/View.hpp>
 #include <RandomEngine/API/Math.hpp>
-#include <RandomEngine/API/Math/vec2.hpp>
+#include <RandomEngine/API/Math/Vec2.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
 namespace random_engine
@@ -16,30 +16,30 @@ namespace random_engine
 		inline void setSize(float x, float y) {
 			camera.setSize(x, -y);
 		}
-		inline void setSize(const vec2& size) {
+		inline void setSize(const Vec2& size) {
 			camera.setSize(size.x, -size.y);
 		}
 		inline void zoom(float factor) {
 			camera.zoom(factor);
 		}
-		inline void zoom(const vec2& factor) {
+		inline void zoom(const Vec2& factor) {
 			camera.setSize(camera.getSize().x * factor.x, camera.getSize().y * factor.y);
 		}
-		inline vec2 getSize() const {
+		inline Vec2 getSize() const {
 			return { camera.getSize().x, -camera.getSize().y };
 		}
 
 		inline void setPosition(float x, float y) {
 			camera.setCenter(x, y);
 		}
-		inline void setPosition(const vec2& pos) {
+		inline void setPosition(const Vec2& pos) {
 			camera.setCenter(pos);
 		}
-		inline void move(const vec2& offset) {
+		inline void move(const Vec2& offset) {
 			camera.move(offset);
 		}
-		inline const vec2& getPosition() const {
-			return reinterpret_cast<const vec2&>(camera.getCenter());
+		inline const Vec2& getPosition() const {
+			return reinterpret_cast<const Vec2&>(camera.getCenter());
 		}
 
 		inline void setRotation(float rad) {

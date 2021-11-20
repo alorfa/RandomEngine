@@ -3,7 +3,7 @@
 
 namespace random_engine
 {
-	std::vector<sf::Vertex> Shape::createCircle(size_t vertCount, const vec2& size)
+	std::vector<sf::Vertex> Shape::createCircle(size_t vertCount, const Vec2& size)
 	{
 		/* Additional (with index 0) point is the center of the circle,
 		* last point is the copy of the first (with index 1) the circle point

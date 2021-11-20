@@ -6,70 +6,89 @@
 namespace random_engine 
 {
 	template <typename T>
-	struct al_vec : public sf::Vector2<T>
+	struct AlgebraicVec2 : public sf::Vector2<T>
 	{
 	public:
-		al_vec(T x = 0, T y = 0)
-		{
-			this->x = x;
-			this->y = y;
-		}
-		template <typename U>
-		al_vec(const sf::Vector2<U>& v)
-		{
-			this->x = (T)v.x;
-			this->y = (T)v.y;
-		}
+		using sf::Vector2<T>::Vector2;
+
+		template<typename U>
+		AlgebraicVec2(sf::Vector2<U> const& u): sf::Vector2<T>{u} {}
+
+		AlgebraicVec2(AlgebraicVec2&&) = default;
+        AlgebraicVec2(AlgebraicVec2 const&) = default;
+
+        AlgebraicVec2& operator=(AlgebraicVec2&&) = default;
+        AlgebraicVec2& operator=(AlgebraicVec2 const&) = default;
 
 		template <typename U>
-		al_vec<U> as() const
+		AlgebraicVec2<U> as() const
 		{
-			return al_vec<U>((U)this->x, (U)this->y);
+			return AlgebraicVec2<U>(*this);
 		}
+
+		AlgebraicVec2 operator-(AlgebraicVec2 const& t) const { return (sf::Vector2<T> const&)(*this) - (sf::Vector2<T> const&)(t); }
 
 		T square_length() const
 		{
 			return this->x * this->x + this->y * this->y;
 		}
+
 		float length() const
 		{
 			return sqrtf(static_cast<float>(square_length()));
 		}
+
 		void normalize()
 		{
 			if (square_length() == 0)
 				return;
-			float rev_len = 1.f / length();
-			this->x *= rev_len;
-			this->y *= rev_len;
+			float inv_len = 1.f / length();
+			this->x *= inv_len;
+			this->y *= inv_len;
 		}
-		al_vec<T> new_normalized() const
+
+		AlgebraicVec2<T> new_normalized() const
 		{
-			al_vec<T> result = *this;
+			AlgebraicVec2<T> result = *this;
 			result.normalize();
 			return result;
 		}
 	};
+
 	template <typename T>
-	al_vec<T> operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	AlgebraicVec2<T> operator*(const AlgebraicVec2<T>& v1, const AlgebraicVec2<T>& v2)
 	{
-		return al_vec<T>(
+		return AlgebraicVec2<T>(
 			v1.x * v2.x,
 			v1.y * v2.y
 			);
 	}
 
+	//dot product
+    template <typename T>
+    T operator|(const AlgebraicVec2<T>& v1, const AlgebraicVec2<T>& v2)
+    {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
+
+	//cross-product
+    template <typename T>
+    T operator^(const AlgebraicVec2<T>& v1, const AlgebraicVec2<T>& v2)
+    {
+        return v1.x * v2.y - v1.y * v2.x;
+    }
+
 	template <typename T>
-	al_vec<T> operator/(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	AlgebraicVec2<T> operator/(const AlgebraicVec2<T>& v1, const AlgebraicVec2<T>& v2)
 	{
-		return al_vec<T>(
+		return AlgebraicVec2<T>(
 			v1.x / v2.x,
 			v1.y / v2.y
 			);
 	}
 
-	using fvec2 = al_vec<float>;
-	using vec2 = fvec2;
-	using uvec2 = al_vec<uint32_t>;
-	using ivec2 = al_vec<int32_t>;
+	using Vec2f = AlgebraicVec2<float>;
+	using Vec2 = Vec2f;
+	using Vec2u = AlgebraicVec2<uint32_t>;
+	using Vec2i = AlgebraicVec2<int32_t>;
 }

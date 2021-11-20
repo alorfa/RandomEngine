@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics/Vertex.hpp>
-#include "RandomEngine/API/Math/vec2.hpp"
+#include "RandomEngine/API/Math/Vec2.hpp"
 #include "RandomEngine/API/Resource/TextureLoader.hpp"
 #include "RandomEngine/API/Graphics/Object.hpp"
 
@@ -18,7 +18,7 @@ namespace random_engine
 	public:
 		Sprite();
 		Sprite(const Texture& t);
-		void setArea(const vec2& p1, const vec2& p2);
+		void setArea(const Vec2& p1, const Vec2& p2);
 
 		const Texture& getTexture() const;
 		void setTexture(const Texture& t);

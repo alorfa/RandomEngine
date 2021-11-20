@@ -25,7 +25,7 @@
     <ClInclude Include="RandomEngine\API\Application.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Camera.hpp" />
     <ClInclude Include="RandomEngine\API\Math.hpp" />
-    <ClInclude Include="RandomEngine\API\Math\vec2.hpp" />
+    <ClInclude Include="RandomEngine\API\Math\Vec2.hpp" />
     <ClInclude Include="RandomEngine\API\System\types.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />

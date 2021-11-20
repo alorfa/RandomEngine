@@ -60,7 +60,7 @@ namespace random_engine
 			shader->loadFromMemory(vsh, fsh);
 		}
 	}
-	void Sprite::setArea(const vec2& p1, const vec2& p2)
+	void Sprite::setArea(const Vec2& p1, const Vec2& p2)
 	{
 		vertices[0].texCoords = p1;
 		vertices[1].texCoords = { p1.x, p2.y };
@@ -77,7 +77,7 @@ namespace random_engine
 	}
 	void Sprite::setAlignment(ScaleMode mode)
 	{
-		const vec2 size = texture->getSize();
+		const Vec2 size = texture->getSize();
 		float scaleFactor = 1.f;
 		switch (mode)
 		{

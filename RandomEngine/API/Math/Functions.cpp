@@ -17,14 +17,14 @@ namespace random_engine
 	float Math::deg(float rad) {
 		return rad * 180.f / PI;
 	}
-	vec2 Math::getCirclePoint(float rad, const vec2& size)
+	Vec2 Math::getCirclePoint(float rad, const Vec2& size)
 	{
-		vec2 result;
+		Vec2 result;
 		result.x = cos(rad) * size.x;
 		result.y = sin(rad) * size.y;
 		return result;
 	}
-	vec2 Math::linearSmooth(const vec2& cur_pos, const vec2& end_pos, float speed, float delta)
+	Vec2 Math::linearSmooth(const Vec2& cur_pos, const Vec2& end_pos, float speed, float delta)
 	{
 		float offset = speed * delta;
 		offset = clamp(offset, 0.f, 1.f);

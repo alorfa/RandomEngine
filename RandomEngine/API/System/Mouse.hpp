@@ -17,8 +17,8 @@ namespace random_engine
 	public:
 		using Button = sf::Mouse::Button;
 
-		static vec2 getPosition(const Camera& relative_to);
-		static vec2 getPosition();
+		static Vec2 getPosition(const Camera& relative_to);
+		static Vec2 getPosition();
 
 		static bool isPressed(Button button);
 

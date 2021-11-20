@@ -1,13 +1,13 @@
 #pragma once
 
-#include "RandomEngine/API/Math/vec2.hpp"
+#include "RandomEngine/API/Math/Vec2.hpp"
 
 namespace random_engine
 {
 	struct RepulsionResult
 	{
 		bool touches = false;
-		vec2 offset;
-		vec2 direction;
+		Vec2 offset;
+		Vec2 direction;
 	};
 }

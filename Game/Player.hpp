@@ -15,12 +15,12 @@ namespace game
 		mutable Sprite sprite;
 
 		bool actionIsCommited = false;
-		vec2 prev_position = vec2();
+		Vec2 prev_position = Vec2();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
 		using Callback = void (*)(Player&, float delta);
-		using UpdateDirectionCallback = vec2(*)(const Player&, vec2 dir, float delta);
+		using UpdateDirectionCallback = Vec2(*)(const Player&, Vec2 dir, float delta);
 	private:
 		Callback onClickCallback = nullptr;
 		Callback onClickOnGroundCallback = nullptr;
@@ -28,7 +28,7 @@ namespace game
 		Callback onHoldOnGroundCallback = nullptr;
 		UpdateDirectionCallback updateDirCallback = nullptr;
 
-		std::vector<vec2> touchVectors;
+		std::vector<Vec2> touchVectors;
 	public:
 		Player();
 
@@ -38,7 +38,7 @@ namespace game
 		void setOnHoldOnGroundCallback(Callback);
 		void setUpdateDirectionCallback(UpdateDirectionCallback);
 
-		vec2 direction;
+		Vec2 direction;
 		float gravity = -50.f;
 		float jumpStrength = 15.f;
 
@@ -55,7 +55,7 @@ namespace game
 		void setTexture(const Texture& t);
 
 		void collisionProcess(const std::vector<const StaticBody*>& bodies);
-		inline const vec2& getPrevPos() const {
+		inline const Vec2& getPrevPos() const {
 			return prev_position;
 		}
 
