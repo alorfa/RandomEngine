@@ -95,6 +95,8 @@ protected:
 				level.player.scale(0.5f, 0.5f);
 			if (e.key.code == sf::Keyboard::Up)
 				level.player.scale(2.f, 2.f);
+			if(e.key.code == sf::Keyboard::Space)
+				level.player.setPosition(0.f, 2.f);
 		}
 		level.handleEvents(e);
 	}
