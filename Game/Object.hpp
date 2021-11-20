@@ -17,7 +17,7 @@ namespace game
 
 		void update(float delta);
 
-		inline const Vec2& getPrevPos() const {
+		inline const Vec2& getPrevPosition() const {
 			return prev_position;
 		}
 	};
