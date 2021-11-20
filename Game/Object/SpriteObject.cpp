@@ -13,26 +13,40 @@ namespace game
 {
 	namespace
 	{
-		RepulsionResult handleRects(const Vec2& p1, const Vec2& p2,
-			const Vec2& r1, const Vec2& r2, const Player& player, const Object& obj)
+		RepulsionResult handleRects(AxisAlignedBox const& p, AxisAlignedBox const& r, 
+									const Player& player, const Object& obj)
 		{
 			RepulsionResult result;
-			result.touches = (p2.x >= r1.x &&
-				p1.x <= r2.x &&
-				p2.y >= r1.y &&
-				p1.y <= r2.y);
+			result.touches = Collision::areIntersected(p, r);
 			if (result.touches)
 			{
-				result.direction.y = (obj.getPosition().y - obj.getPrevPos().y) * 100.f;
-				if (p2.y > r2.y)
+				result.direction = (obj.getPosition() - obj.getPrevPosition());
+				if(fabs(result.direction.y) > fabs(result.direction.x))
 				{
-					result.offset.y = r2.y - p1.y;
+					if (p.max.y > r.max.y)
+					{
+						result.offset.y = r.max.y - p.min.y;
+					}
+					if (p.min.y < r.min.y)
+					{
+						result.offset.y = r.min.y - p.max.y;
+					}
+					result.direction.x = 0.f;
+					result.direction.y *= 100.f;
 				}
-				if (p1.y < r1.y)
+				else
 				{
-					result.offset.y = r1.y - p2.y;
-				}
+					if(p.max.x > r.max.x)
+					{
+						result.offset.x = r.max.x - p.min.x;
+					}
+					if(p.min.x < r.min.x)
+					{
+						result.offset.x = r.min.x - p.max.x;
+					}
 
+					result.direction.y = 0.f;
+				}
 			}
 			return result;
 		}
@@ -45,21 +59,19 @@ namespace game
 
 		target.draw(sprite);
 	}
+
 	bool SpriteObject::touches(const Player& p) const
 	{
 		auto player = AxisAlignedBox::fromCenterScale(p.getPosition(), p.getScale() * 0.5f);
 		auto obj = AxisAlignedBox::fromCenterScale(getPosition(), getScale() * 0.5f);
 		return Collision::areIntersected(player, obj);
 	}
+
 	RepulsionResult SpriteObject::getRepulsionVector(const Player& p) const
 	{
-		const Vec2 p1 = p.getPosition() - p.getScale() * 0.5f;
-		const Vec2 p2 = p1 + p.getScale();
-
-		const Vec2 r1 = getPosition() - getScale() * 0.5f;
-		const Vec2 r2 = r1 + getScale();
-
-		return handleRects(p1, p2, r1, r2, p, *this);
+		auto player = AxisAlignedBox::fromCenterScale(p.getPosition(), p.getScale() * 0.5f);
+		auto obj = AxisAlignedBox::fromCenterScale(getPosition(), getScale() * 0.5f);
+		return handleRects(player, obj, p, *this);
 	}
 	void SpriteObject::load(const std::filesystem::path& path)
 	{
