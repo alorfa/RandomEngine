@@ -1,8 +1,12 @@
 #include "Functions.hpp"
+#include <corecrt_math_defines.h>
 #include <cmath>
 
 namespace random_engine
 {
+	constexpr float RAD2DEG = float(180./M_PI);
+	constexpr float DEG2RAD = float(M_PI/180.);
+
 	float Math::sin(float angle)
 	{
 		return sinf(angle);
@@ -12,10 +16,10 @@ namespace random_engine
 		return cosf(angle);
 	}
 	float Math::rad(float deg) {
-		return deg / 180.f * PI;
+		return deg * DEG2RAD;
 	}
 	float Math::deg(float rad) {
-		return rad * 180.f / PI;
+		return rad * RAD2DEG;
 	}
 	Vec2 Math::getCirclePoint(float rad, const Vec2& size)
 	{
