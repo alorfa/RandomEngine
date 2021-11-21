@@ -51,6 +51,7 @@ namespace game
 						{ // bouncy surface
 							result.direction.y *= 100.f;
 							result.offset.x = 0.;
+							result.direction.x *= 20; // friction
 						}
 						else
 						{  // sticky surface
@@ -91,6 +92,7 @@ namespace game
 		auto obj = AxisAlignedBox::fromCenterScale(getPosition(), getScale() * 0.5f);
 		return handleRects(player, obj, p, *this);
 	}
+
 	void SpriteObject::load(const std::filesystem::path& path)
 	{
 		sprite.setTexture(textureLoader.load(path));
