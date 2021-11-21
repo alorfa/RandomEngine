@@ -20,32 +20,50 @@ namespace game
 			result.touches = Collision::areIntersected(p, r);
 			if (result.touches)
 			{
+				// find touching edge: top left right bottom
+				//          +++++++
+				//          +++R+++
+				//          +++++++
+				//       ***
+				//       *P*
+				//       ***
+				//       P,R are centers
+
+				Vec2 const scale = p.max - p.min + r.max - r.min;
+				Vec2 const p2o = Vec2(obj.getPosition() - player.getPosition())/scale;
+
 				result.direction = (obj.getPosition() - obj.getPrevPosition());
-				if(fabs(result.direction.y) > fabs(result.direction.x))
-				{
-					if (p.max.y > r.max.y)
-					{
-						result.offset.y = r.max.y - p.min.y;
-					}
-					if (p.min.y < r.min.y)
-					{
-						result.offset.y = r.min.y - p.max.y;
-					}
-					result.direction.x = 0.f;
-					result.direction.y *= 100.f;
+				if(fabs(p2o.x) >= fabs(p2o.y))
+				{ // left or right
+					if(p.max.x > r.max.x)
+						result.offset.x = r.max.x - p.min.x;
+					else if(p.min.x < r.min.x)
+						result.offset.x = r.min.x - p.max.x;
+					result.direction.x *= 50.f; // little bounce
+					result.direction.y = player.direction.y;
 				}
 				else
-				{
-					if(p.max.x > r.max.x)
+				{ // top or bottom
+					if(p.max.y > r.max.y)
 					{
-						result.offset.x = r.max.x - p.min.x;
+						result.offset.y = r.max.y - p.min.y;
+						if(result.direction.y > 0.1f)
+						{ // bouncy surface
+							result.direction.y *= 100.f;
+							result.offset.x = 0.;
+						}
+						else
+						{  // sticky surface
+							result.offset.x = result.direction.x;
+							result.direction.x = 0.f;
+						}
 					}
-					if(p.min.x < r.min.x)
+					else if(p.min.y < r.min.y)
 					{
-						result.offset.x = r.min.x - p.max.x;
+						result.offset.y = r.min.y - p.max.y;
+						if(result.direction.y < -0.1f)
+							result.direction.y *= 100.f;
 					}
-
-					result.direction.y = 0.f;
 				}
 			}
 			return result;
