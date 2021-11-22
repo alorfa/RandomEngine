@@ -40,8 +40,8 @@ namespace random_engine
 	{
 		Vec2 const dir = segment.end - segment.start;
 		Vec2 const cen = disk.center - segment.start;
-		// solving equation norm(dir*t-cen) = R^2
-		// norm(dir)^2 * t^2 - 2*(dir|cen)*t+norm(cen)^2-R^2 = 0
+		// solving equation norm(dir*t-cen)^2 = R^2
+		// norm(dir)^2 * t^2 - 2*(dir|cen)*t + norm(cen)^2-R^2 = 0
 		// D/4 = (dir|cen)^2 - norm(dir)^2*(norm(cen)^2-R^2)
 		double const dir2 = dir.square_length();
 		double const cen2 = cen.square_length();
@@ -51,7 +51,7 @@ namespace random_engine
 		double const D = dircen * tmin - (cen2 - R2);
 		if(D < 0) // not intersection
 			return false;
-		if(0 <= tmin && tmin < 1) // closest point is in interval [0;1] <-> [start;end] => intersection
+		if(0 <= tmin && tmin <= 1) // closest point is in interval [0;1] <-> [start;end] => intersection
 			return true;
 		return cen2 <= R2 || (cen - dir).square_length() <= R2; // one of edge points is within disc
 	}

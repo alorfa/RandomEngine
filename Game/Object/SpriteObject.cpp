@@ -32,6 +32,14 @@ namespace game
 				Vec2 const scale = p.max - p.min + r.max - r.min;
 				Vec2 const p2o = Vec2(obj.getPosition() - player.getPosition())/scale;
 
+				// (x, y) <=> (a*t, b*t), (a*t, -b*t)
+				//  
+				// (x/a, y/b) <=> (t, t), (t, -t)
+				//  upper:   y/b >=  fabs(x/a)
+				//  lower:   y/b <= -fabs(x/a)
+				//  righter: x/a >   fabs(y/b)
+				//  lefter:  x/a <  -fabs(y/b)
+
 				result.direction = (obj.getPosition() - obj.getPrevPosition());
 				if(fabs(p2o.x) >= fabs(p2o.y))
 				{ // left or right
@@ -48,7 +56,7 @@ namespace game
 					{
 						result.offset.y = r.max.y - p.min.y;
 						if(result.direction.y > 0.1f)
-						{ // bouncy surface
+						{  // bouncy surface
 							result.direction.y *= 100.f;
 							result.offset.x = 0.;
 							result.direction.x *= 20; // friction
