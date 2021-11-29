@@ -45,11 +45,14 @@ protected:
 		obj->setPosition(5.f, 0.f);
 		obj->setScale(3.f, 1.f);
 		obj->collisionMode = obj->Repulsion;
-		obj->action = [](Player& p) {
-			p.setColor({ 1.f, 0.f, 0.f });
-		};
 		level.objects.push_back(obj);
-		for (auto* ptr : level.objects)
+		/*obj = new SpriteObject();
+		obj->load(res / "img/block1.jpg");
+		obj->setPosition(7.f, 0.1f);
+		obj->setScale(1.f, 1.f);
+		obj->collisionMode = obj->Repulsion;
+		level.objects.push_back(obj);*/
+		for (const auto* ptr : level.objects)
 			level.collisionBodies.push_back(ptr);
 		PRINT(level.collisionBodies.size());
 
@@ -102,7 +105,7 @@ protected:
 	{
 		level.update(delta);
 
-		camera.setPosition(0.f, 0.5f);
+		camera.setPosition(level.player.getPosition() + vec2{ 4.f, 0.f });
 	}
 	void draw(sf::RenderTarget& window) const override
 	{

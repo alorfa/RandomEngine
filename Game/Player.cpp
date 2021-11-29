@@ -3,6 +3,7 @@
 #include <RandomEngine/API/Math/Functions.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/System/Mouse.hpp>
+#include <RandomEngine/API/Auxiliary/print_vectors.hpp>
 
 namespace game
 {
@@ -15,7 +16,7 @@ namespace game
 	}
 	Player::Player()
 	{
-		direction.x = 0.6f;
+		direction.x = 1.6f;
 
 		setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) -> vec2 {
 			dir.y += p.gravity * delta;
@@ -47,11 +48,7 @@ namespace game
 
 	bool Player::isOnGround() const
 	{
-		for (const auto& vector : touchVectors)
-			/* the object is at the bottom and gravity is directed downgard, or vice versa */
-			if (Math::sign(vector.y) == Math::sign(gravity))
-				return true;
-		return false;
+		return onGround;
 	}
 	bool Player::onClick()
 	{
@@ -97,6 +94,10 @@ namespace game
 	{
 		direction.y = strength * -Math::sign(gravity);
 	}
+	void Player::die()
+	{
+		setColor({ 1.f, 0.f, 0.f });
+	}
 	void Player::handleEvents(const sf::Event& e)
 	{
 		if (e.type == sf::Event::MouseButtonPressed and
@@ -121,10 +122,12 @@ namespace game
 	{
 		sprite.setTexture(t);
 	}
+	void Player::collisionBegin()
+	{
+		onGround = false;
+	}
 	void Player::collisionProcess(const std::vector<const StaticBody*>& bodies)
 	{
-		touchVectors.clear();
-
 		for (const auto* body : bodies)
 		{
 			switch (body->collisionMode)
@@ -134,9 +137,15 @@ namespace game
 				auto result = body->getRepulsionVector(*this);
 				if (result.touches)
 				{
-					direction = result.direction;
-					move(result.offset);
-					touchVectors.push_back(-result.offset);
+					if (result.offset.x != 0)
+					{
+						die();
+					}
+					direction.y = result.direction.y;
+					move(vec2(0.f, result.offset.y));
+					/* the object is at the bottom and gravity is directed downgard, or vice versa */
+					if (Math::sign(result.offset.y) != Math::sign(gravity))
+						onGround = true;
 				}
 				break;
 			}
@@ -147,10 +156,34 @@ namespace game
 			}
 		}
 	}
+	bool Player::testCollisions(const std::vector<const StaticBody*>& bodies) const
+	{
+		for (const auto* body : bodies)
+		{
+			if (body->collisionMode == StaticBody::Repulsion)
+			{
+				auto result = body->getRepulsionVector(*this);
+				if (result.touches)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	void Player::setColor(const color3f& color)
 	{
 		auto* vertices = sprite.changeVertices();
 		for (int i = 0; i < 4; i++)
 			vertices[i].color = color.toSfColor();
+	}
+	const PhysicalRect& Player::getPhysicalRect() const
+	{
+		physical_rect.direction = direction;
+		physical_rect.min = getPosition() - getScale() * 0.5f;
+		physical_rect.max = physical_rect.min + getScale();
+		physical_rect.center = getPosition();
+		physical_rect.movement = getPosition() - getPrevPos();
+		return physical_rect;
 	}
 }

@@ -15,6 +15,8 @@ namespace game
 	public:
 		std::vector<Group> groups;
 
+		vec2 direction;
+
 		void update(float delta);
 
 		inline const vec2& getPrevPos() const {

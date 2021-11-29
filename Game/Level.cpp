@@ -1,5 +1,6 @@
 #include "Level.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 
 namespace game
 {
@@ -26,7 +27,11 @@ namespace game
 		player.update(delta);
 		for (auto& obj : objects)
 			obj->update(delta);
+
+		player.collisionBegin();
 		player.collisionProcess(collisionBodies);
+		if (player.testCollisions(collisionBodies))
+			player.die();
 	}
 	void Level::loadBounds(const std::filesystem::path& path)
 	{

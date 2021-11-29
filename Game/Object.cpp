@@ -6,6 +6,6 @@ namespace game
 	void Object::update(float delta)
 	{
 		prev_position = getPosition();
-		setPosition(Mouse::getPosition());
+		direction = (getPosition() - prev_position) * 100.f;
 	}
 }

@@ -12,11 +12,11 @@ namespace game
 		: location(location), camera(&camera)
 	{
 		if (location == Bound::Top) {
-			sprite.setArea({ 0.f, 1.f }, { 5.f, 0.f });
+			sprite.setArea({ 0.f, 1.f }, { 12.f, 0.f });
 			sprite.setOrigin(0.f, -0.5f);
 		}
 		else {
-			sprite.setArea({ 0.f, 0.f }, { 5.f, 1.f });
+			sprite.setArea({ 0.f, 0.f }, { 12.f, 1.f });
 			sprite.setOrigin(0.f, 0.5f);
 		}
 		
@@ -27,8 +27,10 @@ namespace game
 	}
 	void Bound::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		sprite.setScale(20.f, 4.f);
-		sprite.setPosition(camera->getPosition().x, posY);
+		const int outX = (int)camera->getPosition().x / SEGMENT_SIZE;
+		sprite.setPosition(float(outX * SEGMENT_SIZE), posY);
+		
+		sprite.setScale(48.f, 4.f);
 
 		target.draw(sprite);
 	}

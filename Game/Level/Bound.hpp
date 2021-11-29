@@ -12,6 +12,8 @@ namespace game
 	{
 		mutable Sprite sprite;
 
+		static constexpr int SEGMENT_SIZE = 4;
+
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		const Camera* camera;
