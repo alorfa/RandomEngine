@@ -6,25 +6,25 @@
 namespace random_engine 
 {
 	template <typename T>
-	struct al_vec : public sf::Vector2<T>
+	struct vector2 : public sf::Vector2<T>
 	{
 	public:
-		al_vec(T x = 0, T y = 0)
+		vector2(T x = 0, T y = 0)
 		{
 			this->x = x;
 			this->y = y;
 		}
 		template <typename U>
-		al_vec(const sf::Vector2<U>& v)
+		vector2(const sf::Vector2<U>& v)
 		{
 			this->x = (T)v.x;
 			this->y = (T)v.y;
 		}
 
 		template <typename U>
-		al_vec<U> as() const
+		vector2<U> as() const
 		{
-			return al_vec<U>((U)this->x, (U)this->y);
+			return vector2<U>((U)this->x, (U)this->y);
 		}
 
 		T square_length() const
@@ -43,33 +43,33 @@ namespace random_engine
 			this->x *= rev_len;
 			this->y *= rev_len;
 		}
-		al_vec<T> new_normalized() const
+		vector2<T> new_normalized() const
 		{
-			al_vec<T> result = *this;
+			vector2<T> result = *this;
 			result.normalize();
 			return result;
 		}
 	};
 	template <typename T>
-	al_vec<T> operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	vector2<T> operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
 	{
-		return al_vec<T>(
+		return vector2<T>(
 			v1.x * v2.x,
 			v1.y * v2.y
 			);
 	}
 
 	template <typename T>
-	al_vec<T> operator/(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	vector2<T> operator/(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
 	{
-		return al_vec<T>(
+		return vector2<T>(
 			v1.x / v2.x,
 			v1.y / v2.y
 			);
 	}
 
-	using fvec2 = al_vec<float>;
+	using fvec2 = vector2<float>;
 	using vec2 = fvec2;
-	using uvec2 = al_vec<uint32_t>;
-	using ivec2 = al_vec<int32_t>;
+	using uvec2 = vector2<uint32_t>;
+	using ivec2 = vector2<int32_t>;
 }

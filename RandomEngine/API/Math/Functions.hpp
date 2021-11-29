@@ -17,13 +17,13 @@ namespace random_engine
 		static vec2 getCirclePoint(float rad, const vec2& size);
 
 		template <typename T>
-		static T sign(T value)
+		static int sign(T value)
 		{
 			if (value > static_cast<T>(0))
-				return static_cast<T>(1);
+				return 1;
 			if (value < static_cast<T>(0))
-				return static_cast<T>(-1);
-			return static_cast<T>(0);
+				return -1;
+			return 0;
 		}
 		template <typename T>
 		static T clamp(T value, T min, T max)
@@ -33,6 +33,11 @@ namespace random_engine
 			if (value < min)
 				return min;
 			return value;
+		}
+		template <typename T>
+		static bool inRange(T value, T min, T max)
+		{
+			return (min <= value and value <= max);
 		}
 		template <typename T>
 		static T linearInterpolate(const T& a, const T& b, float t)
