@@ -16,7 +16,7 @@ namespace game
 	}
 	Player::Player()
 	{
-		direction.x = 1.6f;
+		direction.x = 0.;//1.6f;
 
 		setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) -> vec2 {
 			dir.y += p.gravity * delta;
@@ -125,6 +125,7 @@ namespace game
 	void Player::collisionBegin()
 	{
 		onGround = false;
+        lastOffset = vec2{0., 0.};
 	}
 	void Player::collisionProcess(const std::vector<const StaticBody*>& bodies)
 	{
@@ -142,6 +143,7 @@ namespace game
 						die();
 					}
 					direction.y = result.direction.y;
+                    lastOffset = vec2(0.f, result.offset.y);
 					move(vec2(0.f, result.offset.y));
 					/* the object is at the bottom and gravity is directed downgard, or vice versa */
 					if (Math::sign(result.offset.y) != Math::sign(gravity))
@@ -165,7 +167,9 @@ namespace game
 				auto result = body->getRepulsionVector(*this);
 				if (result.touches)
 				{
-					return true;
+                    PRINT(result.offset);
+                    //__debugbreak();
+					return true; //result.offset.square_length() > 1.;
 				}
 			}
 		}

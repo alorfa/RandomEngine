@@ -87,6 +87,21 @@ namespace random_engine
 		// so pointless to resolve. By returning a CN={0,0} even though its
 		// considered a hit, the resolver wont change anything.
 		result.touches = (result.t_hit_near < 1.0f);
+
+        if(result.touches)
+        {
+            PRINT(result.normal);
+
+            PRINT(line.begin);
+            PRINT(line.direction);
+
+            PRINT(rect.min);
+            PRINT(rect.max);
+
+            PRINT(t_near);
+            PRINT(t_far);
+        }
+
 		return result;
 	}
 
@@ -107,7 +122,6 @@ namespace random_engine
 		result.touches = touches;
 		result.direction = rect.direction;
 		result.normal = normal;
-
 		if (normal.x > 0)
 		{
 			result.offset.x = rect.max.x - cube.min.x;
@@ -124,6 +138,12 @@ namespace random_engine
 		{
 			result.offset.y = rect.min.y - cube.max.y;
 		}
+
+//        if(touches)
+//        {
+//            DEBUG(normal);
+//            DEBUG(result.offset);
+//        }
 		/*if (line.direction.x > 0 and cube.min.x < rect.min.x)
 		{
 			result.offset.x = rect.min.x - cube.max.x;

@@ -27,6 +27,6 @@ namespace game
 		CollisionMode collisionMode;
 
 		virtual bool touches(const Player&) const = 0;
-		virtual RepulsionResult getRepulsionVector(const Player&) const = 0;
+		virtual RepulsionResult getRepulsionVector(const Player&, bool noMovement = false) const = 0;
 	};
 }

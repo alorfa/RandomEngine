@@ -31,6 +31,6 @@ namespace game
 		void setTexture(const Texture& t);
 
 		bool touches(const Player&) const override;
-		RepulsionResult getRepulsionVector(const Player&) const override;
+		RepulsionResult getRepulsionVector(const Player&, bool noMovement = false) const override;
 	};
 }

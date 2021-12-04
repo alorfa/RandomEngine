@@ -41,6 +41,7 @@ namespace game
 		void setUpdateDirectionCallback(UpdateDirectionCallback);
 
 		vec2 direction;
+        vec2 lastOffset{ 0., 0. };
 		float gravity = -50.f;
 		float jumpStrength = 15.f;
 

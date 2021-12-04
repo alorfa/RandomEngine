@@ -30,8 +30,8 @@ namespace game
 
 		player.collisionBegin();
 		player.collisionProcess(collisionBodies);
-		if (player.testCollisions(collisionBodies))
-			player.die();
+        if(player.testCollisions(collisionBodies))
+            player.die();
 	}
 	void Level::loadBounds(const std::filesystem::path& path)
 	{

@@ -28,9 +28,16 @@ namespace game
 
 		return Collision::areIntersected(player, obj);
 	}
-	RepulsionResult SpriteObject::getRepulsionVector(const Player& p) const
+	RepulsionResult SpriteObject::getRepulsionVector(const Player& p, bool noMovement /*= false*/) const
 	{
-		return Collision::collide(p.getPhysicalRect(), getPhysicalRect());
+        auto sr = getPhysicalRect();
+        auto pr = p.getPhysicalRect();
+        if(noMovement)
+        {
+            sr.direction = vec2{0., 0.};
+            pr.movement = p.direction;
+        }
+		return Collision::collide(pr, sr);
 	}
 	void SpriteObject::load(const std::filesystem::path& path)
 	{

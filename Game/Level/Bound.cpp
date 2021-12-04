@@ -49,7 +49,7 @@ namespace game
 		}
 		return false;
 	}
-	RepulsionResult Bound::getRepulsionVector(const Player& player) const
+	RepulsionResult Bound::getRepulsionVector(const Player& player, bool noMovement) const
 	{
 		RepulsionResult result;
 		if (location == Bound::Bottom)
