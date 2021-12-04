@@ -88,20 +88,6 @@ namespace random_engine
 		// considered a hit, the resolver wont change anything.
 		result.touches = (result.t_hit_near < 1.0f);
 
-        if(result.touches)
-        {
-            PRINT(result.normal);
-
-            PRINT(line.begin);
-            PRINT(line.direction);
-
-            PRINT(rect.min);
-            PRINT(rect.max);
-
-            PRINT(t_near);
-            PRINT(t_far);
-        }
-
 		return result;
 	}
 

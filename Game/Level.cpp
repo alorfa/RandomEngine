@@ -29,8 +29,8 @@ namespace game
 			obj->update(delta);
 
 		player.collisionBegin();
-		player.collisionProcess(collisionBodies);
-        if(player.testCollisions(collisionBodies))
+        if(player.collisionProcess(collisionBodies) 
+            && player.testCollisions(collisionBodies))
             player.die();
 	}
 	void Level::loadBounds(const std::filesystem::path& path)

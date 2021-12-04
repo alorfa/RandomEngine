@@ -11,6 +11,68 @@
 
 namespace game
 {
+    namespace
+    {
+        RepulsionResult handleRects(Rect const& p, Rect const& r,
+            const Player& player, const Object& obj)
+        {
+            RepulsionResult result;
+            result.touches = Collision::areIntersected(p, r);
+            if(result.touches)
+            {
+                // find touching edge: top left right bottom
+                //          +++++++
+                //          +++R+++
+                //          +++++++
+                //       ***
+                //       *P*
+                //       ***
+                //       P,R are centers
+
+                vec2 const scale = p.max - p.min + r.max - r.min;
+                vec2 const p2o = vec2(obj.getPosition() - player.getPosition()) / scale;
+
+                // (x, y) <=> (a*t, b*t), (a*t, -b*t)
+                //  
+                // (x/a, y/b) <=> (t, t), (t, -t)
+                //  upper:   y/b >=  fabs(x/a)
+                //  lower:   y/b <= -fabs(x/a)
+                //  righter: x/a >   fabs(y/b)
+                //  lefter:  x/a <  -fabs(y/b)
+
+                if(fabs(p2o.x) >= fabs(p2o.y))
+                { // left or right
+                    if(p.max.x > r.max.x)
+                    {
+                        result.offset.x = r.max.x - p.min.x;
+                        result.normal.x = 1.;
+                    }
+                    else if(p.min.x < r.min.x)
+                    {
+                        result.offset.x = r.min.x - p.max.x;
+                        result.normal.x = -1.;
+                    }
+                    result.direction.x *= 50.f; // little bounce
+                    result.direction.y = player.direction.y;
+                }
+                else
+                { // top or bottom
+                    if(p.max.y > r.max.y)
+                    {
+                        result.offset.y = r.max.y - p.min.y;
+                        result.normal.y = 1.;
+                    }
+                    else if(p.min.y < r.min.y)
+                    {
+                        result.offset.y = r.min.y - p.max.y;
+                        result.normal.y = -1.;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
 	void SpriteObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		sprite.setPosition(getPosition());
@@ -30,14 +92,10 @@ namespace game
 	}
 	RepulsionResult SpriteObject::getRepulsionVector(const Player& p, bool noMovement /*= false*/) const
 	{
-        auto sr = getPhysicalRect();
-        auto pr = p.getPhysicalRect();
-        if(noMovement)
-        {
-            sr.direction = vec2{0., 0.};
-            pr.movement = p.direction;
-        }
-		return Collision::collide(pr, sr);
+        auto const& sr = getPhysicalRect();
+        auto const& pr = p.getPhysicalRect();
+
+		return noMovement? handleRects(pr, sr, p, *this): Collision::collide(pr, sr);
 	}
 	void SpriteObject::load(const std::filesystem::path& path)
 	{

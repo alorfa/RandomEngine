@@ -59,7 +59,7 @@ namespace game
 		void setTexture(const Texture& t);
 
 		void collisionBegin();
-		void collisionProcess(const std::vector<const StaticBody*>& bodies);
+		bool collisionProcess(const std::vector<const StaticBody*>& bodies);
 		// returns true is the cube can collide
 		bool testCollisions(const std::vector<const StaticBody*>& bodies) const;
 		inline const vec2& getPrevPos() const {

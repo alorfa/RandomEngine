@@ -127,20 +127,27 @@ namespace game
 		onGround = false;
         lastOffset = vec2{0., 0.};
 	}
-	void Player::collisionProcess(const std::vector<const StaticBody*>& bodies)
+	bool Player::collisionProcess(const std::vector<const StaticBody*>& bodies)
 	{
+        bool wasCollided = false;
 		for (const auto* body : bodies)
 		{
 			switch (body->collisionMode)
 			{
 			case StaticBody::Repulsion:
 			{
-				auto result = body->getRepulsionVector(*this);
+				auto result = body->getRepulsionVector(*this, true);
 				if (result.touches)
 				{
+                    wasCollided = true;
 					if (result.offset.x != 0)
 					{
 						die();
+
+                        {
+                            DEBUG("collisionProcess:");
+                            PRINT(result.normal);
+                        }
 					}
 					direction.y = result.direction.y;
                     lastOffset = vec2(0.f, result.offset.y);
@@ -157,6 +164,7 @@ namespace game
 				break;
 			}
 		}
+        return wasCollided;
 	}
 	bool Player::testCollisions(const std::vector<const StaticBody*>& bodies) const
 	{
@@ -164,12 +172,13 @@ namespace game
 		{
 			if (body->collisionMode == StaticBody::Repulsion)
 			{
-				auto result = body->getRepulsionVector(*this);
+				auto result = body->getRepulsionVector(*this, true);
 				if (result.touches)
 				{
+                    DEBUG("testCollisions:");
                     PRINT(result.offset);
                     //__debugbreak();
-					return true; //result.offset.square_length() > 1.;
+					return result.offset.square_length() > 1.e-2;
 				}
 			}
 		}
