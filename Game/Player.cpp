@@ -165,7 +165,7 @@ namespace game
 				auto result = body->getRepulsionVector(*this);
 				if (result.touches)
 				{
-					return fabs(result.offset.y) > 0.1f;
+					return fabs(result.offset.y) > 0.001f;
 				}
 			}
 		}
