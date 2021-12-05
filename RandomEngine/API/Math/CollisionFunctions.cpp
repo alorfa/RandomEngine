@@ -32,6 +32,7 @@ namespace random_engine
 
 	ContactLineRect Collision::contact(const Line& line, const Rect& rect)
 	{
+        float eps = 1.e-10f;
 		ContactLineRect result;
 
 		// Cache division
@@ -62,7 +63,7 @@ namespace random_engine
 		float t_hit_far = std::min(t_far.x, t_far.y);
 
 		// Reject if ray direction is pointing away from object
-		if (t_hit_far < 0)
+		if (t_hit_far < eps)
 			return result;
 
 		/*result.touches = (result.t_hit_near >= 0.0f && result.t_hit_near < 1.0f);
@@ -86,7 +87,7 @@ namespace random_engine
 		// Note if t_near == t_far, collision is principly in a diagonal
 		// so pointless to resolve. By returning a CN={0,0} even though its
 		// considered a hit, the resolver wont change anything.
-		result.touches = (result.t_hit_near < 1.0f);
+		result.touches = (result.t_hit_near < 1.0f - eps);
 		return result;
 	}
 
@@ -94,15 +95,22 @@ namespace random_engine
 	{
 		RepulsionResult result;
 
-		const vec2 cube_size = cube.max - cube.min;
 		Line line;
 		line.begin = cube.center;
 		line.direction = cube.movement - rect.movement;
-		Rect collision_rect;
+        line.begin -= line.direction; // we need previous position
+        if(line.direction.square_length() < 1.e-2 && !Collision::areIntersected(cube, rect))
+            return result;
+
+
+        Rect collision_rect;
+        const vec2 cube_size = cube.max - cube.min;
 		collision_rect.min = rect.min - cube_size * 0.5f;
 		collision_rect.max = rect.max + cube_size * 0.5f;
 
 		const auto [normal, touch_point, contact_time, touches] = Collision::contact(line, collision_rect);
+        if(!touches)
+            return result;
 
 		result.touches = touches;
 		result.direction = rect.direction;
