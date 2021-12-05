@@ -105,12 +105,7 @@ protected:
 	{
 		level.update(delta);
 
-<<<<<<< HEAD
-		//camera.setPosition(level.player.getPosition() + vec2{ 4.f, 0.f });
 		camera.setPosition(vec2(level.player.getPosition().x));
-=======
-		camera.setPosition(vec2{level.player.getPosition().x, 0.});
->>>>>>> collision-fix
 	}
 	void draw(sf::RenderTarget& window) const override
 	{

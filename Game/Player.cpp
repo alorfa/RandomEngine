@@ -180,15 +180,11 @@ namespace game
 				auto result = body->getRepulsionVector(*this);
 				if (result.touches)
 				{
-<<<<<<< HEAD
 					if (std::abs(result.offset.y) >= 0.001f)
 					{
 						PRINT(result.offset);
 						return true;
 					}
-=======
-					return fabs(result.offset.y) > 0.001f;
->>>>>>> collision-fix
 				}
 			}
 		}
