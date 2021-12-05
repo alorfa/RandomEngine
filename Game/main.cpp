@@ -105,7 +105,8 @@ protected:
 	{
 		level.update(delta);
 
-		camera.setPosition(level.player.getPosition() + vec2{ 4.f, 0.f });
+		//camera.setPosition(level.player.getPosition() + vec2{ 4.f, 0.f });
+		camera.setPosition(vec2(level.player.getPosition().x));
 	}
 	void draw(sf::RenderTarget& window) const override
 	{

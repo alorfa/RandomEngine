@@ -20,6 +20,8 @@
     <ClCompile Include="RandomEngine\API\Math\color.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
+    <ClCompile Include="RandomEngine\API\Resource\File.cpp" />
+    <ClCompile Include="Game\Level\LevelLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -56,8 +58,13 @@
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
     <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
+    <ClInclude Include="Game\Level\LevelLoader.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
+    <ClInclude Include="Game\Settings.hpp" />
+    <ClInclude Include="Game\Level\LevelState.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

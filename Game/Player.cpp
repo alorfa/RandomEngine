@@ -18,10 +18,19 @@ namespace game
 	{
 		direction.x = 1.6f;
 
+		reset(CheckPoint({ 0.f, 0.f }, { 0.f, 0.f }));
 		setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) -> vec2 {
 			dir.y += p.gravity * delta;
 			return dir;
 		});
+	}
+
+	void Player::reset(const CheckPoint& checkpoint)
+	{
+		isDead = false;
+		prev_position = checkpoint.position;
+		setPosition(prev_position);
+		direction.y = checkpoint.direction.y;
 	}
 
 	void Player::setOnClickCallback(Callback callback)
@@ -96,6 +105,7 @@ namespace game
 	}
 	void Player::die()
 	{
+		//isDead = true;
 		setColor({ 1.f, 0.f, 0.f });
 	}
 	void Player::handleEvents(const sf::Event& e)
@@ -106,6 +116,11 @@ namespace game
 	}
 	void Player::update(float delta)
 	{
+		if (isDead)
+		{
+			return;
+		}
+
 		prev_position = getPosition();
 		direction = updateDirCallback(*this, direction, delta);
 		if (Mouse::isPressed(sf::Mouse::Left))
@@ -165,7 +180,11 @@ namespace game
 				auto result = body->getRepulsionVector(*this);
 				if (result.touches)
 				{
-					return true;
+					if (std::abs(result.offset.y) >= 0.001f)
+					{
+						PRINT(result.offset);
+						return true;
+					}
 				}
 			}
 		}

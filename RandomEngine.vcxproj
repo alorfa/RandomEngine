@@ -125,12 +125,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;D:\Alorfa\Kод\new_С++\RandomEngine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;D:\Alorfa\Kод\new_С++\RandomEngine;D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;D:\libs\boost_1_75_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -143,19 +144,21 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;D:\Alorfa\Kод\new_С++\RandomEngine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;D:\Alorfa\Kод\new_С++\RandomEngine;D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;D:\libs\boost_1_75_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Collision\CollisionArea.cpp" />
+    <ClCompile Include="Game\Level\LevelLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Level.cpp" />
@@ -170,6 +173,7 @@
     <ClCompile Include="RandomEngine\API\Graphics\VertexObject.cpp" />
     <ClCompile Include="RandomEngine\API\Math\color.cpp" />
     <ClCompile Include="RandomEngine\API\Math\Functions.cpp" />
+    <ClCompile Include="RandomEngine\API\Resource\File.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
@@ -177,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Collision\CollisionArea.hpp" />
+    <ClInclude Include="Game\Level\LevelLoader.hpp" />
+    <ClInclude Include="Game\Level\LevelState.hpp" />
+    <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
     <ClInclude Include="Game\IGameObject.hpp" />
@@ -192,6 +199,7 @@
     <ClInclude Include="RandomEngine\API\Application.hpp" />
     <ClInclude Include="Game\Collision\RectangleArea.hpp" />
     <ClInclude Include="Game\Collision\StaticBody.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
     <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\Assert.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
@@ -212,9 +220,19 @@
     <ClInclude Include="RandomEngine\API\Tests\ShapeTests.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\boost.1.77.0.0\build\boost.targets" Condition="Exists('packages\boost.1.77.0.0\build\boost.targets')" />
+    <Import Project="packages\boost_json-vc142.1.77.0.0\build\boost_json-vc142.targets" Condition="Exists('packages\boost_json-vc142.1.77.0.0\build\boost_json-vc142.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\boost.1.77.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.77.0.0\build\boost.targets'))" />
+    <Error Condition="!Exists('packages\boost_json-vc142.1.77.0.0\build\boost_json-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_json-vc142.1.77.0.0\build\boost_json-vc142.targets'))" />
+  </Target>
 </Project>

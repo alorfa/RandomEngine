@@ -32,7 +32,17 @@ namespace game
 
 		bool onGround = false;
 	public:
-		Player();
+		struct CheckPoint
+		{
+			vec2 position, direction;
+
+			inline explicit CheckPoint(vec2 position, vec2 direction)
+				: position(position), direction(direction) {}
+		};
+
+		explicit Player();
+		// sets the default state
+		void reset(const CheckPoint& checkpoint);
 
 		void setOnClickCallback(Callback);
 		void setOnClickOnGroundCallback(Callback);
@@ -43,6 +53,7 @@ namespace game
 		vec2 direction;
 		float gravity = -50.f;
 		float jumpStrength = 15.f;
+		bool isDead = false;
 
 		bool isOnGround() const;
 		bool onClick();

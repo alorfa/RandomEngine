@@ -1,6 +1,7 @@
 #include "Level.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
+#include "Game/Settings.hpp"
 
 namespace game
 {
@@ -24,9 +25,19 @@ namespace game
 	}
 	void Level::update(float delta)
 	{
-		player.update(delta);
+		if (player.isDead)
+		{
+			replayTime -= delta;
+		}
+		if (replayTime <= 0.f)
+		{
+			replayTime = Settings::REPLAY_TIME;
+			player.reset(Player::CheckPoint({ 0.f, 0.f }, { 0.f, 0.f }));
+		}
+
 		for (auto& obj : objects)
 			obj->update(delta);
+		player.update(delta);
 
 		player.collisionBegin();
 		player.collisionProcess(collisionBodies);
@@ -42,6 +53,10 @@ namespace game
 	void Level::loadPlayer(const std::filesystem::path& path)
 	{
 		player.setTexture(textureLoader.load(path));
+	}
+	void Level::load(const std::filesystem::path& path)
+	{
+
 	}
 	Level::~Level()
 	{
