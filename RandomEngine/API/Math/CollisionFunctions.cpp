@@ -95,15 +95,16 @@ namespace random_engine
 	{
 		RepulsionResult result;
 
-        if(!Collision::areIntersected(cube, rect))
-            return result;
-
-		const vec2 cube_size = cube.max - cube.min;
 		Line line;
 		line.begin = cube.center;
 		line.direction = cube.movement - rect.movement;
         line.begin -= line.direction; // we need previous position
-		Rect collision_rect;
+        if(line.direction.square_length() < 1.e-2 && !Collision::areIntersected(cube, rect))
+            return result;
+
+
+        Rect collision_rect;
+        const vec2 cube_size = cube.max - cube.min;
 		collision_rect.min = rect.min - cube_size * 0.5f;
 		collision_rect.max = rect.max + cube_size * 0.5f;
 
