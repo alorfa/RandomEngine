@@ -13,12 +13,12 @@ namespace random_engine
 	{
 		static std::map<std::filesystem::path, Resource*> resources;
 	protected:
-		virtual Resource* loadFromFile(const std::filesystem::path& path, int flags) = 0;
-
 		Resource& defaultLoad(const std::filesystem::path& path, int flags = 0);
 	public:
+		virtual Resource* loadFromFile(const std::filesystem::path& path, int flags) = 0;
+
 		virtual Resource& getDefault() const = 0;
 
-		virtual Resource& load(const std::filesystem::path& path, int flags = 0);
+		virtual Resource& load(const std::filesystem::path& path, int flags = 0) = 0;
 	};
 }

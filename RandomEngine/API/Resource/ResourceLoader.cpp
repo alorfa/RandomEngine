@@ -23,8 +23,4 @@ namespace random_engine
 		// if loading is failed, return default resource
 		return getDefault();
 	}
-	Resource& ResourceLoader::load(const std::filesystem::path& path, int flags)
-	{
-		return defaultLoad(path, flags);
-	}
 }

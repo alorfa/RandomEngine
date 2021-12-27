@@ -19,9 +19,9 @@ namespace random_engine
 	};
 	class TextureLoader : public ResourceLoader
 	{
-	protected:
-		Texture* loadFromFile(const std::filesystem::path& path, int flags = Texture::Default) override;
 	public:
+		Texture* loadFromFile(const std::filesystem::path& path, int flags = Texture::Default) override;
+
 		Texture& getDefault() const override;
 
 		Texture& load(const std::filesystem::path& path, int flags = Texture::Default) override;
