@@ -36,6 +36,10 @@ namespace game
 	{
 		sprite.setTexture(textureLoader.load(path));
 	}
+	void SpriteObject::setArea(const vec2& p1, const vec2& p2)
+	{
+		sprite.setArea(p1, p2);
+	}
 	const PhysicalRect& SpriteObject::getPhysicalRect() const
 	{
 		physical_rect.direction = direction;

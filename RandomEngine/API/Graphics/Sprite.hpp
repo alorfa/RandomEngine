@@ -18,7 +18,7 @@ namespace random_engine
 	public:
 		Sprite();
 		Sprite(const Texture& t);
-		void setArea(const vec2& p1, const vec2& p2);
+		void setArea(const vec2& min, const vec2& max);
 
 		const Texture& getTexture() const;
 		void setTexture(const Texture& t);

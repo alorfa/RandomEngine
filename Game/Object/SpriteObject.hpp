@@ -19,6 +19,7 @@ namespace game
 		RepulsionResult getRepulsionVector(const Player&) const override;
 
 		void load(const std::filesystem::path& path);
+		void setArea(const vec2& p1, const vec2& p2);
 
 		const PhysicalRect& getPhysicalRect() const;
 	};

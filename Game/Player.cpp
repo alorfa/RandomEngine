@@ -16,7 +16,7 @@ namespace game
 	}
 	Player::Player()
 	{
-		direction.x = 1.6f;
+		direction.x = 10.4f * 0.5f;
 
 		reset(CheckPoint({ 0.f, 0.f }, { 0.f, 0.f }));
 		setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) -> vec2 {
@@ -105,8 +105,8 @@ namespace game
 	}
 	void Player::die()
 	{
-		//isDead = true;
-		setColor({ 1.f, 0.f, 0.f });
+		isDead = true;
+		//setColor({ 1.f, 0.f, 0.f });
 	}
 	void Player::handleEvents(const sf::Event& e)
 	{

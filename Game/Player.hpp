@@ -51,7 +51,7 @@ namespace game
 		void setUpdateDirectionCallback(UpdateDirectionCallback);
 
 		vec2 direction;
-		float gravity = -50.f;
+		float gravity = -60.f;
 		float jumpStrength = 15.f;
 		bool isDead = false;
 

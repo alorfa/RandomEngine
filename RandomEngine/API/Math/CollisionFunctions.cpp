@@ -32,7 +32,7 @@ namespace random_engine
 
 	ContactLineRect Collision::contact(const Line& line, const Rect& rect)
 	{
-        float eps = 1.e-10f;
+		constexpr float eps = 1.e-10f;
 		ContactLineRect result;
 
 		// Cache division
@@ -65,10 +65,6 @@ namespace random_engine
 		// Reject if ray direction is pointing away from object
 		if (t_hit_far < eps)
 			return result;
-
-		/*result.touches = (result.t_hit_near >= 0.0f && result.t_hit_near < 1.0f);
-		if (not result.touches)
-			return result;*/
 
 		// Contact point of collision from parametric line equation
 		result.point = line.begin + result.t_hit_near * line.direction;
@@ -132,30 +128,6 @@ namespace random_engine
 		{
 			result.offset.y = rect.min.y - cube.max.y;
 		}
-		/*if (line.direction.x > 0 and cube.min.x < rect.min.x)
-		{
-			result.offset.x = rect.min.x - cube.max.x;
-			if (result.offset.x > 0.f)
-				result.offset.x = 0.f;
-		}
-		if (line.direction.x < 0 and cube.max.x > rect.max.x)
-		{
-			result.offset.x = rect.max.x - cube.min.x;
-			if (result.offset.x < 0.f)
-				result.offset.x = 0.f;
-		}
-		if (line.direction.y > 0 and cube.min.y < rect.min.y)
-		{
-			result.offset.y = rect.min.y - cube.max.y;
-			if (result.offset.y > 0.f)
-				result.offset.y = 0.f;
-		}
-		if (line.direction.y < 0 and cube.max.y > rect.max.y)
-		{
-			result.offset.y = rect.max.y - cube.min.y;
-			if (result.offset.y < 0.f)
-				result.offset.y = 0.f;
-		}*/
 		
 		return result;
 	}

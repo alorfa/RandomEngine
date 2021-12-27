@@ -6,6 +6,7 @@
 #include <RandomEngine/API/Graphics/Sprite.hpp>
 #include <RandomEngine/API/Graphics/Shape.hpp>
 #include <RandomEngine/API/System/Mouse.hpp>
+#include <RandomEngine/API/System/Keyboard.hpp>
 #include <RandomEngine/API/Resource/TextureLoader.hpp>
 #include <RandomEngine/API/Math/Functions.hpp>
 
@@ -16,7 +17,7 @@
 
 #include "Game/Level.hpp"
 #include "Game/Object/SpriteObject.hpp"
-#include <RandomEngine/API/System/Keyboard.hpp>
+#include "Game/Level/LevelLoader.hpp"
 
 using namespace random_engine;
 using namespace game;
@@ -30,30 +31,22 @@ class MyGame : public Application
 
 	Level level;
 
-	SpriteObject* obj = nullptr;
-
 protected:
 	void appInit() override
 	{
 		camera.setScale(20, 20);
+		levelLoader.setResourcesPath(res);
 
 		level.loadBounds(res / "img/Ground.png");
 		level.loadPlayer(res / "img/Cube004.png");
 		level.player.setPosition(0.f, 2.f);
-		obj = new SpriteObject();
-		obj->load(res / "img/block1.jpg");
-		obj->setPosition(5.f, 0.f);
-		obj->setScale(3.f, 1.f);
-		obj->collisionMode = obj->Repulsion;
-		level.objects.push_back(obj);
-		/*obj = new SpriteObject();
-		obj->load(res / "img/block1.jpg");
-		obj->setPosition(7.f, 0.1f);
-		obj->setScale(1.f, 1.f);
-		obj->collisionMode = obj->Repulsion;
-		level.objects.push_back(obj);*/
+		level.load(res / "levels/first.json");
+		
 		for (const auto* ptr : level.objects)
-			level.collisionBodies.push_back(ptr);
+		{
+			if (ptr->collisionMode != StaticBody::None)
+				level.collisionBodies.push_back(ptr);
+		}
 		PRINT(level.collisionBodies.size());
 
 		level.bottom.posY = -0.5f;
@@ -69,7 +62,7 @@ protected:
 			p.direction.y += 100.f * delta * -Math::sign(p.gravity); 
 		});*/
 		level.player.setOnHoldOnGroundCallback([](Player& p, float delta) {
-			p.jump(14.f);
+			p.jump(16.f);
 		});
 		/*level.player.setOnClickCallback([](Player& p, float delta) {
 			p.gravity = -p.gravity;

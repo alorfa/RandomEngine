@@ -6,9 +6,9 @@
 
 #include <iostream>
 
-#define PRINT(value) std::cout << #value " = " << value << std::endl
+#define PRINT(value) std::cout << #value " = " << (value) << std::endl
 #define PRINTR(value) std::cout << "\r" #value " = " << (value) << "                "
-#define DEBUG(value) std::cout << value << std::endl
+#define DEBUG(value) std::cout << (value) << std::endl
 #define DEBUGSTREAM std::cout
 
 #else
