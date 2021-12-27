@@ -62,6 +62,7 @@
     <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="Game\Level\LevelState.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\JsonLoader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />
