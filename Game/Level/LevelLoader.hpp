@@ -5,15 +5,25 @@
 
 using namespace random_engine;
 
+namespace boost::json
+{
+	class value;
+}
+
 namespace game
 {
 	class LevelLoader : public ResourceLoader
 	{
-	protected:
-		LevelState* loadFromFile(const std::filesystem::path& path, int flags = 0) override;
+		const std::filesystem::path* res = nullptr;
+
+		Object* createObject(u64 id, const vec2& pos);
+		std::vector<Object*> handleObjects(const boost::json::value& value);
 	public:
 		LevelState& getDefault() const override;
-
+		LevelState* loadFromFile(const std::filesystem::path& path, int flags = 0) override;
 		LevelState& load(const std::filesystem::path& path, int flags = 0) override;
+
+		void setResourcesPath(const std::filesystem::path& path);
 	};
+	extern LevelLoader levelLoader;
 }

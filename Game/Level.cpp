@@ -2,6 +2,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include "Game/Settings.hpp"
+#include "Game/Level/LevelLoader.hpp"
 
 namespace game
 {
@@ -56,7 +57,13 @@ namespace game
 	}
 	void Level::load(const std::filesystem::path& path)
 	{
-
+		std::unique_ptr<LevelState> level{ levelLoader.loadFromFile(path) };
+		if (not level)
+			return;
+		
+		objects = std::move(level->objects);
+		top.posY = level->top_ground;
+		bottom.posY = level->bottom_ground;
 	}
 	Level::~Level()
 	{
