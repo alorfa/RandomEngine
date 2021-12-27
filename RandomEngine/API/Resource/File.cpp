@@ -59,12 +59,11 @@ namespace random_engine
 		std::string result;
 
 		File file;
-		size_t filesize = file.open(path, File::Read | File::Text).getSize();
-		if (not filesize)
-			return result;
+		file.open(path, File::Read | File::Text);
+		int ch = 0;
+		while ((ch = file.file.get()) != EOF)
+			result += ch;
 
-		result.resize(filesize);
-		file.read(result.data(), filesize);
 		return result;
 	}
 }
