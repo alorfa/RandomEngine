@@ -14,6 +14,13 @@ namespace random_engine
 			verts[i].position = Math::getCirclePoint((i - 1) * (Math::TAU / vertCount), size * 0.5f);
 		return verts;
 	}
+	void Shape::createRectangle(const Rect& rect, sf::Vertex result[5])
+	{
+		result[0].position = result[4].position = rect.min;
+		result[1].position = { rect.min.x, rect.max.y };
+		result[2].position = rect.max;
+		result[3].position = { rect.max.x, rect.min.y };
+	}
 	size_t Shape::getShapeCount(size_t vertCount, sf::PrimitiveType drawMode)
 	{
 		if (vertCount == 0)
