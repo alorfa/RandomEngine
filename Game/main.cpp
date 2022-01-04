@@ -34,7 +34,7 @@ class MyGame : public Application
 protected:
 	void appInit() override
 	{
-		camera.setScale(20, 20);
+		camera.setScale(10, 10);
 		levelLoader.setResourcesPath(res);
 
 		level.loadBounds(res / "img/Ground.png");
@@ -48,9 +48,6 @@ protected:
 				level.collisionBodies.push_back(ptr);
 		}
 		PRINT(level.collisionBodies.size());
-
-		level.bottom.posY = -0.5f;
-		level.top.posY = 7.5f;
 	}
 	void loadResources() override
 	{
@@ -61,9 +58,6 @@ protected:
 		/*level.player.setOnHoldCallback([](Player& p, float delta) {
 			p.direction.y += 100.f * delta * -Math::sign(p.gravity); 
 		});*/
-		level.player.setOnHoldOnGroundCallback([](Player& p, float delta) {
-			p.jump(16.f);
-		});
 		/*level.player.setOnClickCallback([](Player& p, float delta) {
 			p.gravity = -p.gravity;
 		});
@@ -74,7 +68,7 @@ protected:
 		level.player.setOnHoldCallback([](Player& p, float delta) {
 			p.direction.y = -p.direction.y;
 		});*/
-		time_speed = 1.0f;
+		time_speed = 1.f;
 	}
 	void handleEvent(const sf::Event& e) override
 	{

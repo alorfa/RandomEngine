@@ -17,14 +17,15 @@ namespace game
 			// returns success and direction, where player will push off
 			Repulsion, 
 			// returns only success, may user with object action
-			Touch, 
+			Touch,
+			OnClick,
 			// nothing reaction
 			None
 		}; 
 		using Action = void (*)(Player&); 
 
 		Action action = nullptr;
-		CollisionMode collisionMode;
+		CollisionMode collisionMode = Repulsion;
 
 		virtual bool touches(const Player&) const = 0;
 		virtual RepulsionResult getRepulsionVector(const Player&) const = 0;
