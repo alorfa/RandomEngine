@@ -2,27 +2,42 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <RandomEngine/API/Math/Functions.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
-#include <RandomEngine/API/System/Mouse.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
+#include <RandomEngine/API/System/Mouse.hpp>
+#include <RandomEngine/API/System/Keyboard.hpp>
+#include <RandomEngine/API/Graphics/Shape.hpp>
+#include "Game/Settings.hpp"
 
 namespace game
 {
 	void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		if (Settings::show_player_path)
+		{
+			target.draw(path_vertices.data(), path_vertices.size(), sf::PrimitiveType::LinesStrip, states);
+		}
+
+		
 		sprite.setPosition(getPosition());
 		sprite.setScale(getScale());
 		sprite.setRotation(getRotation());
-		target.draw(sprite);
+		target.draw(sprite, states);
+
+		if (Settings::show_hitboxes)
+		{
+			Shape::createRectangle(Rect{
+				getPosition() - getScale() * 0.5f,
+				getPosition() + getScale() * 0.5f}, hitbox_vertices);
+			target.draw(hitbox_vertices, 5, sf::LineStrip, states);
+		}
 	}
 	Player::Player()
+		: game_mode(GameMode::cube)
 	{
-		direction.x = 10.4f * 0.5f;
+		for (auto& vert : hitbox_vertices)
+			vert.color = { 255, 0, 0 };
 
-		reset(CheckPoint({ 0.f, 0.f }, { 0.f, 0.f }));
-		setUpdateDirectionCallback([](const Player& p, vec2 dir, float delta) -> vec2 {
-			dir.y += p.gravity * delta;
-			return dir;
-		});
+		reset(CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameMode::cube));
 	}
 
 	void Player::reset(const CheckPoint& checkpoint)
@@ -30,78 +45,20 @@ namespace game
 		isDead = false;
 		prev_position = checkpoint.position;
 		setPosition(prev_position);
-		direction.y = checkpoint.direction.y;
-	}
+		direction = checkpoint.direction;
+		game_mode = checkpoint.game_mode;
 
-	void Player::setOnClickCallback(Callback callback)
-	{
-		onClickCallback = callback;
-	}
-	void Player::setOnClickOnGroundCallback(Callback callback)
-	{
-		onClickOnGroundCallback = callback;
-	}
-	void Player::setOnHoldCallback(Callback callback)
-	{
-		onHoldCallback = callback;
-	}
-	void Player::setOnHoldOnGroundCallback(Callback callback)
-	{
-		onHoldOnGroundCallback = callback;
-	}
-
-	void Player::setUpdateDirectionCallback(UpdateDirectionCallback callback)
-	{
-		updateDirCallback = callback;
+		path_vertices.clear();
+		path_vertices.push_back(sf::Vertex(checkpoint.position, sf::Color::Green));
 	}
 
 	bool Player::isOnGround() const
 	{
 		return onGround;
 	}
-	bool Player::onClick()
-	{
-		if (not actionIsCommited and onClickCallback)
-		{
-			onClickCallback(*this, 0.f);
-			actionIsCommited = true;
-			return true;
-		}
-		return false;
-	}
-	bool Player::onClickOnGround()
-	{
-		if (not actionIsCommited and onClickOnGroundCallback and isOnGround())
-		{
-			onClickOnGroundCallback(*this, 0.f);
-			actionIsCommited = true;
-			return true;
-		}
-		return false;
-	}
-	bool Player::onHoldOnGround()
-	{
-		if (onHoldOnGroundCallback and isOnGround())
-		{
-			onHoldOnGroundCallback(*this, 0.f);
-			actionIsCommited = true;
-			return true;
-		}
-		return false;
-	}
-	bool Player::onHold(float delta)
-	{
-		if (onHoldCallback)
-		{
-			onHoldCallback(*this, delta);
-			actionIsCommited = true;
-			return true;
-		}
-		return false;
-	}
 	void Player::jump(float strength)
 	{
-		direction.y = strength * -Math::sign(gravity);
+		direction.y = strength * game_mode.jumpStrength * -Math::sign(game_mode.gravity);
 	}
 	void Player::die()
 	{
@@ -117,18 +74,16 @@ namespace game
 	void Player::update(float delta)
 	{
 		if (isDead)
-		{
 			return;
-		}
 
 		prev_position = getPosition();
-		direction = updateDirCallback(*this, direction, delta);
+		direction = game_mode.updateDirCallback(*this, direction, delta);
 		if (Mouse::isPressed(sf::Mouse::Left))
 		{
-			onClickOnGround();
-			onClick();
-			onHoldOnGround();
-			onHold(delta);
+			game_mode.onClickOnGround(*this);
+			game_mode.onClick(*this);
+			game_mode.onHoldOnGround(*this);
+			game_mode.onHold(*this, delta);
 		}
 		move(direction * delta);
 		setColor({ 1.f, 1.f, 1.f });
@@ -141,54 +96,67 @@ namespace game
 	{
 		onGround = false;
 	}
-	void Player::collisionProcess(const std::vector<const StaticBody*>& bodies)
+	void Player::collisionProcess(const StaticBody& body)
 	{
-		for (const auto* body : bodies)
+		switch (body.collisionMode)
 		{
-			switch (body->collisionMode)
+		case StaticBody::Repulsion:
+		{
+			auto result = body.getRepulsionVector(*this);
+			if (result.touches)
 			{
-			case StaticBody::Repulsion:
-			{
-				auto result = body->getRepulsionVector(*this);
-				if (result.touches)
+				if (result.offset.x != 0)
 				{
-					if (result.offset.x != 0)
-					{
-						die();
-					}
-					direction.y = result.direction.y;
-					move(vec2(0.f, result.offset.y));
-					/* the object is at the bottom and gravity is directed downgard, or vice versa */
-					if (Math::sign(result.offset.y) != Math::sign(gravity))
-						onGround = true;
+					die();
 				}
-				break;
+				direction.y = result.direction.y;
+				move(vec2(0.f, result.offset.y));
+				/* the object is at the bottom and gravity is directed downgard, or vice versa */
+				if (Math::sign(result.offset.y) != Math::sign(game_mode.gravity))
+					onGround = true;
 			}
-			case StaticBody::Touch:
-				if (body->action and body->touches(*this))
-					body->action(*this);
-				break;
-			}
+			break;
 		}
+		case StaticBody::Touch:
+			if (body.action and body.touches(*this))
+				body.action(*this);
+			break;
+		case StaticBody::OnClick:
+			if (body.action and
+				not actionIsCommited and
+				Mouse::isPressed(sf::Mouse::Left) and 
+				body.touches(*this))
+			{
+				body.action(*this);
+				actionIsCommited = true;
+			}
+			break;
+		}
+		
 	}
-	bool Player::testCollisions(const std::vector<const StaticBody*>& bodies) const
+	bool Player::testCollisions(const StaticBody& body) const
 	{
-		for (const auto* body : bodies)
+		if (body.collisionMode == StaticBody::Repulsion)
 		{
-			if (body->collisionMode == StaticBody::Repulsion)
+			auto result = body.getRepulsionVector(*this);
+			if (result.touches)
 			{
-				auto result = body->getRepulsionVector(*this);
-				if (result.touches)
+				if (std::abs(result.offset.y) >= 0.001f)
 				{
-					if (std::abs(result.offset.y) >= 0.001f)
-					{
-						PRINT(result.offset);
-						return true;
-					}
+					PRINT(result.offset);
+					return true;
 				}
 			}
 		}
+		
 		return false;
+	}
+	void Player::collisionEnd()
+	{
+		if (Settings::show_player_path)
+		{
+			path_vertices.push_back(sf::Vertex(getPosition(), sf::Color::Green));
+		}
 	}
 	void Player::setColor(const color3f& color)
 	{
