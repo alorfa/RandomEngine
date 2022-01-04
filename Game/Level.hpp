@@ -11,7 +11,10 @@ namespace game
 {
 	class Level : public sf::Drawable, public IGameObject
 	{
-		float replayTime = 1.f;
+		const Camera* camera;
+		float deathTime = 0.f;
+
+		void drawGrid(sf::RenderTarget& target, const sf::RenderStates& states) const;
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
@@ -27,7 +30,7 @@ namespace game
 
 		void loadBounds(const std::filesystem::path& path);
 		void loadPlayer(const std::filesystem::path& path);
-		void load(const std::filesystem::path& path);
+		bool load(const std::filesystem::path& path);
 
 		~Level();
 	};
