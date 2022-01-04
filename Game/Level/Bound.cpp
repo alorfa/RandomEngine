@@ -27,10 +27,19 @@ namespace game
 	}
 	void Bound::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		const int outX = (int)camera->getPosition().x / SEGMENT_SIZE;
-		sprite.setPosition(float(outX * SEGMENT_SIZE), posY);
+		const vec2 size = camera->getSize();
+		const vec2& cam_pos = camera->getPosition();
+		vec2 min = { cam_pos.x*0.25f - size.x*0.125f, 0.f };
+		vec2 max = { cam_pos.x*0.25f + size.x*0.125f, 1.f };
+		if (location == Bound::Top)
+		{
+			min.y = 1.f;
+			max.y = 0.f;
+		}
+		sprite.setPosition(cam_pos.x, pos.y);
 		
-		sprite.setScale(48.f, 4.f);
+		sprite.setScale(size.x, 4.f);
+		sprite.setArea(min, max);
 
 		target.draw(sprite);
 	}
@@ -39,12 +48,12 @@ namespace game
 		if (location == Bound::Bottom)
 		{
 			//player y more then ground y, and the size of the cube is also taken into account
-			if (posY > player.getPosition().y - player.getScale().y * 0.5f)
+			if (pos.y > player.getPosition().y - player.getScale().y * 0.5f)
 				return true;
 		}
 		if (location == Bound::Top)
 		{
-			if (posY < player.getPosition().y + player.getScale().y * 0.5f)
+			if (pos.y < player.getPosition().y + player.getScale().y * 0.5f)
 				return true;
 		}
 		return false;
@@ -55,7 +64,7 @@ namespace game
 		if (location == Bound::Bottom)
 		{
 			//player y more then ground y, and the size of the cube is also taken into account
-			const float offset = posY - (player.getPosition().y - player.getScale().y * 0.5f);
+			const float offset = pos.y - (player.getPosition().y - player.getScale().y * 0.5f);
 			if (offset > 0.f)
 			{
 				result.offset = { 0.f, offset };
@@ -65,7 +74,7 @@ namespace game
 		}
 		if (location == Bound::Top)
 		{
-			const float offset = posY - (player.getPosition().y + player.getScale().y * 0.5f);
+			const float offset = pos.y - (player.getPosition().y + player.getScale().y * 0.5f);
 			if (offset < 0.f)
 			{
 				result.offset = { 0.f, offset };

@@ -24,7 +24,7 @@ namespace game
 	private:
 		Location location;
 	public:
-		float posY = 0.f;
+		vec2 pos{};
 
 		Bound(Location location, const Camera& camera);
 
