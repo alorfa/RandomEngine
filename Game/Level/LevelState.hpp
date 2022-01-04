@@ -9,6 +9,6 @@ namespace game
 	struct LevelState : public Resource
 	{
 		std::vector<Object*> objects;
-		float top_ground = 7.5f, bottom_ground = -0.5f;
+		vec2 top_ground = { 0.f, 7.5f }, bottom_ground = { 0.f, -0.5f };
 	};
 }
