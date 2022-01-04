@@ -22,6 +22,7 @@
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\File.cpp" />
     <ClCompile Include="Game\Level\LevelLoader.cpp" />
+    <ClCompile Include="Game\Player\GameMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -62,7 +63,7 @@
     <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="Game\Level\LevelState.hpp" />
-    <ClInclude Include="RandomEngine\API\Resource\JsonLoader.hpp" />
+    <ClInclude Include="Game\Player\GameMode.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RandomEngine\API\Graphics\Camera.cpp" />

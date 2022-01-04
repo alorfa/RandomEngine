@@ -108,7 +108,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;D:\Alorfa\Kод\new_С++\RandomEngine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir);D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +129,7 @@
       <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir);D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ForcedIncludeFiles>RandomEngine\API\System\types.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,8 +147,9 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;D:\Alorfa\Kод\new_С++\RandomEngine;D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir);D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ForcedIncludeFiles>RandomEngine\API\System\types.hpp</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +163,7 @@
   <ItemGroup>
     <ClCompile Include="Game\Collision\CollisionArea.cpp" />
     <ClCompile Include="Game\Level\LevelLoader.cpp" />
+    <ClCompile Include="Game\Player\GameMode.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Level.cpp" />
@@ -185,6 +188,7 @@
     <ClInclude Include="Game\Collision\CollisionArea.hpp" />
     <ClInclude Include="Game\Level\LevelLoader.hpp" />
     <ClInclude Include="Game\Level\LevelState.hpp" />
+    <ClInclude Include="Game\Player\GameMode.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
@@ -202,7 +206,6 @@
     <ClInclude Include="Game\Collision\RectangleArea.hpp" />
     <ClInclude Include="Game\Collision\StaticBody.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
-    <ClInclude Include="RandomEngine\API\Resource\JsonLoader.hpp" />
     <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\Assert.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
