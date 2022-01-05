@@ -23,6 +23,8 @@
     <ClCompile Include="RandomEngine\API\Resource\File.cpp" />
     <ClCompile Include="Game\Level\LevelLoader.cpp" />
     <ClCompile Include="Game\Player\GameMode.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\Button.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -64,9 +66,11 @@
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="Game\Level\LevelState.hpp" />
     <ClInclude Include="Game\Player\GameMode.hpp" />
+    <ClInclude Include="RandomEngine\API\UI\Button.hpp" />
+    <ClInclude Include="RandomEngine\API\Scene.hpp" />
+    <ClInclude Include="RandomEngine\API\UI.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RandomEngine\API\Graphics\Camera.cpp" />
     <None Include="packages.config" />
   </ItemGroup>
 </Project>

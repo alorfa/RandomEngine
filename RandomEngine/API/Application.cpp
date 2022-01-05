@@ -28,12 +28,8 @@ namespace random_engine
 		const vec2 size = window.getSize();
 		return size.x / size.y;
 	}
-	const Camera& Application::nativeCamera() const
-	{
-		return native_camera;
-	}
 	Application::Application()
-		: window(renderwindow)
+		: window(renderwindow), camera(window)
 	{
 
 	}
@@ -48,8 +44,9 @@ namespace random_engine
 			return;
 		}
 		Mouse::window = &window;
-		Mouse::camera = &native_camera;
+		Mouse::camera = &camera;
 		Keyboard::window = &window;
+		Camera::window = &window;
 
 		window.setFramerateLimit(120);
 
@@ -70,14 +67,14 @@ namespace random_engine
 				case sf::Event::Closed:
 					exit();
 					break;
+				case sf::Event::Resized:
+					camera.updateNativeSize();
+					break;
 				}
 				handleEvent(e);
 			}
 			update(base_delta, delta);
-			native_camera.setTransform(camera);
-			auto new_size = handleNativeCameraSize(native_camera.getSize());
-			native_camera.setSize(new_size);
-			renderwindow.setView(native_camera.getSFMLView());
+			renderwindow.setView(camera.getSFMLView());
 			draw(renderwindow);
 			window.display();
 		}

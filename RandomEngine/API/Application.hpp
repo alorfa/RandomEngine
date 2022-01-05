@@ -15,14 +15,12 @@ namespace random_engine
 		sf::RenderWindow renderwindow;
 
 		sf::Clock clock;
-
-		Camera native_camera;
 	protected:
 		sf::Window& window;
 
 		float time_speed = 1.f;
 
-		sf::Transformable camera;
+		Camera camera;
 
 		virtual void appInit() = 0;
 		virtual void loadResources() = 0;
@@ -38,7 +36,6 @@ namespace random_engine
 		void exit();
 
 		float aspectRatio() const;
-		const Camera& nativeCamera() const;
 	public:
 		std::filesystem::path res;
 

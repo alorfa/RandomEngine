@@ -164,6 +164,7 @@
     <ClCompile Include="Game\Collision\CollisionArea.cpp" />
     <ClCompile Include="Game\Level\LevelLoader.cpp" />
     <ClCompile Include="Game\Player\GameMode.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Level.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
     <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Collision\CollisionArea.hpp" />
@@ -206,6 +208,7 @@
     <ClInclude Include="Game\Collision\RectangleArea.hpp" />
     <ClInclude Include="Game\Collision\StaticBody.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
+    <ClInclude Include="RandomEngine\API\Scene.hpp" />
     <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\Assert.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
@@ -224,10 +227,11 @@
     <ClInclude Include="RandomEngine\API\System\Mouse.hpp" />
     <ClInclude Include="RandomEngine\API\System\types.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\ShapeTests.hpp" />
+    <ClInclude Include="RandomEngine\API\UI.hpp" />
+    <ClInclude Include="RandomEngine\API\UI\Button.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="RandomEngine\API\Graphics\Camera.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

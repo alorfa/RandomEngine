@@ -27,7 +27,7 @@ namespace game
 	}
 	void Bound::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		const vec2 size = camera->getSize();
+		const vec2 size = camera->getNativeSize();
 		const vec2& cam_pos = camera->getPosition();
 		vec2 min = { cam_pos.x*0.25f - size.x*0.125f, 0.f };
 		vec2 max = { cam_pos.x*0.25f + size.x*0.125f, 1.f };

@@ -14,6 +14,7 @@
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
 
 #include <RandomEngine/API/Tests/ShapeTests.hpp>
+#include <RandomEngine/API/UI/Button.hpp>
 
 #include "Game/Level.hpp"
 #include "Game/Object/SpriteObject.hpp"
@@ -24,17 +25,19 @@ using namespace game;
 
 class MyGame : public Application
 {
-	struct EventData
-	{
-
-	} events;
-
 	Level level;
-
+	Button button;
 protected:
 	void appInit() override
 	{
-		camera.setScale(10, 10);
+		button.setTexture(textureLoader.load(res / "img/Cube004.png"));
+		button.setScale(20, 10);
+		button.setPosition(30, 10);
+		button.onClick = []() {
+			PRINT("click!");
+		};
+
+		camera.setSize(10, 10);
 		levelLoader.setResourcesPath(res);
 
 		level.loadBounds(res / "img/Ground.png");
@@ -87,6 +90,7 @@ protected:
 				level.player.scale(2.f, 2.f);
 		}
 		level.handleEvents(e);
+		button.handleEvents(e);
 	}
 	void update(float base_delta, float delta) override
 	{
@@ -98,6 +102,7 @@ protected:
 	{
 		window.clear({ 127, 127, 127, 255 });
 		window.draw(level);
+		window.draw(button);
 	}
 	void appEnd() override
 	{
@@ -105,7 +110,7 @@ protected:
 	}
 public:
 	MyGame()
-		: level(nativeCamera())
+		: level(camera)
 	{
 
 	}
