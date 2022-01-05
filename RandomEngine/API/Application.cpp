@@ -3,6 +3,7 @@
 #include <iostream>
 #include <RandomEngine/API/System/Mouse.hpp>
 #include <RandomEngine/API/System/Keyboard.hpp>
+#include "GlobalData.hpp"
 
 namespace random_engine
 {
@@ -28,8 +29,8 @@ namespace random_engine
 		const vec2 size = window.getSize();
 		return size.x / size.y;
 	}
-	Application::Application()
-		: window(renderwindow), camera(window)
+	Application::Application(GlobalData& data)
+		: window(data.window), target(data.window), camera(data.camera), res(data.res)
 	{
 
 	}
@@ -43,10 +44,6 @@ namespace random_engine
 			engineError("Window cannot be created!");
 			return;
 		}
-		Mouse::window = &window;
-		Mouse::camera = &camera;
-		Keyboard::window = &window;
-		Camera::window = &window;
 
 		window.setFramerateLimit(120);
 
@@ -74,8 +71,8 @@ namespace random_engine
 				handleEvent(e);
 			}
 			update(base_delta, delta);
-			renderwindow.setView(camera.getSFMLView());
-			draw(renderwindow);
+			target.setView(camera.getSFMLView());
+			draw(target);
 			window.display();
 		}
 	}

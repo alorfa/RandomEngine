@@ -10,19 +10,16 @@ namespace random_engine
 {
 	class Camera
 	{
-		static Camera* default_camera;
 		static const sf::Window* window;
 
 		sf::View camera;
 		vec2 size;
-
-		friend class Application;
-		Camera(const sf::Window& wnd);
 	public:
-		using NativeSizeHandler = vec2(*)(const vec2& size, const sf::Window& wnd);
+		using NativeSizeHandler = vec2(*)(const vec2& size, const sf::Window&);
 		NativeSizeHandler native_size_handler = nullptr;
 		
 		Camera();
+		Camera(const sf::Window& window);
 
 		void updateNativeSize();
 
@@ -80,12 +77,10 @@ namespace random_engine
 			setRotation(transform.getRotation());
 		}
 
-		static const Camera& getDefault();
-
 		inline const sf::View& getSFMLView() const {
 			return camera;
 		}
 
-		static vec2 defaultSizeHandler(const vec2& size, const sf::Window& wnd);
+		static vec2 defaultSizeHandler(const vec2& size, const sf::Window& window);
 	};
 }

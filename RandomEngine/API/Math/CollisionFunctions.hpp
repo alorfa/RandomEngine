@@ -47,6 +47,7 @@ namespace random_engine
 
 		inline static sf::RenderWindow* window = nullptr;
 	public:
+		static bool areIntersected(const vec2& point, const Rect& rect);
 		static bool areIntersected(const Rect& rect1, const Rect& rect2);
 		static bool areIntersected(const Line& l1, const Line& l2);
 

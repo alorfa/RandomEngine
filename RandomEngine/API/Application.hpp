@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <SFML/Graphics.hpp>
 #include <RandomEngine/API/Graphics/Camera.hpp>
+#include "RandomEngine/API/GlobalData.hpp"
 
 namespace random_engine
 {
@@ -12,15 +13,11 @@ namespace random_engine
 		float delta = 0.f;
 
 		sf::Event e = sf::Event();
-		sf::RenderWindow renderwindow;
+		sf::RenderTarget& target;
 
 		sf::Clock clock;
 	protected:
-		sf::Window& window;
-
 		float time_speed = 1.f;
-
-		Camera camera;
 
 		virtual void appInit() = 0;
 		virtual void loadResources() = 0;
@@ -37,9 +34,11 @@ namespace random_engine
 
 		float aspectRatio() const;
 	public:
-		std::filesystem::path res;
+		sf::Window& window;
+		Camera& camera;
+		std::filesystem::path& res;
 
-		Application();
+		Application(GlobalData& data);
 		virtual ~Application() = default;
 
 		void run(const sf::Vector2u window_size, const sf::String& title, uint32_t style = sf::Style::Default, 

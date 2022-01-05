@@ -11,14 +11,13 @@ namespace game
 {
 	class Level : public sf::Drawable, public IGameObject
 	{
-		const Camera* camera;
 		float deathTime = 0.f;
 
 		void drawGrid(sf::RenderTarget& target, const sf::RenderStates& states) const;
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
-		Level(const Camera& camera);
+		Level();
 
 		std::vector<Object*> objects;
 		Player player;

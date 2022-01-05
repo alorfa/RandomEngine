@@ -3,13 +3,14 @@
 #include "Game/Player.hpp"
 #include <iostream>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
+#include <RandomEngine/API/GlobalData.hpp>
 
 using namespace random_engine;
 
 namespace game
 {
-	Bound::Bound(Location location, const Camera& camera)
-		: location(location), camera(&camera)
+	Bound::Bound(Location location)
+		: location(location)
 	{
 		if (location == Bound::Top) {
 			sprite.setArea({ 0.f, 1.f }, { 12.f, 0.f });
@@ -27,8 +28,9 @@ namespace game
 	}
 	void Bound::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		const vec2 size = camera->getNativeSize();
-		const vec2& cam_pos = camera->getPosition();
+		auto& global_data = GlobalData::getInstance();
+		const vec2 size = global_data.camera.getNativeSize();
+		const vec2& cam_pos = global_data.camera.getPosition();
 		vec2 min = { cam_pos.x*0.25f - size.x*0.125f, 0.f };
 		vec2 max = { cam_pos.x*0.25f + size.x*0.125f, 1.f };
 		if (location == Bound::Top)

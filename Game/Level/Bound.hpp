@@ -15,8 +15,6 @@ namespace game
 		static constexpr int SEGMENT_SIZE = 4;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		const Camera* camera;
 	public:
 		enum Location {
 			Top, Bottom
@@ -26,7 +24,7 @@ namespace game
 	public:
 		vec2 pos{};
 
-		Bound(Location location, const Camera& camera);
+		Bound(Location location);
 
 		void setTexture(const Texture& t);
 

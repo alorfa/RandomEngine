@@ -19,6 +19,7 @@
 #include "Game/Level.hpp"
 #include "Game/Object/SpriteObject.hpp"
 #include "Game/Level/LevelLoader.hpp"
+#include "Game/Scenes/MainMenu.hpp"
 
 using namespace random_engine;
 using namespace game;
@@ -26,17 +27,10 @@ using namespace game;
 class MyGame : public Application
 {
 	Level level;
-	Button button;
+	MainMenu main_menu;
 protected:
 	void appInit() override
 	{
-		button.setTexture(textureLoader.load(res / "img/Cube004.png"));
-		button.setScale(20, 10);
-		button.setPosition(30, 10);
-		button.onClick = []() {
-			PRINT("click!");
-		};
-
 		camera.setSize(10, 10);
 		levelLoader.setResourcesPath(res);
 
@@ -58,9 +52,6 @@ protected:
 	}
 	void startGame() override
 	{
-		/*level.player.setOnHoldCallback([](Player& p, float delta) {
-			p.direction.y += 100.f * delta * -Math::sign(p.gravity); 
-		});*/
 		/*level.player.setOnClickCallback([](Player& p, float delta) {
 			p.gravity = -p.gravity;
 		});
@@ -90,7 +81,7 @@ protected:
 				level.player.scale(2.f, 2.f);
 		}
 		level.handleEvents(e);
-		button.handleEvents(e);
+		main_menu.handleEvents(e);
 	}
 	void update(float base_delta, float delta) override
 	{
@@ -102,15 +93,15 @@ protected:
 	{
 		window.clear({ 127, 127, 127, 255 });
 		window.draw(level);
-		window.draw(button);
+		window.draw(main_menu);
 	}
 	void appEnd() override
 	{
 
 	}
 public:
-	MyGame()
-		: level(camera)
+	MyGame(GlobalData& data)
+		: Application(data)
 	{
 
 	}
@@ -118,13 +109,10 @@ public:
 
 int main()
 {
-	//random_engine::shape_Tests();
-	//return 0;
-
-	MyGame game;
+	GlobalData::getInstance().res = "res";
+	MyGame game(GlobalData::getInstance());
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
-	game.res = "res";
 	game.run({800, 800}, "title", sf::Style::Default, settings);
 
 	return 0;

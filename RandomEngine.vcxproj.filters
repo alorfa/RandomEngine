@@ -25,6 +25,8 @@
     <ClCompile Include="Game\Player\GameMode.cpp" />
     <ClCompile Include="RandomEngine\API\UI\Button.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
+    <ClCompile Include="Game\Scenes\MainMenu.cpp" />
+    <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -69,6 +71,8 @@
     <ClInclude Include="RandomEngine\API\UI\Button.hpp" />
     <ClInclude Include="RandomEngine\API\Scene.hpp" />
     <ClInclude Include="RandomEngine\API\UI.hpp" />
+    <ClInclude Include="Game\Scenes\MainMenu.hpp" />
+    <ClInclude Include="RandomEngine\API\GlobalData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

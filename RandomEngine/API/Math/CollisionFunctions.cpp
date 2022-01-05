@@ -9,11 +9,17 @@
 
 namespace random_engine
 {
+	bool Collision::areIntersected(const vec2& point, const Rect& rect)
+	{
+		return (
+			point.x > rect.min.x and point.x < rect.max.x &&
+			point.y > rect.min.y and point.y < rect.max.y);
+	}
 	bool Collision::areIntersected(const Rect& cube, const Rect& rect)
 	{
 		return (
 			cube.max.x > rect.min.x &&
-			cube.min.x < rect.max.x &&
+			cube.min.x < rect.max.x	&&
 			cube.max.y > rect.min.y &&
 			cube.min.y < rect.max.y);
 	}

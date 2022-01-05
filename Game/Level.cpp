@@ -3,20 +3,22 @@
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include "Game/Settings.hpp"
 #include "Game/Level/LevelLoader.hpp"
+#include <RandomEngine/API/GlobalData.hpp>
 
 namespace game
 {
 	void Level::drawGrid(sf::RenderTarget& target, const sf::RenderStates& states) const
 	{
 		constexpr float OFFSET = 0.5f;
+		const auto& camera = GlobalData::getInstance().camera;
 
 		sf::Vertex line[2];
 		line[0].color = line[1].color = { 0, 0, 0, 100 };
 		ivec2 begin, end;
-		begin.x = (int)std::floorf(camera->getPosition().x - camera->getSize().x);
-		begin.y = (int)std::floorf(camera->getPosition().y - camera->getSize().y);
-		end.x = (int)std::ceilf(camera->getPosition().x + camera->getSize().x);
-		end.y = (int)std::ceilf(camera->getPosition().y + camera->getSize().y);
+		begin.x = (int)std::floorf(camera.getPosition().x - camera.getSize().x);
+		begin.y = (int)std::floorf(camera.getPosition().y - camera.getSize().y);
+		end.x = (int)std::ceilf(camera.getPosition().x + camera.getSize().x);
+		end.y = (int)std::ceilf(camera.getPosition().y + camera.getSize().y);
 
 		for (int x = begin.x; x < end.x; x += 1)
 		{
@@ -43,8 +45,8 @@ namespace game
 			target.draw(*ptr);
 		target.draw(player);
 	}
-	Level::Level(const Camera& camera)
-		: bottom(Bound::Bottom, camera), top(Bound::Top, camera), camera(&camera)
+	Level::Level()
+		: bottom(Bound::Bottom), top(Bound::Top)
 	{
 		collisionBodies.push_back(&top);
 		collisionBodies.push_back(&bottom);
