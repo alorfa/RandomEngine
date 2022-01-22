@@ -5,6 +5,7 @@ namespace random_engine
 	GlobalData::GlobalData()
 		: camera(window)
 	{
+		
 	}
 	GlobalData& GlobalData::getInstance()
 	{

@@ -27,11 +27,13 @@ namespace game
 		float gravity;
 		float jumpStrength;
 
+		bool head_collision;
+
 		static const GameMode cube;
 		static const GameMode ship;
 
 		GameMode(Callback onClick, Callback onClickOnGround, Callback onHold, Callback onHoldOnGround,
 			UpdateDirectionCallback updateDir,
-			float gravity, float jumpStrength);
+			float gravity, float jumpStrength, bool head_collision = false);
 	};
 }

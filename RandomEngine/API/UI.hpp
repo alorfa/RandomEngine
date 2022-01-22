@@ -8,7 +8,7 @@ namespace random_engine
 	class UI : public Scene
 	{
 	protected:
-		Camera camera;
+		mutable Camera camera;
 	public:
 
 	};

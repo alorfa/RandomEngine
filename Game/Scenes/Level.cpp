@@ -5,6 +5,10 @@
 #include "Game/Level/LevelLoader.hpp"
 #include <RandomEngine/API/GlobalData.hpp>
 
+#include <SFML/Audio.hpp>
+#include <RandomEngine/API/Resource/SoundLoader.hpp>
+#include "Game/Scenes/MainScene.hpp"
+
 namespace game
 {
 	void Level::drawGrid(sf::RenderTarget& target, const sf::RenderStates& states) const
@@ -37,6 +41,7 @@ namespace game
 	}
 	void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		target.draw(bg);
 		target.draw(bottom);
 		target.draw(top);
 		if (Settings::show_grid)
@@ -46,25 +51,52 @@ namespace game
 		target.draw(player);
 	}
 	Level::Level()
-		: bottom(Bound::Bottom), top(Bound::Top)
+		: bottom(Bound::Bottom), top(Bound::Top), checkpoint({0.f, 0.f}, {10.4f, 0.f}, GameMode::cube)
 	{
 		collisionBodies.push_back(&top);
 		collisionBodies.push_back(&bottom);
+
+		sound.setBuffer(soundLoader.load(GlobalData::getInstance().res/"sounds/lancer.ogg"));
+	}
+	void Level::reset()
+	{
+		sound.play();
+	}
+	void Level::stop()
+	{
+		sound.stop();
 	}
 	void Level::handleEvents(const sf::Event& e)
 	{
+		if (e.type == e.KeyPressed)
+		{
+			if (e.key.code == sf::Keyboard::Down)
+				player.scale(0.5f, 0.5f);
+			if (e.key.code == sf::Keyboard::Up)
+				player.scale(2.f, 2.f);
+			if (e.key.code == sf::Keyboard::Escape)
+			{
+				auto* mscene = dynamic_cast<MainScene*>(owner);
+				mscene->active_scene = &mscene->main_menu;
+				stop();
+				player.reset(checkpoint);
+			}
+		}
 		player.handleEvents(e);
 	}
 	void Level::update(float delta)
 	{
-		if (player.isDead)
-		{
-			deathTime += delta;
-		}
 		if (deathTime >= Settings::REPLAY_TIME)
 		{
+			reset();
 			deathTime = 0.f;
-			player.reset(Player::CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameMode::cube));
+			player.reset(checkpoint);
+		}
+		if (player.isDead)
+		{
+			stop();
+			deathTime += delta;
+			return;
 		}
 
 		for (auto* obj : objects)
@@ -77,7 +109,6 @@ namespace game
 			}
 		}
 		player.update(delta);
-
 		player.collisionBegin();
 		for (const auto* body : collisionBodies)
 			player.collisionProcess(*body);
@@ -99,6 +130,10 @@ namespace game
 	{
 		player.setTexture(textureLoader.load(path));
 	}
+	void Level::loadBackground(const std::filesystem::path& path)
+	{
+		bg.setTexture(textureLoader.load(path));
+	}
 	bool Level::load(const std::filesystem::path& path)
 	{
 		std::unique_ptr<LevelState> level{ levelLoader.loadFromFile(path) };
@@ -108,7 +143,22 @@ namespace game
 		objects = std::move(level->objects);
 		top.pos = level->top_ground;
 		bottom.pos = level->bottom_ground;
+
+		sortObjects();
 		return true;
+	}
+	void Level::sortObjects()
+	{
+		std::sort(objects.begin(), objects.end(), [](const Object* o1, const Object* o2) {
+			return o2->getPosition().x > o1->getPosition().x;
+		});
+
+		for (const auto* ptr : objects)
+		{
+			DEBUG(ptr->getPosition().x);
+			if (ptr->collisionMode != StaticBody::None)
+				collisionBodies.push_back(ptr);
+		}
 	}
 	Level::~Level()
 	{

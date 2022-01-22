@@ -13,10 +13,10 @@
     <ClCompile Include="RandomEngine\API\Graphics\Shape.cpp" />
     <ClCompile Include="Game\Level\Bound.cpp" />
     <ClCompile Include="Game\Player.cpp" />
-    <ClCompile Include="Game\Level.cpp" />
+    <ClCompile Include="Game\Scenes\Level.cpp" />
     <ClCompile Include="Game\Object.cpp" />
     <ClCompile Include="Game\IGameObject.cpp" />
-    <ClCompile Include="Game\Collision\CollisionArea.cpp" />
+    <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
     <ClCompile Include="RandomEngine\API\Math\color.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
@@ -27,6 +27,10 @@
     <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
     <ClCompile Include="Game\Scenes\MainMenu.cpp" />
     <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
+    <ClCompile Include="Game\Level\Background.cpp" />
+    <ClCompile Include="RandomEngine\API\Resource\SoundLoader.cpp" />
+    <ClCompile Include="RandomEngine\API\Scene.cpp" />
+    <ClCompile Include="Game\Scenes\MainScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -40,7 +44,7 @@
     <ClInclude Include="RandomEngine\API\Graphics\Sprite.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\ResourceLoader.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\TextureLoader.hpp" />
-    <ClInclude Include="Game\Level.hpp" />
+    <ClInclude Include="Game\Scenes\Level.hpp" />
     <ClInclude Include="Game\Object.hpp" />
     <ClInclude Include="Game\Player.hpp" />
     <ClInclude Include="Game\Object\VertexObject.hpp" />
@@ -58,8 +62,8 @@
     <ClInclude Include="Game\Level\Bound.hpp" />
     <ClInclude Include="Game\Collision\StaticBody.hpp" />
     <ClInclude Include="Game\IGameObject.hpp" />
-    <ClInclude Include="Game\Collision\RectangleArea.hpp" />
-    <ClInclude Include="Game\Collision\CollisionArea.hpp" />
+    <ClInclude Include="Game\Collision\RectangleHitbox.hpp" />
+    <ClInclude Include="Game\Collision\Hitbox.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
     <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
@@ -73,6 +77,10 @@
     <ClInclude Include="RandomEngine\API\UI.hpp" />
     <ClInclude Include="Game\Scenes\MainMenu.hpp" />
     <ClInclude Include="RandomEngine\API\GlobalData.hpp" />
+    <ClInclude Include="Game\Level\Background.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\SoundLoader.hpp" />
+    <ClInclude Include="Game\Object\Trigger\ITransformableObject.h" />
+    <ClInclude Include="Game\Scenes\MainScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

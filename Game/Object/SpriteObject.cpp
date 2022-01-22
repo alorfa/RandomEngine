@@ -14,13 +14,16 @@ namespace game
 {
 	void SpriteObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		states.transform *= getTransform();
+		//states.transform *= getTransform();
 
+		sprite.setPosition(getPosition());
+		sprite.setRotation(getRotation());
+		sprite.setScale(getScale());
 		target.draw(sprite, states);
 
 		if (Settings::show_hitboxes)
 		{
-			Shape::createRectangle(hitbox, hitbox_vertices);
+			Shape::createRectangle(getCollisionRect(), hitbox_vertices);
 			target.draw(hitbox_vertices, 5, sf::LinesStrip, states);
 		}
 	}
@@ -31,16 +34,13 @@ namespace game
 			vert.color = { 0, 0, 255 };
 	}
 
-	bool SpriteObject::touches(const Player& p) const
+	bool SpriteObject::touches(const PhysicalRect& rect) const
 	{
-		Rect player(p.getPosition() - p.getScale() * 0.5f);
-		player.max = player.min + p.getScale();
-
-		return Collision::areIntersected(player, getCollisionRect());
+		return Collision::areIntersected(rect, getCollisionRect());
 	}
-	RepulsionResult SpriteObject::getRepulsionVector(const Player& p) const
+	RepulsionResult SpriteObject::getRepulsionVector(const PhysicalRect& rect) const
 	{
-		return Collision::collide(p.getPhysicalRect(), getPhysicalRect());
+		return Collision::collide(rect, getPhysicalRect());
 	}
 	void SpriteObject::load(const std::filesystem::path& path)
 	{
@@ -56,14 +56,23 @@ namespace game
 		physical_rect.center = getPosition();
 		physical_rect.min = hitbox.min * getScale() + getPosition();
 		physical_rect.max = hitbox.max * getScale() + getPosition();
-		physical_rect.movement = getPosition() - getPrevPos();
+		physical_rect.movement = getPosition() - getPrevPos(); 
+		if (physical_rect.min.x > physical_rect.max.x)
+			std::swap(physical_rect.min.x, physical_rect.max.x);
+		if (physical_rect.min.y > physical_rect.max.y)
+			std::swap(physical_rect.min.y, physical_rect.max.y);
 		return physical_rect;
 	}
 	Rect SpriteObject::getCollisionRect() const
 	{
-		return Rect{
+		Rect result{
 			hitbox.min * getScale() + getPosition(),
 			hitbox.max * getScale() + getPosition()
 		};
+		if (result.min.x > result.max.x)
+			std::swap(result.min.x, result.max.x);
+		if (result.min.y > result.max.y)
+			std::swap(result.min.y, result.max.y);
+		return result;
 	}
 }

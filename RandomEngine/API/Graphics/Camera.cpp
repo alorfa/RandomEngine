@@ -3,14 +3,14 @@
 
 namespace random_engine
 {
-	Camera::Camera()
+	Camera::Camera(const sf::Window& wnd)
 	{
+		window = &wnd;
 		native_size_handler = defaultSizeHandler;
 		setSize(1.f, 1.f);
 	}
-	Camera::Camera(const sf::Window& wnd)
+	Camera::Camera()
 	{
-		window = &wnd; 
 		native_size_handler = defaultSizeHandler;
 		setSize(1.f, 1.f);
 	}

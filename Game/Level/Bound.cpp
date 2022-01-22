@@ -4,6 +4,7 @@
 #include <iostream>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/GlobalData.hpp>
+#include <RandomEngine/API/Math/CollisionFunctions.hpp>
 
 using namespace random_engine;
 
@@ -13,14 +14,11 @@ namespace game
 		: location(location)
 	{
 		if (location == Bound::Top) {
-			sprite.setArea({ 0.f, 1.f }, { 12.f, 0.f });
 			sprite.setOrigin(0.f, -0.5f);
 		}
 		else {
-			sprite.setArea({ 0.f, 0.f }, { 12.f, 1.f });
 			sprite.setOrigin(0.f, 0.5f);
 		}
-		
 	}
 	void Bound::setTexture(const Texture& t)
 	{
@@ -45,28 +43,28 @@ namespace game
 
 		target.draw(sprite);
 	}
-	bool Bound::touches(const Player& player) const
+	bool Bound::touches(const PhysicalRect& rect) const
 	{		
 		if (location == Bound::Bottom)
 		{
 			//player y more then ground y, and the size of the cube is also taken into account
-			if (pos.y > player.getPosition().y - player.getScale().y * 0.5f)
+			if (pos.y > rect.min.y)
 				return true;
 		}
 		if (location == Bound::Top)
 		{
-			if (pos.y < player.getPosition().y + player.getScale().y * 0.5f)
+			if (pos.y < rect.max.y)
 				return true;
 		}
 		return false;
 	}
-	RepulsionResult Bound::getRepulsionVector(const Player& player) const
+	RepulsionResult Bound::getRepulsionVector(const PhysicalRect& rect) const
 	{
 		RepulsionResult result;
 		if (location == Bound::Bottom)
 		{
 			//player y more then ground y, and the size of the cube is also taken into account
-			const float offset = pos.y - (player.getPosition().y - player.getScale().y * 0.5f);
+			const float offset = pos.y - (rect.min.y);
 			if (offset > 0.f)
 			{
 				result.offset = { 0.f, offset };
@@ -76,7 +74,7 @@ namespace game
 		}
 		if (location == Bound::Top)
 		{
-			const float offset = pos.y - (player.getPosition().y + player.getScale().y * 0.5f);
+			const float offset = pos.y - (rect.max.y);
 			if (offset < 0.f)
 			{
 				result.offset = { 0.f, offset };
@@ -84,5 +82,9 @@ namespace game
 			}
 		}
 		return result;
+	}
+	void Bound::moveByTrigger(const vec2& offset)
+	{
+		pos += offset;
 	}
 }

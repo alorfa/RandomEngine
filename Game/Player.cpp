@@ -6,6 +6,8 @@
 #include <RandomEngine/API/System/Mouse.hpp>
 #include <RandomEngine/API/System/Keyboard.hpp>
 #include <RandomEngine/API/Graphics/Shape.hpp>
+#include <RandomEngine/API/GlobalData.hpp>
+#include <RandomEngine/API/Resource/SoundLoader.hpp>
 #include "Game/Settings.hpp"
 
 namespace game
@@ -29,13 +31,19 @@ namespace game
 				getPosition() - getScale() * 0.5f,
 				getPosition() + getScale() * 0.5f}, hitbox_vertices);
 			target.draw(hitbox_vertices, 5, sf::LineStrip, states);
+
+			Shape::createRectangle(getDeathArea(), death_area_vertices);
+			target.draw(death_area_vertices, 5, sf::LinesStrip, states);
 		}
 	}
 	Player::Player()
 		: game_mode(GameMode::cube)
 	{
-		for (auto& vert : hitbox_vertices)
-			vert.color = { 255, 0, 0 };
+		for (size_t i = 0; i < 5; i++)
+		{
+			hitbox_vertices[i].color = sf::Color::Green;
+			death_area_vertices[i].color = sf::Color::Red;
+		}
 
 		reset(CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameMode::cube));
 	}
@@ -62,14 +70,24 @@ namespace game
 	}
 	void Player::die()
 	{
+		if (isDead)
+			return;
+
 		isDead = true;
-		//setColor({ 1.f, 0.f, 0.f });
+		sound.setBuffer(soundLoader.load(GlobalData::getInstance().res / "sounds/explode_11.ogg"));
+		sound.play();
 	}
 	void Player::handleEvents(const sf::Event& e)
 	{
-		if (e.type == sf::Event::MouseButtonPressed and
-			e.mouseButton.button == sf::Mouse::Left)
+		if (e.type == sf::Event::MouseButtonPressed)
+		{
 			actionIsCommited = false;
+			is_pressed = true;
+		}
+		if (e.type == sf::Event::MouseButtonReleased)
+		{
+			is_pressed = false;
+		}
 	}
 	void Player::update(float delta)
 	{
@@ -78,7 +96,7 @@ namespace game
 
 		prev_position = getPosition();
 		direction = game_mode.updateDirCallback(*this, direction, delta);
-		if (Mouse::isPressed(sf::Mouse::Left))
+		if (is_pressed)
 		{
 			game_mode.onClickOnGround(*this);
 			game_mode.onClick(*this);
@@ -102,30 +120,36 @@ namespace game
 		{
 		case StaticBody::Repulsion:
 		{
-			auto result = body.getRepulsionVector(*this);
+			auto result = body.getRepulsionVector(getPhysicalRect());
 			if (result.touches)
 			{
-				if (result.offset.x != 0)
-				{
-					die();
-				}
-				direction.y = result.direction.y;
-				move(vec2(0.f, result.offset.y));
-				/* the object is at the bottom and gravity is directed downgard, or vice versa */
 				if (Math::sign(result.offset.y) != Math::sign(game_mode.gravity))
-					onGround = true;
+				{
+					direction.y = result.direction.y;
+					move(vec2(0.f, result.offset.y));
+					/* the object is at the bottom and gravity is directed downgard, or vice versa */
+					if (Math::sign(result.offset.y) != Math::sign(game_mode.gravity))
+						onGround = true;
+				}
+				if (game_mode.head_collision and
+					Math::sign(result.offset.y) == Math::sign(game_mode.gravity))
+				{
+					direction.y = result.direction.y;
+					move(vec2(0.f, result.offset.y));
+				}
+				
 			}
 			break;
 		}
 		case StaticBody::Touch:
-			if (body.action and body.touches(*this))
+			if (body.action and body.touches(getPhysicalRect()))
 				body.action(*this);
 			break;
 		case StaticBody::OnClick:
 			if (body.action and
 				not actionIsCommited and
 				Mouse::isPressed(sf::Mouse::Left) and 
-				body.touches(*this))
+				body.touches(getPhysicalRect()))
 			{
 				body.action(*this);
 				actionIsCommited = true;
@@ -138,15 +162,8 @@ namespace game
 	{
 		if (body.collisionMode == StaticBody::Repulsion)
 		{
-			auto result = body.getRepulsionVector(*this);
-			if (result.touches)
-			{
-				if (std::abs(result.offset.y) >= 0.001f)
-				{
-					PRINT(result.offset);
-					return true;
-				}
-			}
+			auto result = body.getRepulsionVector(getDeathArea());
+			return result.touches;
 		}
 		
 		return false;
@@ -172,5 +189,14 @@ namespace game
 		physical_rect.center = getPosition();
 		physical_rect.movement = getPosition() - getPrevPos();
 		return physical_rect;
+	}
+	const PhysicalRect& Player::getDeathArea() const
+	{
+		death_area.direction = direction;
+		death_area.min = getPosition() - getScale() * 0.5f * 0.33f;
+		death_area.max = death_area.min + getScale() * 0.33f;
+		death_area.center = getPosition();
+		death_area.movement = getPosition() - getPrevPos();
+		return death_area;
 	}
 }

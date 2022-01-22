@@ -9,12 +9,13 @@ namespace game
 {
 	class MainMenu : public UI
 	{
-		Button left, right;
+		Button center, left, right;
 	protected:
 		void draw(sf::RenderTarget&, sf::RenderStates states) const override;
 	public:
 		MainMenu();
 
-		void handleEvents(const sf::Event& e);
+		void handleEvents(const sf::Event& e) override;
+		void update(float delta) override;
 	};
 }

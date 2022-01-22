@@ -14,12 +14,14 @@ namespace random_engine
 
 		sf::View camera;
 		vec2 size;
+
+		friend struct GlobalData;
+		Camera(const sf::Window& window);
 	public:
 		using NativeSizeHandler = vec2(*)(const vec2& size, const sf::Window&);
 		NativeSizeHandler native_size_handler = nullptr;
 		
 		Camera();
-		Camera(const sf::Window& window);
 
 		void updateNativeSize();
 
@@ -61,14 +63,14 @@ namespace random_engine
 			return reinterpret_cast<const vec2&>(camera.getCenter());
 		}
 
-		inline void setRotation(float rad) {
-			camera.setRotation(Math::deg(rad));
+		inline void setRotation(float deg) {
+			camera.setRotation(deg);
 		}
-		inline void rotate(float rad) {
-			setRotation(getRotation() + rad);
+		inline void rotate(float deg) {
+			setRotation(deg);
 		}
 		inline float getRotation() const {
-			Math::rad(camera.getRotation());
+			return camera.getRotation();
 		}
 
 		inline void setTransform(const sf::Transformable& transform) {

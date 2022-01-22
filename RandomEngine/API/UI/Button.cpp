@@ -1,6 +1,8 @@
 #include "Button.hpp"
 #include "RandomEngine/API/Graphics/Shape.hpp"
 #include "RandomEngine/API/System/Mouse.hpp"
+#include "RandomEngine/API/GlobalData.hpp"
+#include "RandomEngine/API/Application.hpp"
 
 namespace random_engine
 {
@@ -13,15 +15,16 @@ namespace random_engine
 		switch (e.type)
 		{
 		case sf::Event::MouseButtonPressed:
-			if (Collision::areIntersected(Mouse::getPosition(), hitbox))
+			if (Collision::areIntersected(Mouse::getPosition(*camera), hitbox))
 				mouse_has_pressed = true;
 			break;
 		case sf::Event::MouseButtonReleased:
-			if (mouse_has_pressed and Collision::areIntersected(Mouse::getPosition(), hitbox))
+			if (mouse_has_pressed and Collision::areIntersected(Mouse::getPosition(*camera), hitbox))
 			{
-				onClick();
+				onClick(*scene);
+				mouse_has_pressed = false;
+				throw AbortEventProcessing();
 			}
-			mouse_has_pressed = false;
 			break;
 		}
 	}

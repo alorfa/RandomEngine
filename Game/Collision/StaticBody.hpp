@@ -3,6 +3,11 @@
 #include <RandomEngine/API/Math/vec2.hpp>
 #include <RandomEngine/API/Math/RepulsionResult.hpp>
 
+namespace random_engine
+{
+	struct PhysicalRect;
+}
+
 using namespace random_engine;
 
 namespace game
@@ -27,7 +32,7 @@ namespace game
 		Action action = nullptr;
 		CollisionMode collisionMode = Repulsion;
 
-		virtual bool touches(const Player&) const = 0;
-		virtual RepulsionResult getRepulsionVector(const Player&) const = 0;
+		virtual bool touches(const PhysicalRect&) const = 0;
+		virtual RepulsionResult getRepulsionVector(const PhysicalRect&) const = 0;
 	};
 }

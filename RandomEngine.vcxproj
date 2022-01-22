@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -135,7 +135,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;$(SolutionDir)\packages\boost_json-vc142.1.77.0.0\lib\native;$(SolutionDir)\packages\boost_container-vc142.1.78.0\lib\native</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-audio-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,15 +161,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game\Collision\CollisionArea.cpp" />
+    <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
+    <ClCompile Include="Game\Level\Background.cpp" />
     <ClCompile Include="Game\Level\LevelLoader.cpp" />
     <ClCompile Include="Game\Player\GameMode.cpp" />
     <ClCompile Include="Game\Scenes\MainMenu.cpp" />
+    <ClCompile Include="Game\Scenes\MainScene.cpp" />
     <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\IGameObject.cpp" />
-    <ClCompile Include="Game\Level.cpp" />
+    <ClCompile Include="Game\Scenes\Level.cpp" />
     <ClCompile Include="Game\Level\Bound.cpp" />
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Object.cpp" />
@@ -183,23 +185,28 @@
     <ClCompile Include="RandomEngine\API\Math\Functions.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\File.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\ResourceLoader.cpp" />
+    <ClCompile Include="RandomEngine\API\Resource\SoundLoader.cpp" />
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
     <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
     <ClCompile Include="RandomEngine\API\UI\Button.cpp" />
+    <ClCompile Include="RandomEngine\API\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\Collision\CollisionArea.hpp" />
+    <ClInclude Include="Game\Collision\Hitbox.hpp" />
+    <ClInclude Include="Game\Level\Background.hpp" />
     <ClInclude Include="Game\Level\LevelLoader.hpp" />
     <ClInclude Include="Game\Level\LevelState.hpp" />
+    <ClInclude Include="Game\Object\Trigger\ITransformableObject.h" />
     <ClInclude Include="Game\Player\GameMode.hpp" />
     <ClInclude Include="Game\Scenes\MainMenu.hpp" />
+    <ClInclude Include="Game\Scenes\MainScene.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="RandomEngine\API\GlobalData.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
     <ClInclude Include="Game\IGameObject.hpp" />
-    <ClInclude Include="Game\Level.hpp" />
+    <ClInclude Include="Game\Scenes\Level.hpp" />
     <ClInclude Include="Game\Level\Bound.hpp" />
     <ClInclude Include="Game\Object\Group.hpp" />
     <ClInclude Include="Game\Object\ProcessGroup.hpp" />
@@ -209,9 +216,10 @@
     <ClInclude Include="Game\Object\VertexObject.hpp" />
     <ClInclude Include="Game\Player.hpp" />
     <ClInclude Include="RandomEngine\API\Application.hpp" />
-    <ClInclude Include="Game\Collision\RectangleArea.hpp" />
+    <ClInclude Include="Game\Collision\RectangleHitbox.hpp" />
     <ClInclude Include="Game\Collision\StaticBody.hpp" />
     <ClInclude Include="RandomEngine\API\Resource\File.hpp" />
+    <ClInclude Include="RandomEngine\API\Resource\SoundLoader.hpp" />
     <ClInclude Include="RandomEngine\API\Scene.hpp" />
     <ClInclude Include="RandomEngine\API\System\Keyboard.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\Assert.hpp" />
@@ -240,15 +248,15 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\boost.1.78.0\build\boost.targets" Condition="Exists('packages\boost.1.78.0\build\boost.targets')" />
-    <Import Project="packages\boost_json-vc142.1.78.0\build\boost_json-vc142.targets" Condition="Exists('packages\boost_json-vc142.1.78.0\build\boost_json-vc142.targets')" />
-    <Import Project="packages\boost_container-vc142.1.78.0\build\boost_container-vc142.targets" Condition="Exists('packages\boost_container-vc142.1.78.0\build\boost_container-vc142.targets')" />
+    <Import Project="packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets" Condition="Exists('packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets')" />
+    <Import Project="packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets" Condition="Exists('packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\boost.1.78.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.78.0\build\boost.targets'))" />
-    <Error Condition="!Exists('packages\boost_json-vc142.1.78.0\build\boost_json-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_json-vc142.1.78.0\build\boost_json-vc142.targets'))" />
-    <Error Condition="!Exists('packages\boost_container-vc142.1.78.0\build\boost_container-vc142.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_container-vc142.1.78.0\build\boost_container-vc142.targets'))" />
+    <Error Condition="!Exists('packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets'))" />
+    <Error Condition="!Exists('packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets'))" />
   </Target>
 </Project>

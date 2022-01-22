@@ -5,6 +5,7 @@
 #include "Game/Object/SpriteObject.hpp"
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include "Game/Player.hpp"
+#include <RandomEngine/API/GlobalData.hpp>
 
 using namespace boost;
 
@@ -33,12 +34,14 @@ namespace game
 {
 	Object* LevelLoader::createObject(u64 id, const vec2& pos, const Rect& hitbox)
 	{
+		const auto& res = GlobalData::getInstance().res;
+
 		auto* obj = new SpriteObject;
 		obj->setPosition(pos);
 		obj->hitbox = hitbox;
 		if (id <= 100)
 		{
-			obj->load((*res) / "img/objects.png");
+			obj->load(res / "img/objects.png");
 			vec2 area_begin;
 			area_begin.x = float(id - 1) / (float)OBJECTS_SEGMENTS_X;
 			area_begin.y = 9.f / (float)OBJECTS_SEGMENTS_Y;
@@ -48,7 +51,7 @@ namespace game
 		else if (id <= 200)
 		{
 			const u64 pid = id - 100;
-			obj->load((*res) / "img/portals.png");
+			obj->load(res / "img/portals.png");
 			vec2 area_begin;
 			area_begin.x = float(pid - 1) / (float)PORTALS_SEGMENTS_X;
 			area_begin.y = 0.f;
@@ -175,10 +178,6 @@ namespace game
 	LevelState& LevelLoader::load(const std::filesystem::path& path, int flags)
 	{
 		return static_cast<LevelState&>(defaultLoad(path, flags));
-	}
-	void LevelLoader::setResourcesPath(const std::filesystem::path& path)
-	{
-		res = &path;
 	}
 	LevelLoader levelLoader;
 }

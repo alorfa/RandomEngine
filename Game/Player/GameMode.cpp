@@ -58,7 +58,8 @@ namespace game
 		Callback onHoldOnGround, 
 		UpdateDirectionCallback updateDir, 
 		float gravity, 
-		float jumpStrength)
+		float jumpStrength,
+		bool head_collision)
 
 		: onClickCallback(onClick), 
 		onClickOnGroundCallback(onClickOnGround),
@@ -66,7 +67,8 @@ namespace game
 		onHoldOnGroundCallback(onHoldOnGround),
 		updateDirCallback(updateDir),
 		gravity(gravity),
-		jumpStrength(jumpStrength)
+		jumpStrength(jumpStrength),
+		head_collision(head_collision)
 	{}
 
 	const GameMode GameMode::cube(nullptr, nullptr, nullptr, [](Player& p, float _) {
@@ -75,6 +77,6 @@ namespace game
 	);
 	const GameMode GameMode::ship(nullptr, nullptr, [](Player& p, float delta) {
 		p.direction.y += 90.f * delta  * -Math::sign(p.game_mode.gravity);
-	}, nullptr, default_dir_cb, -40.f, 17.f
+	}, nullptr, default_dir_cb, -40.f, 17.f, true
 	);
 }

@@ -67,6 +67,21 @@ namespace random_engine
 			v1.y / v2.y
 			);
 	}
+	template <typename T>
+	vector2<T>& operator*=(sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	{
+		v1.x *= v2.x;
+		v1.y *= v2.y;
+		return reinterpret_cast<vector2<T>&>(v1);
+	}
+
+	template <typename T>
+	vector2<T>& operator/=(sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	{
+		v1.x /= v2.x;
+		v1.y /= v2.y;
+		return reinterpret_cast<vector2<T>&>(v1);
+	}
 
 	using fvec2 = vector2<float>;
 	using vec2 = fvec2;

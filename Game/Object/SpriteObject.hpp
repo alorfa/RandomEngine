@@ -19,8 +19,8 @@ namespace game
 		Rect hitbox;
 		SpriteObject();
 
-		bool touches(const Player&) const override;
-		RepulsionResult getRepulsionVector(const Player&) const override;
+		bool touches(const PhysicalRect&) const override;
+		RepulsionResult getRepulsionVector(const PhysicalRect&) const override;
 
 		void load(const std::filesystem::path& path);
 		void setArea(const vec2& p1, const vec2& p2);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Audio.hpp>
 #include <RandomEngine/API/Graphics/Object.hpp>
 #include <RandomEngine/API/Graphics/Sprite.hpp>
 #include <RandomEngine/API/Math/color.hpp>
@@ -17,9 +18,12 @@ namespace game
 		friend struct GameMode;
 
 		mutable Sprite sprite;
-		mutable PhysicalRect physical_rect;
+		mutable PhysicalRect physical_rect, death_area;
 		mutable sf::Vertex hitbox_vertices[5];
+		mutable sf::Vertex death_area_vertices[5];
 		mutable std::vector<sf::Vertex> path_vertices;
+
+		sf::Sound sound;
 
 		vec2 prev_position = vec2();
 
@@ -27,6 +31,8 @@ namespace game
 
 		bool actionIsCommited = false;
 		bool onGround = false;
+
+		bool is_pressed = false;
 	public:
 		struct CheckPoint
 		{
@@ -66,5 +72,6 @@ namespace game
 		void setColor(const color3f& color);
 
 		const PhysicalRect& getPhysicalRect() const;
+		const PhysicalRect& getDeathArea() const;
 	};
 }

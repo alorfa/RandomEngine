@@ -24,6 +24,11 @@ namespace random_engine
 		vec2 movement;
 		vec2 direction;
 	};
+	struct PhysicalRotateableRect : PhysicalRect
+	{
+		float rotation = 0.f;
+	};
+
 	struct Line
 	{
 		vec2 begin;

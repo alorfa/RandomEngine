@@ -32,13 +32,10 @@ namespace random_engine
 	Application::Application(GlobalData& data)
 		: window(data.window), target(data.window), camera(data.camera), res(data.res)
 	{
-
+		
 	}
-	void Application::run(const sf::Vector2u window_size, const sf::String& title,
-		uint32_t style, const sf::ContextSettings& settings)
+	void Application::run()
 	{
-		window.create(sf::VideoMode(window_size.x, window_size.y), title, style, settings);
-
 		if (not window.isOpen())
 		{
 			engineError("Window cannot be created!");

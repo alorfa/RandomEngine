@@ -7,6 +7,8 @@
 
 namespace random_engine
 {
+	class AbortEventProcessing {};
+
 	class Application
 	{
 		float base_delta = 0.f;
@@ -41,7 +43,6 @@ namespace random_engine
 		Application(GlobalData& data);
 		virtual ~Application() = default;
 
-		void run(const sf::Vector2u window_size, const sf::String& title, uint32_t style = sf::Style::Default, 
-			const sf::ContextSettings& settings = sf::ContextSettings());
+		void run();
 	};
 }
