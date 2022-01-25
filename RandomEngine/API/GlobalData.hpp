@@ -9,10 +9,11 @@ namespace random_engine
 {
 	struct GlobalData
 	{
+	private:
 		GlobalData();
 	public:
 		sf::RenderWindow window;
-		std::filesystem::path res;
+		std::filesystem::path res, user;
 		Camera camera;
 
 		static GlobalData& getInstance();

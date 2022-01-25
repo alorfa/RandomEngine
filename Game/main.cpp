@@ -17,7 +17,7 @@
 #include <RandomEngine/API/UI/Button.hpp>
 
 #include "Game/Object/SpriteObject.hpp"
-#include "Game/Level/LevelLoader.hpp"
+#include "Game/Scenes/Level/LevelLoader.hpp"
 #include "Game/Scenes/MainScene.hpp"
 
 using namespace random_engine;
@@ -25,8 +25,8 @@ using namespace game;
 
 class MyGame : public Application
 {
-protected:
 	MainScene main_scene;
+protected:
 
 	void appInit() override
 	{
@@ -80,7 +80,7 @@ protected:
 
 	}
 public:
-	MyGame(GlobalData& data)
+	explicit MyGame(GlobalData& data)
 		: Application(data)
 	{
 
@@ -90,6 +90,7 @@ public:
 int main()
 {
 	GlobalData::getInstance().res = "res";
+	GlobalData::getInstance().user = "user";
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	GlobalData::getInstance().window.create({ 800, 800 }, "title", sf::Style::Default, settings);

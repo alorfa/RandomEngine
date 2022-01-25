@@ -8,11 +8,13 @@ namespace random_engine
 		window = &wnd;
 		native_size_handler = defaultSizeHandler;
 		setSize(1.f, 1.f);
+		setPosition(0.f, 0.f);
 	}
 	Camera::Camera()
 	{
 		native_size_handler = defaultSizeHandler;
 		setSize(1.f, 1.f);
+		setPosition(0.f, 0.f);
 	}
 	void Camera::updateNativeSize()
 	{

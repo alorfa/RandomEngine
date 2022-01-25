@@ -32,11 +32,12 @@ namespace
 
 namespace game
 {
-	Object* LevelLoader::createObject(u64 id, const vec2& pos, const Rect& hitbox)
+	std::unique_ptr<Object> LevelLoader::createObject(u64 id, const vec2& pos, const Rect& hitbox)
 	{
 		const auto& res = GlobalData::getInstance().res;
 
 		auto* obj = new SpriteObject;
+		std::unique_ptr<Object> result(obj);
 		obj->setPosition(pos);
 		obj->hitbox = hitbox;
 		if (id <= 100)
@@ -95,11 +96,11 @@ namespace game
 				p.jump(0.6f);
 			};
 		}
-		return obj;
+		return std::move(result);
 	}
-	std::vector<Object*> LevelLoader::handleObjects(const json::value& value)
+	std::vector<std::unique_ptr<Object>> LevelLoader::handleObjects(const json::value& value)
 	{
-		std::vector<Object*> result;
+		std::vector<std::unique_ptr<Object>> result;
 
 		const auto& arr = value.as_array();
 		for (const json::value& elem : arr)
@@ -120,7 +121,7 @@ namespace game
 				hitbox.max.x = numberAsFloat(hb[2]);
 				hitbox.max.y = numberAsFloat(hb[3]);
 			}
-			Object* object = createObject(id, pos, hitbox);
+			std::unique_ptr<Object> object = createObject(id, pos, hitbox);
 			if (obj.contains("size"))
 			{
 				const json::array& sz = obj.at("size").as_array();
@@ -128,13 +129,13 @@ namespace game
 				size.y = numberAsFloat(sz[1]);
 				object->setScale(size);
 			}
-			result.push_back(object);
+			result.push_back(std::move(object));
 		}
 
 		return result;
 	}
 
-	std::pair<vec2, vec2> LevelLoader::handleGrounds(const boost::json::value& value)
+	std::pair<vec2, vec2> LevelLoader::handleGrounds(const boost::json::value& value) const
 	{
 		std::pair<vec2, vec2> result;
 

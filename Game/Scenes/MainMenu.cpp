@@ -19,7 +19,7 @@ namespace game
 		camera.setPosition(0.f, 0.f);
 		camera.setSize(3.f, 3.f);
 		center.setTexture(textureLoader.load(res / "img/button1.jpg"));
-		center.scene = left.scene = right.scene = this;
+		center.owner = left.owner = right.owner = this;
 		left.setPosition(-1.0f, 0.f);
 		right.setPosition(1.0f, 0.f);
 		left.setScale(0.5f, 0.5f);
@@ -34,8 +34,8 @@ namespace game
 				DEBUG("NOT A MAIN SCENE");
 				return;
 			}
-			mscene->active_scene = &mscene->level;
-			mscene->level.reset();
+			mscene->active_scene = &mscene->editor;
+			//mscene->editor.level.reset();
 		};
 	}
 	void MainMenu::handleEvents(const sf::Event& e)

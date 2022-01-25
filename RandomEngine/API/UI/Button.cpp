@@ -15,17 +15,22 @@ namespace random_engine
 		switch (e.type)
 		{
 		case sf::Event::MouseButtonPressed:
-			if (Collision::areIntersected(Mouse::getPosition(*camera), hitbox))
+			if (Collision::areIntersected(Mouse::getPosition(*camera), hitbox)) {
 				mouse_has_pressed = true;
+				throw AbortEventProcessing();
+			}
 			break;
 		case sf::Event::MouseButtonReleased:
 			if (mouse_has_pressed and Collision::areIntersected(Mouse::getPosition(*camera), hitbox))
 			{
-				onClick(*scene);
+				onClick(*owner);
 				mouse_has_pressed = false;
 				throw AbortEventProcessing();
 			}
 			break;
 		}
+	}
+	void Button::update(float delta)
+	{
 	}
 }

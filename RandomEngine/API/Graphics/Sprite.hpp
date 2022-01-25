@@ -2,11 +2,12 @@
 
 #include <SFML/Graphics/Vertex.hpp>
 #include "RandomEngine/API/Math/vec2.hpp"
-#include "RandomEngine/API/Resource/TextureLoader.hpp"
 #include "RandomEngine/API/Graphics/Object.hpp"
 
 namespace random_engine
 {
+	class Texture;
+
 	class Sprite : public Object
 	{
 		inline static sf::Shader* shader = nullptr;

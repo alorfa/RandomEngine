@@ -1,22 +1,18 @@
 #pragma once
 
-#include <RandomEngine/API/Scene.hpp>
-#include "Level.hpp"
-#include "MainMenu.hpp"
-#include "Editor.hpp"
+#include <RandomEngine/API/UI.hpp>
+#include <RandomEngine/API/UI/Button.hpp>
 
 using namespace random_engine;
 
 namespace game
 {
-	class MainScene : public Scene
+	class EditorUI : public UI
 	{
+		Button copypaste;
+		Button play, stop, reset;
 	public:
-		MainScene();
-
-		Editor editor;
-		MainMenu main_menu;
-		Scene* active_scene = nullptr;
+		EditorUI();
 
 		void handleEvents(const sf::Event& e) override;
 		void update(float delta) override;

@@ -19,10 +19,10 @@ namespace game
 		Callback onHoldOnGroundCallback = nullptr;
 		UpdateDirectionCallback updateDirCallback = nullptr;
 
-		bool onClick(Player& p);
-		bool onClickOnGround(Player& p);
-		bool onHold(Player& p, float delta);
-		bool onHoldOnGround(Player& p);
+		bool onClick(Player& p) const;
+		bool onClickOnGround(Player& p) const;
+		bool onHold(Player& p, float delta) const;
+		bool onHoldOnGround(Player& p) const;
 
 		float gravity;
 		float jumpStrength;

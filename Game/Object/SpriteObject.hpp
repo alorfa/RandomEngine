@@ -3,6 +3,7 @@
 #include <Game/Object.hpp>
 #include <RandomEngine/API/Graphics/Sprite.hpp>
 #include <RandomEngine/API/Math/CollisionFunctions.hpp>
+#include <filesystem>
 
 using namespace random_engine;
 
@@ -11,12 +12,9 @@ namespace game
 	class SpriteObject : public game::Object
 	{
 		mutable Sprite sprite;
-		mutable PhysicalRect physical_rect;
-		mutable sf::Vertex hitbox_vertices[5];
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
-		Rect hitbox;
 		SpriteObject();
 
 		bool touches(const PhysicalRect&) const override;
@@ -27,5 +25,7 @@ namespace game
 
 		const PhysicalRect& getPhysicalRect() const;
 		Rect getCollisionRect() const;
+
+		std::unique_ptr<Object> clone() const override;
 	};
 }

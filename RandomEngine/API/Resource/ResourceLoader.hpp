@@ -20,5 +20,7 @@ namespace random_engine
 		virtual Resource& getDefault() const = 0;
 
 		virtual Resource& load(const std::filesystem::path& path, int flags = 0) = 0;
+
+		virtual ~ResourceLoader() = default;
 	};
 }

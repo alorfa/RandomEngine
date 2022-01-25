@@ -1,4 +1,5 @@
 #include "Sprite.hpp"
+#include "RandomEngine/API/Resource/TextureLoader.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Shader.hpp>
 #include <cmath>
@@ -52,7 +53,7 @@ namespace random_engine
 
 		setArea({ 0.f, 0.f }, { 1.f, 1.f });
 
-		texture = &textureLoader.getDefault();
+		setTexture(textureLoader.getDefault());
 
 		if (not shader)
 		{

@@ -12,10 +12,12 @@ namespace random_engine
 		std::vector<Scene*> scenes;
 
 		void drawScenes(sf::RenderTarget& target, const sf::RenderStates& states) const;
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
 		virtual void handleEvents(const sf::Event& e) = 0;
 		virtual void update(float delta) = 0;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+		void registerScene(Scene& scene);
 
 		Scene* owner = nullptr;
 	};

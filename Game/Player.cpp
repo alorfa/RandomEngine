@@ -13,13 +13,7 @@
 namespace game
 {
 	void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	{
-		if (Settings::show_player_path)
-		{
-			target.draw(path_vertices.data(), path_vertices.size(), sf::PrimitiveType::LinesStrip, states);
-		}
-
-		
+	{		
 		sprite.setPosition(getPosition());
 		sprite.setScale(getScale());
 		sprite.setRotation(getRotation());
@@ -35,6 +29,10 @@ namespace game
 			Shape::createRectangle(getDeathArea(), death_area_vertices);
 			target.draw(death_area_vertices, 5, sf::LinesStrip, states);
 		}
+	}
+	void Player::drawPath(sf::RenderTarget& target, const sf::RenderStates& states) const
+	{
+		target.draw(path_vertices.data(), path_vertices.size(), sf::PrimitiveType::LinesStrip, states);
 	}
 	Player::Player()
 		: game_mode(GameMode::cube)

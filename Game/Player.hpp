@@ -6,14 +6,13 @@
 #include <RandomEngine/API/Math/color.hpp>
 #include <RandomEngine/API/Math/CollisionFunctions.hpp>
 #include "Game/Collision/StaticBody.hpp"
-#include "Game/IGameObject.hpp"
 #include "Game/Player/GameMode.hpp"
 
 using namespace random_engine;
 
 namespace game
 {
-	class Player : public random_engine::Object, public IGameObject
+	class Player : public random_engine::Object
 	{
 		friend struct GameMode;
 
@@ -26,8 +25,6 @@ namespace game
 		sf::Sound sound;
 
 		vec2 prev_position = vec2();
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		bool actionIsCommited = false;
 		bool onGround = false;
@@ -55,8 +52,10 @@ namespace game
 		void jump(float strength);
 		void die();
 
-		void handleEvents(const sf::Event& e) override;
-		void update(float delta) override;
+		void handleEvents(const sf::Event& e);
+		void update(float delta);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void drawPath(sf::RenderTarget& target, const sf::RenderStates& states) const;
 
 		void setTexture(const Texture& t);
 

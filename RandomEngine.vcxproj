@@ -162,17 +162,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
-    <ClCompile Include="Game\Level\Background.cpp" />
-    <ClCompile Include="Game\Level\LevelLoader.cpp" />
+    <ClCompile Include="Game\Scenes\Level\Background.cpp" />
+    <ClCompile Include="Game\Scenes\Level\LevelBase.cpp" />
+    <ClCompile Include="Game\Scenes\Level\LevelLoader.cpp" />
     <ClCompile Include="Game\Player\GameMode.cpp" />
+    <ClCompile Include="Game\Scenes\Editor.cpp" />
+    <ClCompile Include="Game\Scenes\Editor\DevLevel.cpp" />
+    <ClCompile Include="Game\Scenes\Editor\EditorUI.cpp" />
     <ClCompile Include="Game\Scenes\MainMenu.cpp" />
     <ClCompile Include="Game\Scenes\MainScene.cpp" />
     <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
-    <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Scenes\Level.cpp" />
-    <ClCompile Include="Game\Level\Bound.cpp" />
+    <ClCompile Include="Game\Scenes\Level\Bound.cpp" />
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Object.cpp" />
     <ClCompile Include="Game\Object\SpriteObject.cpp" />
@@ -189,28 +192,32 @@
     <ClCompile Include="RandomEngine\API\Resource\TextureLoader.cpp" />
     <ClCompile Include="RandomEngine\API\System\Keyboard.cpp" />
     <ClCompile Include="RandomEngine\API\System\Mouse.cpp" />
+    <ClCompile Include="RandomEngine\API\UI.cpp" />
     <ClCompile Include="RandomEngine\API\UI\Button.cpp" />
     <ClCompile Include="RandomEngine\API\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Collision\Hitbox.hpp" />
-    <ClInclude Include="Game\Level\Background.hpp" />
-    <ClInclude Include="Game\Level\LevelLoader.hpp" />
-    <ClInclude Include="Game\Level\LevelState.hpp" />
+    <ClInclude Include="Game\Scenes\Editor\ObjectsMenu.hpp" />
+    <ClInclude Include="Game\Scenes\Level\Background.hpp" />
+    <ClInclude Include="Game\Scenes\Level\LevelBase.hpp" />
+    <ClInclude Include="Game\Scenes\Level\LevelLoader.hpp" />
+    <ClInclude Include="Game\Scenes\Level\LevelState.hpp" />
     <ClInclude Include="Game\Object\Trigger\ITransformableObject.h" />
     <ClInclude Include="Game\Player\GameMode.hpp" />
+    <ClInclude Include="Game\Scenes\Editor.hpp" />
+    <ClInclude Include="Game\Scenes\Editor\DevLevel.hpp" />
+    <ClInclude Include="Game\Scenes\Editor\EditorUI.hpp" />
     <ClInclude Include="Game\Scenes\MainMenu.hpp" />
     <ClInclude Include="Game\Scenes\MainScene.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="RandomEngine\API\GlobalData.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
-    <ClInclude Include="Game\IGameObject.hpp" />
     <ClInclude Include="Game\Scenes\Level.hpp" />
-    <ClInclude Include="Game\Level\Bound.hpp" />
+    <ClInclude Include="Game\Scenes\Level\Bound.hpp" />
     <ClInclude Include="Game\Object\Group.hpp" />
     <ClInclude Include="Game\Object\ProcessGroup.hpp" />
-    <ClInclude Include="Game\Level\Part.hpp" />
     <ClInclude Include="Game\Object.hpp" />
     <ClInclude Include="Game\Object\SpriteObject.hpp" />
     <ClInclude Include="Game\Object\VertexObject.hpp" />
@@ -241,6 +248,8 @@
     <ClInclude Include="RandomEngine\API\Tests\ShapeTests.hpp" />
     <ClInclude Include="RandomEngine\API\UI.hpp" />
     <ClInclude Include="RandomEngine\API\UI\Button.hpp" />
+    <ClInclude Include="RandomEngine\API\UI\Tabs.hpp" />
+    <ClInclude Include="RandomEngine\API\UI\UIComponent.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

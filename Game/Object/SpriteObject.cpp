@@ -5,8 +5,8 @@
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
 #include <RandomEngine/API/Graphics/Shape.hpp>
-#include <RandomEngine/API/Math/RepulsionResult.hpp>
 #include <RandomEngine/API/Math/CollisionFunctions.hpp>
+#include <RandomEngine/API/Resource/TextureLoader.hpp>
 #include "Game/Player.hpp"
 #include "Game/Settings.hpp"
 
@@ -14,22 +14,14 @@ namespace game
 {
 	void SpriteObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		//states.transform *= getTransform();
-
-		sprite.setPosition(getPosition());
-		sprite.setRotation(getRotation());
-		sprite.setScale(getScale());
+		states.transform *= getTransform();
 		target.draw(sprite, states);
-
-		if (Settings::show_hitboxes)
-		{
-			Shape::createRectangle(getCollisionRect(), hitbox_vertices);
-			target.draw(hitbox_vertices, 5, sf::LinesStrip, states);
-		}
 	}
 	SpriteObject::SpriteObject()
-		: hitbox({ -0.5f, -0.5f }, { 0.5f, 0.5f }) 
 	{
+		hitbox.min = { -0.5f, -0.5f };
+		hitbox.max = { 0.5f, 0.5f };
+
 		for (auto& vert : hitbox_vertices)
 			vert.color = { 0, 0, 255 };
 	}
@@ -74,5 +66,9 @@ namespace game
 		if (result.min.y > result.max.y)
 			std::swap(result.min.y, result.max.y);
 		return result;
+	}
+	std::unique_ptr<Object> SpriteObject::clone() const
+	{
+		return std::make_unique<SpriteObject>(*this);
 	}
 }

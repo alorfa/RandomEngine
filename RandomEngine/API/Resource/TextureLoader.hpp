@@ -15,7 +15,6 @@ namespace random_engine
 			Mipmaps = 4,
 			Default = Smooth | Repeated | Mipmaps
 		};
-		//bool loadFromFile(const std::string& filename, const sf::IntRect& area = sf::IntRect()) = delete;
 	};
 	class TextureLoader : public ResourceLoader
 	{

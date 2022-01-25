@@ -12,7 +12,7 @@ namespace
 
 namespace game
 {
-	bool GameMode::onClick(Player& p)
+	bool GameMode::onClick(Player& p) const
 	{
 		if (not p.actionIsCommited and onClickCallback)
 		{
@@ -22,7 +22,7 @@ namespace game
 		}
 		return false;
 	}
-	bool GameMode::onClickOnGround(Player& p)
+	bool GameMode::onClickOnGround(Player& p) const
 	{
 		if (not p.actionIsCommited and onClickOnGroundCallback and p.isOnGround())
 		{
@@ -32,7 +32,7 @@ namespace game
 		}
 		return false;
 	}
-	bool GameMode::onHold(Player& p, float delta)
+	bool GameMode::onHold(Player& p, float delta) const
 	{
 		if (onHoldCallback)
 		{
@@ -42,7 +42,7 @@ namespace game
 		}
 		return false;
 	}
-	bool GameMode::onHoldOnGround(Player& p)
+	bool GameMode::onHoldOnGround(Player& p) const
 	{
 		if (onHoldOnGroundCallback and p.isOnGround())
 		{
@@ -76,7 +76,7 @@ namespace game
 	}, default_dir_cb, -70.f, 17.f
 	);
 	const GameMode GameMode::ship(nullptr, nullptr, [](Player& p, float delta) {
-		p.direction.y += 90.f * delta  * -Math::sign(p.game_mode.gravity);
+		p.direction.y += 90.f * delta  * -(float)Math::sign(p.game_mode.gravity);
 	}, nullptr, default_dir_cb, -40.f, 17.f, true
 	);
 }
