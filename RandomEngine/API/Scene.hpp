@@ -10,8 +10,6 @@ namespace random_engine
 	{
 	protected:
 		std::vector<Scene*> scenes;
-
-		void drawScenes(sf::RenderTarget& target, const sf::RenderStates& states) const;
 	public:
 		virtual void handleEvents(const sf::Event& e) = 0;
 		virtual void update(float delta) = 0;
@@ -20,5 +18,16 @@ namespace random_engine
 		void registerScene(Scene& scene);
 
 		Scene* owner = nullptr;
+
+		template <typename T>
+		bool is() const
+		{
+			return (bool)dynamic_cast<const T*>(this);
+		}
+		template <typename T>
+		T& as()
+		{
+			return dynamic_cast<T&>(*this);
+		}
 	};
 }

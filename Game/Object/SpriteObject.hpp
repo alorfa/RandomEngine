@@ -11,6 +11,8 @@ namespace game
 {
 	class SpriteObject : public game::Object
 	{
+		static sf::Shader* select_shader;
+
 		mutable Sprite sprite;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

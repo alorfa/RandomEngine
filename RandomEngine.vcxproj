@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -156,12 +156,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;D:\libs\boost_1_75_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\libs\SFML-2.5.1\lib;$(SolutionDir)\packages\boost_json-vc142.1.77.0.0\lib\native;$(SolutionDir)\packages\boost_container-vc142.1.78.0\lib\native;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-audio-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
+    <ClCompile Include="Game\Scenes\Editor\HotkeyHandler.cpp" />
+    <ClCompile Include="Game\Scenes\Editor\ObjectsMenu.cpp" />
     <ClCompile Include="Game\Scenes\Level\Background.cpp" />
     <ClCompile Include="Game\Scenes\Level\LevelBase.cpp" />
     <ClCompile Include="Game\Scenes\Level\LevelLoader.cpp" />
@@ -173,6 +175,7 @@
     <ClCompile Include="Game\Scenes\MainScene.cpp" />
     <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\SpriteModel.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\Scenes\Level.cpp" />
     <ClCompile Include="Game\Scenes\Level\Bound.cpp" />
@@ -195,9 +198,13 @@
     <ClCompile Include="RandomEngine\API\UI.cpp" />
     <ClCompile Include="RandomEngine\API\UI\Button.cpp" />
     <ClCompile Include="RandomEngine\API\Scene.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\SelectableButton.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\Tabs.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\UIComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Collision\Hitbox.hpp" />
+    <ClInclude Include="Game\Scenes\Editor\HotkeyHandler.hpp" />
     <ClInclude Include="Game\Scenes\Editor\ObjectsMenu.hpp" />
     <ClInclude Include="Game\Scenes\Level\Background.hpp" />
     <ClInclude Include="Game\Scenes\Level\LevelBase.hpp" />
@@ -212,6 +219,7 @@
     <ClInclude Include="Game\Scenes\MainScene.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="RandomEngine\API\GlobalData.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\SpriteModel.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />
     <ClInclude Include="Game\Scenes\Level.hpp" />
@@ -248,6 +256,7 @@
     <ClInclude Include="RandomEngine\API\Tests\ShapeTests.hpp" />
     <ClInclude Include="RandomEngine\API\UI.hpp" />
     <ClInclude Include="RandomEngine\API\UI\Button.hpp" />
+    <ClInclude Include="RandomEngine\API\UI\SelectableButton.hpp" />
     <ClInclude Include="RandomEngine\API\UI\Tabs.hpp" />
     <ClInclude Include="RandomEngine\API\UI\UIComponent.hpp" />
   </ItemGroup>

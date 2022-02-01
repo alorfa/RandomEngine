@@ -7,6 +7,12 @@
 
 namespace game
 {
+	void DevLevel::removeSelectedObjectsInPart(LevelPart& part)
+	{
+		part.remove_if([](const std::unique_ptr<Object>& obj) {
+			return obj->is_selected;
+		});
+	}
 	DevLevel::DevLevel()
 	{
 	}
@@ -16,12 +22,14 @@ namespace game
 		std::unique_ptr<LevelPart>& part = parts[posX];
 		if (not part)
 			part = std::make_unique<LevelPart>();
-		parts[posX]->push_back(std::move(obj));
+		parts[posX]->push_front(std::move(obj));
 	}
-	void DevLevel::removeObject(const iterator& obj)
+	void DevLevel::removeSelectedObjects()
 	{
-		int posX = int((*obj)->getPosition().x * 0.1);
-		parts[posX]->erase(obj);
+		for (auto& part : parts)
+		{
+			removeSelectedObjectsInPart(*part.second);
+		}
 	}
 	void DevLevel::handleEvents(const sf::Event& e)
 	{
@@ -42,6 +50,16 @@ namespace game
 			for (const auto& obj : *part.second)
 			{
 				target.draw(*obj, states);
+			}
+		}
+		if (Settings::show_hitboxes)
+		{
+			for (auto& part : parts)
+			{
+				for (const auto& obj : *part.second)
+				{
+					obj->drawHitbox(target, states);
+				}
 			}
 		}
 		level->player.drawPath(target, states);

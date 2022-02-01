@@ -13,6 +13,8 @@ namespace random_engine
 		static vec2 getPosition(const Camera& relative_to);
 		static vec2 getPosition();
 
+		static vec2 getOffset(const vec2& camera_size, const ivec2& pixel_offset);
+
 		static bool isPressed(Button button);
 	};
 }

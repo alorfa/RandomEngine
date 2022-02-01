@@ -3,6 +3,7 @@
 #include "Game/Object.hpp"
 #include "Game/Scenes/Level/LevelBase.hpp"
 #include <map>
+#include <forward_list>
 
 using namespace random_engine;
 
@@ -18,18 +19,23 @@ namespace game
 	class DevLevel : public Scene
 	{
 	public:
-		using LevelPart = std::vector<std::unique_ptr<Object>>;
+		template <typename T>
+		using container = std::forward_list<T>;
+
+		using LevelPart = container<std::unique_ptr<Object>>;
 	private:
 		std::map<int, std::unique_ptr<LevelPart>> parts;
+
+		void removeSelectedObjectsInPart(LevelPart& part);
 	public:
 		Level* level = nullptr;
 
 		DevLevel();
 
-		using iterator = std::vector<std::unique_ptr<Object>>::iterator;
+		using iterator = container<std::unique_ptr<Object>>::iterator;
 
 		void addObject(std::unique_ptr<Object> obj);
-		void removeObject(const iterator& obj);
+		void removeSelectedObjects();
 
 		void handleEvents(const sf::Event& e) override;
 		void update(float delta) override;

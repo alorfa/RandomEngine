@@ -36,7 +36,8 @@ namespace random_engine
 	{
 		states.transform *= getTransform();
 		states.texture = texture;
-		states.shader = shader;
+		if (not states.shader)
+			states.shader = shader;
 		target.draw(vertices, 4, sf::TriangleFan, states);
 	}
 
@@ -53,7 +54,7 @@ namespace random_engine
 
 		setArea({ 0.f, 0.f }, { 1.f, 1.f });
 
-		setTexture(textureLoader.getDefault());
+		setTexture(t);
 
 		if (not shader)
 		{
@@ -75,6 +76,15 @@ namespace random_engine
 	void Sprite::setTexture(const Texture& t)
 	{
 		this->texture = &t;
+	}
+	const sf::Color& Sprite::getColor() const
+	{
+		return vertices->color;
+	}
+	void Sprite::setColor(const sf::Color& color)
+	{
+		for (auto& vert : vertices)
+			vert.color = color;
 	}
 	void Sprite::setAlignment(ScaleMode mode)
 	{

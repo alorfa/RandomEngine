@@ -35,6 +35,12 @@
     <ClCompile Include="RandomEngine\API\UI.cpp" />
     <ClCompile Include="Game\Scenes\Editor\DevLevel.cpp" />
     <ClCompile Include="Game\Scenes\Level\LevelBase.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\Tabs.cpp" />
+    <ClCompile Include="Game\Scenes\Editor\ObjectsMenu.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\UIComponent.cpp" />
+    <ClCompile Include="RandomEngine\API\UI\SelectableButton.cpp" />
+    <ClCompile Include="Game\Scenes\Editor\HotkeyHandler.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\SpriteModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -90,6 +96,9 @@
     <ClInclude Include="Game\Scenes\Level\LevelBase.hpp" />
     <ClInclude Include="Game\Scenes\Editor\ObjectsMenu.hpp" />
     <ClInclude Include="RandomEngine\API\UI\Tabs.hpp" />
+    <ClInclude Include="RandomEngine\API\UI\SelectableButton.hpp" />
+    <ClInclude Include="Game\Scenes\Editor\HotkeyHandler.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\SpriteModel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

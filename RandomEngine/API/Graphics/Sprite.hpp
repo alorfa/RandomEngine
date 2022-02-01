@@ -24,6 +24,9 @@ namespace random_engine
 		const Texture& getTexture() const;
 		void setTexture(const Texture& t);
 
+		const sf::Color& getColor() const;
+		void setColor(const sf::Color& color);
+
 		enum ScaleMode
 		{
 			MinOne, MaxOne

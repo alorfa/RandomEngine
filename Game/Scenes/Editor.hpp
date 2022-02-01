@@ -11,7 +11,15 @@ namespace game
 {
 	class Editor : public Scene
 	{
-		bool editor_mode = true;
+	public:
+		enum Mode
+		{
+			Create,
+			Play,
+			Pause
+		};
+	private:
+		Mode mode;
 	public:
 		EditorUI ui;
 		DevLevel dev_level;
@@ -19,12 +27,10 @@ namespace game
 
 		explicit Editor();
 
-		inline bool isEditorMode() const {
-			return editor_mode;
+		inline Mode getMode() const {
+			return mode;
 		}
-
-		void toEditorMode();
-		void toLevelMode();
+		void setMode(Mode mode);
 
 		void handleEvents(const sf::Event& e) override;
 		void update(float delta) override;

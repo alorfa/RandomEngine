@@ -1,7 +1,7 @@
 #include "SpriteObject.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
-
+#include <SFML/Graphics/Shader.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
 #include <RandomEngine/API/Graphics/Shape.hpp>
@@ -10,11 +10,41 @@
 #include "Game/Player.hpp"
 #include "Game/Settings.hpp"
 
+namespace
+{
+	const char* vsh = R"raw(
+void main()
+{
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+
+    // transform the texture coordinates
+	gl_TexCoord[0] = gl_MultiTexCoord0;
+
+    // forward the vertex color
+    gl_FrontColor = gl_Color;
+})raw";
+	const char* fsh = R"raw(
+uniform sampler2D texture;
+
+void main()
+{
+    // lookup the pixel in the texture
+    vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+
+    // multiply it by the color
+    gl_FragColor = gl_Color * pixel * vec4(0, 1, 0, 1);
+})raw";
+}
+
 namespace game
 {
 	void SpriteObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		states.transform *= getTransform();
+		if (is_selected) {
+			states.shader = select_shader;
+		}
+		
 		target.draw(sprite, states);
 	}
 	SpriteObject::SpriteObject()
@@ -24,6 +54,12 @@ namespace game
 
 		for (auto& vert : hitbox_vertices)
 			vert.color = { 0, 0, 255 };
+
+		if (not select_shader)
+		{
+			select_shader = new sf::Shader;
+			select_shader->loadFromMemory(vsh, fsh);
+		}
 	}
 
 	bool SpriteObject::touches(const PhysicalRect& rect) const
@@ -71,4 +107,6 @@ namespace game
 	{
 		return std::make_unique<SpriteObject>(*this);
 	}
+
+	sf::Shader* SpriteObject::select_shader = nullptr;
 }

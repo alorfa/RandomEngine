@@ -4,6 +4,7 @@
 namespace game
 {
 	Editor::Editor()
+		: ui(*this)
 	{
 		registerScene(dev_level);
 		dev_level.level = &level;
@@ -17,45 +18,59 @@ namespace game
 		level.loadPlayer(res / "img/Cube004.png");
 		dev_level.load(user / "levels/first.json");
 	}
-	void Editor::toEditorMode()
+	void Editor::setMode(Mode mode)
 	{
-		editor_mode = true;
-		level.sound.pause();
-	}
-	void Editor::toLevelMode()
-	{
-		editor_mode = false;
-		level.create(dev_level);
-		level.sound.play();
+		switch (mode)
+		{
+		case Mode::Create:
+			level.sound.stop();
+			break;
+		case Mode::Play:
+			if (this->mode == Mode::Create)
+				level.player.reset(Player::CheckPoint(vec2{ 0.f, 0.f }, { 10.4f, 0.f }, GameMode::cube));
+			level.create(dev_level);
+			level.sound.play();
+			break;
+		case Mode::Pause:
+			level.sound.pause();
+			break;
+		}
+		this->mode = mode;
 	}
 	void Editor::handleEvents(const sf::Event& e)
 	{
 		ui.handleEvents(e);
-		if (editor_mode)
+		switch (mode)
+		{
+		case Mode::Create:
 			dev_level.handleEvents(e);
-		else
+			break;
+		case Mode::Play:
 			level.handleEvents(e);
+			break;
+		}
 	}
 	void Editor::update(float delta)
 	{
-		if (editor_mode)
+		switch (mode)
 		{
+		case Mode::Create:
 			dev_level.update(delta);
-		}
-		else
-		{
+			break;
+		case Mode::Play:
 			level.update(delta);
 			GlobalData::getInstance().camera.setPosition(vec2{ level.player.getPosition().x });
+			break;
 		}
 		ui.update(delta);
 	}
 
 	void Editor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		if (not editor_mode)
-			target.draw(level, states);
-		if (editor_mode)
+		if (mode == Mode::Create)
 			target.draw(dev_level, states);
+		else
+			target.draw(level, states);
 		target.draw(ui, states);
 	}
 

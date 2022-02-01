@@ -1,19 +1,23 @@
 #pragma once
 
-#include "RandomEngine/API/Graphics/Sprite.hpp"
+#include <SFML/Graphics/Transformable.hpp>
+#include "RandomEngine/API/Scene.hpp"
+#include "RandomEngine/API/Math/vec2.hpp"
 
 namespace random_engine
 {
 	class Camera;
-	class Scene;
 
-	class UIComponent : public Sprite
+	class UIComponent : public Scene
 	{
+	protected:
+		std::vector<UIComponent*> comps;
 	public:
 		const Camera* camera = nullptr;
-		Scene* owner = nullptr;
 
-		virtual void handleEvents(const sf::Event& e) = 0;
-		virtual void update(float delta) = 0;
+		void registerComponent(UIComponent& comp);
+
+		void setCompAlignment(sf::Transformable& comp, int alignment, const vec2& position);
+		virtual void updateComponentsAlignment() = 0;
 	};
 }

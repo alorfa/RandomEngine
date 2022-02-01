@@ -18,25 +18,22 @@ namespace game
 		const std::filesystem::path& res = GlobalData::getInstance().res;
 		camera.setPosition(0.f, 0.f);
 		camera.setSize(3.f, 3.f);
-		center.setTexture(textureLoader.load(res / "img/button1.jpg"));
+		center.sprite.setTexture(textureLoader.load(res / "img/button1.jpg"));
 		center.owner = left.owner = right.owner = this;
-		left.setPosition(-1.0f, 0.f);
-		right.setPosition(1.0f, 0.f);
-		left.setScale(0.5f, 0.5f);
-		right.setScale(0.5f, 0.5f);
-		left.setTexture(center.getTexture());
-		right.setTexture(center.getTexture());
+		left.sprite.setPosition(-1.0f, 0.f);
+		right.sprite.setPosition(1.0f, 0.f);
+		left.sprite.setScale(0.5f, 0.5f);
+		right.sprite.setScale(0.5f, 0.5f);
+		left.sprite.setTexture(center.sprite.getTexture());
+		right.sprite.setTexture(center.sprite.getTexture());
 		center.camera = right.camera = left.camera = &camera;
-		left.onClick = right.onClick = center.onClick = [](Scene& scene) {
-			MainScene* mscene = dynamic_cast<MainScene*>(scene.owner);
-			if (not mscene)
-			{
-				DEBUG("NOT A MAIN SCENE");
-				return;
-			}
-			mscene->active_scene = &mscene->editor;
-			//mscene->editor.level.reset();
+		left.onReleased = right.onReleased = center.onReleased = [](Button& self) {
+			auto& mscene = self.owner->owner->as<MainScene>();
+			mscene.active_scene = &mscene.editor;
 		};
+	}
+	void MainMenu::updateComponentsAlignment()
+	{
 	}
 	void MainMenu::handleEvents(const sf::Event& e)
 	{

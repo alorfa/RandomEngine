@@ -16,6 +16,13 @@ namespace random_engine
 		setSize(1.f, 1.f);
 		setPosition(0.f, 0.f);
 	}
+	Camera::Camera(const vec2& pos, float rot, const vec2& size)
+	{
+		native_size_handler = defaultSizeHandler;
+		setPosition(pos);
+		setRotation(rot);
+		setSize(size);
+	}
 	void Camera::updateNativeSize()
 	{
 		vec2 new_size = native_size_handler(size, *window);

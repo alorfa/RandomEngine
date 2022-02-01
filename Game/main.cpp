@@ -89,6 +89,10 @@ public:
 
 int main()
 {
+	/*std::locale::global(std::locale("Rus"));
+
+	sf::String str = u8"D:/Alorfa/Код/new_С++/RandomEngine/res";
+	std::wstring res_path = L"D:/Alorfa/\u041A\u043E\u0434/new_\u0421++/RandomEngine/res";*/
 	GlobalData::getInstance().res = "res";
 	GlobalData::getInstance().user = "user";
 	sf::ContextSettings settings;

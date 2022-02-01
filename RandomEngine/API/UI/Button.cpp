@@ -6,25 +6,31 @@
 
 namespace random_engine
 {
+	void Button::updateComponentsAlignment()
+	{
+	}
 	void Button::handleEvents(const sf::Event& e)
 	{
 		Rect hitbox{
-			getPosition() - getScale() * 0.5f,
-			getPosition() + getScale() * 0.5f
+			sprite.getPosition() - sprite.getScale() * 0.5f,
+			sprite.getPosition() + sprite.getScale() * 0.5f
 		};
 		switch (e.type)
 		{
 		case sf::Event::MouseButtonPressed:
 			if (Collision::areIntersected(Mouse::getPosition(*camera), hitbox)) {
 				mouse_has_pressed = true;
+				if (onPressed)
+					onPressed(*this);
 				throw AbortEventProcessing();
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
 			if (mouse_has_pressed and Collision::areIntersected(Mouse::getPosition(*camera), hitbox))
 			{
-				onClick(*owner);
 				mouse_has_pressed = false;
+				if (onReleased)
+					onReleased(*this);
 				throw AbortEventProcessing();
 			}
 			break;
@@ -32,5 +38,9 @@ namespace random_engine
 	}
 	void Button::update(float delta)
 	{
+	}
+	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		target.draw(sprite, states);
 	}
 }

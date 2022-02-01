@@ -22,6 +22,7 @@ namespace random_engine
 		NativeSizeHandler native_size_handler = nullptr;
 		
 		Camera();
+		Camera(const vec2& pos, float rot, const vec2& size);
 
 		void updateNativeSize();
 

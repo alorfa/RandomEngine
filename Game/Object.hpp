@@ -23,6 +23,8 @@ namespace game
 
 		vec2 direction;
 
+		bool is_selected = false;
+
 		void update(float delta);
 
 		inline const vec2& getPrevPos() const {
