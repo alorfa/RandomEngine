@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Game/Object.hpp>
-#include <RandomEngine/API/Graphics/Sprite.hpp>
+#include <RandomEngine/API/Graphics/MultiSprite.hpp>
 #include <RandomEngine/API/Math/CollisionFunctions.hpp>
 #include <filesystem>
 
@@ -13,7 +13,7 @@ namespace game
 	{
 		static sf::Shader* select_shader;
 
-		mutable Sprite sprite;
+		mutable MultiSprite sprite;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
@@ -22,8 +22,11 @@ namespace game
 		bool touches(const PhysicalRect&) const override;
 		RepulsionResult getRepulsionVector(const PhysicalRect&) const override;
 
+		void setColorCount(size_t count);
+		size_t getColorCount() const;
 		void load(const std::filesystem::path& path);
-		void setArea(const vec2& p1, const vec2& p2);
+		void setArea(size_t number, const vec2& p1, const vec2& p2);
+		void setColor(size_t number, const sf::Color& color);
 
 		const PhysicalRect& getPhysicalRect() const;
 		Rect getCollisionRect() const;

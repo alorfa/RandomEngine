@@ -42,12 +42,22 @@ namespace game
 		obj->hitbox = hitbox;
 		if (id <= 100)
 		{
+			if (id == 3)
+				obj->setColorCount(2);
 			obj->load(res / "img/objects.png");
 			vec2 area_begin;
 			area_begin.x = float(id - 1) / (float)OBJECTS_SEGMENTS_X;
 			area_begin.y = 9.f / (float)OBJECTS_SEGMENTS_Y;
-			const vec2 area_end = area_begin + OBJ_PART;
-			obj->setArea(area_begin, area_end);
+			vec2 area_end = area_begin + OBJ_PART;
+			obj->setArea(0, area_begin, area_end);
+			if (id == 3)
+			{
+				area_begin.y -= 0.1f;
+				area_end.y -= 0.1f;
+				obj->setArea(1, area_begin, area_end);
+				obj->setColor(1, sf::Color(255, 127, 0));
+				obj->setColor(0, sf::Color::Magenta);
+			}
 		}
 		else if (id <= 200)
 		{
@@ -57,7 +67,7 @@ namespace game
 			area_begin.x = float(pid - 1) / (float)PORTALS_SEGMENTS_X;
 			area_begin.y = 0.f;
 			const vec2 area_end = area_begin + vec2{ PORT_X_PART, 1.f };
-			obj->setArea(area_begin, area_end);
+			obj->setArea(0, area_begin, area_end);
 			switch (pid)
 			{
 			case 1:

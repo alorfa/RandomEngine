@@ -45,7 +45,8 @@ namespace game
 			states.shader = select_shader;
 		}
 		
-		target.draw(sprite, states);
+		sprite.drawReverse(target, states);
+		//target.draw(sprite, states);
 	}
 	SpriteObject::SpriteObject()
 	{
@@ -72,11 +73,24 @@ namespace game
 	}
 	void SpriteObject::load(const std::filesystem::path& path)
 	{
-		sprite.setTexture(textureLoader.load(path));
+		for (size_t i = 0; i < sprite.getCount(); ++i)
+			sprite[i].texture = &textureLoader.load(path);
 	}
-	void SpriteObject::setArea(const vec2& p1, const vec2& p2)
+	void SpriteObject::setColorCount(size_t count)
 	{
-		sprite.setArea(p1, p2);
+		sprite.setCount(count);
+	}
+	size_t SpriteObject::getColorCount() const
+	{
+		return sprite.getCount();
+	}
+	void SpriteObject::setArea(size_t number, const vec2& p1, const vec2& p2)
+	{
+		sprite[number].setArea(p1, p2);
+	}
+	void SpriteObject::setColor(size_t number, const sf::Color& color)
+	{
+		sprite[number].setColor(color);
 	}
 	const PhysicalRect& SpriteObject::getPhysicalRect() const
 	{

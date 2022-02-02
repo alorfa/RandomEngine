@@ -41,6 +41,8 @@
     <ClCompile Include="RandomEngine\API\UI\SelectableButton.cpp" />
     <ClCompile Include="Game\Scenes\Editor\HotkeyHandler.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\SpriteModel.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\MultiSprite.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\DefaultShaders.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -99,6 +101,8 @@
     <ClInclude Include="RandomEngine\API\UI\SelectableButton.hpp" />
     <ClInclude Include="Game\Scenes\Editor\HotkeyHandler.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\SpriteModel.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\MultiSprite.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\DefaultShaders.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -175,6 +175,8 @@
     <ClCompile Include="Game\Scenes\MainScene.cpp" />
     <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\Camera.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\DefaultShaders.cpp" />
+    <ClCompile Include="RandomEngine\API\Graphics\MultiSprite.cpp" />
     <ClCompile Include="RandomEngine\API\Graphics\SpriteModel.cpp" />
     <ClCompile Include="RandomEngine\API\Math\CollisionFunctions.cpp" />
     <ClCompile Include="Game\Scenes\Level.cpp" />
@@ -219,6 +221,8 @@
     <ClInclude Include="Game\Scenes\MainScene.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
     <ClInclude Include="RandomEngine\API\GlobalData.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\DefaultShaders.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\MultiSprite.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\SpriteModel.hpp" />
     <ClInclude Include="RandomEngine\API\Math\CollisionFunctions.hpp" />
     <ClInclude Include="RandomEngine\API\Math\RepulsionResult.hpp" />

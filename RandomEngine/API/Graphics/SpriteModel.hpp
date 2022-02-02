@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics/Vertex.hpp>
-#include "RandomEngine/API/Resource/TextureLoader.hpp"
 #include "RandomEngine/API/Math/vec2.hpp"
 
 namespace random_engine
 {
+	class Texture;
+
 	class SpriteModel
 	{
 	public:

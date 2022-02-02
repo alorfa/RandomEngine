@@ -1,19 +1,14 @@
 #pragma once
 
-#include <SFML/Graphics/Vertex.hpp>
-#include "RandomEngine/API/Math/vec2.hpp"
+#include "SpriteModel.hpp"
 #include "RandomEngine/API/Graphics/Object.hpp"
 
 namespace random_engine
 {
-	class Texture;
-
 	class Sprite : public Object
 	{
-		inline static sf::Shader* shader = nullptr;
 	protected:
-		sf::Vertex vertices[4];
-		const Texture* texture = nullptr;
+		SpriteModel model;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
@@ -35,10 +30,10 @@ namespace random_engine
 		void align(ScaleMode mode);
 
 		inline const sf::Vertex* getVertices() const {
-			return vertices;
+			return model.vertices;
 		}
 		inline sf::Vertex* changeVertices() {
-			return vertices;
+			return model.vertices;
 		}
 	};
 }
