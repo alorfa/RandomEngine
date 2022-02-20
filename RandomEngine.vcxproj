@@ -126,7 +126,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir);D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ForcedIncludeFiles>RandomEngine\API\System\types.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -147,7 +147,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);SFML_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir);D:\libs\boost_1_75_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libs\SFML-2.5.1\include;$(SolutionDir)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ForcedIncludeFiles>RandomEngine\API\System\types.hpp</ForcedIncludeFiles>
     </ClCompile>
@@ -162,15 +162,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
+    <ClCompile Include="Game\Object\ObjectActions.cpp" />
+    <ClCompile Include="Game\Object\SpriteObjectBuilder.cpp" />
     <ClCompile Include="Game\Scenes\Editor\HotkeyHandler.cpp" />
     <ClCompile Include="Game\Scenes\Editor\ObjectsMenu.cpp" />
     <ClCompile Include="Game\Scenes\Level\Background.cpp" />
+    <ClCompile Include="Game\Scenes\Level\BinaryLevelLoader.cpp" />
     <ClCompile Include="Game\Scenes\Level\LevelBase.cpp" />
-    <ClCompile Include="Game\Scenes\Level\LevelLoader.cpp" />
     <ClCompile Include="Game\Player\GameMode.cpp" />
     <ClCompile Include="Game\Scenes\Editor.cpp" />
     <ClCompile Include="Game\Scenes\Editor\DevLevel.cpp" />
     <ClCompile Include="Game\Scenes\Editor\EditorUI.cpp" />
+    <ClCompile Include="Game\Scenes\Level\Serializer.cpp" />
     <ClCompile Include="Game\Scenes\MainMenu.cpp" />
     <ClCompile Include="Game\Scenes\MainScene.cpp" />
     <ClCompile Include="RandomEngine\API\GlobalData.cpp" />
@@ -206,17 +209,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Collision\Hitbox.hpp" />
+    <ClInclude Include="Game\Object\ObjectActions.hpp" />
+    <ClInclude Include="Game\Object\SpriteObjectBuilder.hpp" />
     <ClInclude Include="Game\Scenes\Editor\HotkeyHandler.hpp" />
     <ClInclude Include="Game\Scenes\Editor\ObjectsMenu.hpp" />
     <ClInclude Include="Game\Scenes\Level\Background.hpp" />
+    <ClInclude Include="Game\Scenes\Level\BinaryLevelLoader.hpp" />
     <ClInclude Include="Game\Scenes\Level\LevelBase.hpp" />
-    <ClInclude Include="Game\Scenes\Level\LevelLoader.hpp" />
     <ClInclude Include="Game\Scenes\Level\LevelState.hpp" />
     <ClInclude Include="Game\Object\Trigger\ITransformableObject.h" />
     <ClInclude Include="Game\Player\GameMode.hpp" />
     <ClInclude Include="Game\Scenes\Editor.hpp" />
     <ClInclude Include="Game\Scenes\Editor\DevLevel.hpp" />
     <ClInclude Include="Game\Scenes\Editor\EditorUI.hpp" />
+    <ClInclude Include="Game\Scenes\Level\Serializer.hpp" />
     <ClInclude Include="Game\Scenes\MainMenu.hpp" />
     <ClInclude Include="Game\Scenes\MainScene.hpp" />
     <ClInclude Include="Game\Settings.hpp" />
@@ -272,6 +278,7 @@
     <Import Project="packages\boost.1.78.0\build\boost.targets" Condition="Exists('packages\boost.1.78.0\build\boost.targets')" />
     <Import Project="packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets" Condition="Exists('packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets')" />
     <Import Project="packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets" Condition="Exists('packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets')" />
+    <Import Project="packages\boost_serialization-vc143.1.78.0\build\boost_serialization-vc143.targets" Condition="Exists('packages\boost_serialization-vc143.1.78.0\build\boost_serialization-vc143.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -280,5 +287,6 @@
     <Error Condition="!Exists('packages\boost.1.78.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.78.0\build\boost.targets'))" />
     <Error Condition="!Exists('packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_json-vc143.1.78.0\build\boost_json-vc143.targets'))" />
     <Error Condition="!Exists('packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_container-vc143.1.78.0\build\boost_container-vc143.targets'))" />
+    <Error Condition="!Exists('packages\boost_serialization-vc143.1.78.0\build\boost_serialization-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_serialization-vc143.1.78.0\build\boost_serialization-vc143.targets'))" />
   </Target>
 </Project>

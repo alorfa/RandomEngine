@@ -138,4 +138,16 @@ namespace random_engine
 		return result;
 	}
 
+	bool Rect::operator==(const Rect& other) const
+	{
+		return (
+			min == other.min and
+			max == other.max);
+	}
+
+	bool Rect::operator!=(const Rect& other) const
+	{
+		return not operator==(other);
+	}
+
 }

@@ -72,7 +72,7 @@ namespace game
 			return;
 
 		isDead = true;
-		sound.setBuffer(soundLoader.load(GlobalData::getInstance().res / "sounds/explode_11.ogg"));
+		sound.setBuffer(soundLoader.load(res / "sounds/explode_11.ogg"));
 		sound.play();
 	}
 	void Player::handleEvents(const sf::Event& e)

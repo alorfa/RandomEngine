@@ -32,7 +32,7 @@ void main()
     vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
 
     // multiply it by the color
-    gl_FragColor = gl_Color * pixel * vec4(0, 1, 0, 1);
+    gl_FragColor = pixel * vec4(0, 1, 0, gl_Color.a);
 })raw";
 }
 
@@ -48,7 +48,8 @@ namespace game
 		sprite.drawReverse(target, states);
 		//target.draw(sprite, states);
 	}
-	SpriteObject::SpriteObject()
+	SpriteObject::SpriteObject(int id)
+		: id(id)
 	{
 		hitbox.min = { -0.5f, -0.5f };
 		hitbox.max = { 0.5f, 0.5f };
@@ -92,6 +93,10 @@ namespace game
 	{
 		sprite[number].setColor(color);
 	}
+	const MultiSprite& SpriteObject::getSprite() const
+	{
+		return sprite;
+	}
 	const PhysicalRect& SpriteObject::getPhysicalRect() const
 	{
 		physical_rect.direction = direction;
@@ -120,6 +125,11 @@ namespace game
 	std::unique_ptr<Object> SpriteObject::clone() const
 	{
 		return std::make_unique<SpriteObject>(*this);
+	}
+
+	int SpriteObject::getId() const
+	{
+		return id;
 	}
 
 	sf::Shader* SpriteObject::select_shader = nullptr;

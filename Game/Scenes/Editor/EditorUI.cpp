@@ -17,7 +17,6 @@ namespace game
 		registerComponent(stop);
 		registerComponent(reset);
 
-		const auto& res = GlobalData::getInstance().res;
 		copypaste.sprite.setTexture(textureLoader.load(res / "img/ui.png"));
 		play.sprite.setTexture(copypaste.sprite.getTexture());
 		stop.sprite.setTexture(copypaste.sprite.getTexture());

@@ -7,6 +7,11 @@
 
 using namespace random_engine;
 
+namespace boost::serialization
+{
+	class access;
+}
+
 namespace game
 {
 	class DevLevel;

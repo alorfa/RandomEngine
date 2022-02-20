@@ -19,7 +19,7 @@ namespace game
 		mutable sf::Vertex hitbox_vertices[5];
 	public:
 		Rect hitbox;
-		std::vector<Group> groups;
+		//std::vector<Group> groups;
 
 		vec2 direction;
 

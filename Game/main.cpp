@@ -17,7 +17,6 @@
 #include <RandomEngine/API/UI/Button.hpp>
 
 #include "Game/Object/SpriteObject.hpp"
-#include "Game/Scenes/Level/LevelLoader.hpp"
 #include "Game/Scenes/MainScene.hpp"
 
 using namespace random_engine;
@@ -93,8 +92,8 @@ int main()
 
 	sf::String str = u8"D:/Alorfa/Код/new_С++/RandomEngine/res";
 	std::wstring res_path = L"D:/Alorfa/\u041A\u043E\u0434/new_\u0421++/RandomEngine/res";*/
-	GlobalData::getInstance().res = "res";
-	GlobalData::getInstance().user = "user";
+	res = "res";
+	user = "user";
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	GlobalData::getInstance().window.create({ 800, 800 }, "title", sf::Style::Default, settings);

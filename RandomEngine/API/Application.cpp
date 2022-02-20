@@ -30,7 +30,7 @@ namespace random_engine
 		return size.x / size.y;
 	}
 	Application::Application(GlobalData& data)
-		: window(data.window), target(data.window), camera(data.camera), res(data.res)
+		: window(data.window), target(data.window), camera(data.camera), res(res)
 	{
 		
 	}

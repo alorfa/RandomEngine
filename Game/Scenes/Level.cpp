@@ -3,11 +3,11 @@
 #include <SFML/Audio.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include "Game/Settings.hpp"
-#include "Game/Scenes/Level/LevelLoader.hpp"
 #include <RandomEngine/API/GlobalData.hpp>
 #include <RandomEngine/API/Resource/TextureLoader.hpp>
 #include <RandomEngine/API/Resource/SoundLoader.hpp>
 #include "Game/Scenes/MainScene.hpp"
+#include "Game/Scenes/Level/BinaryLevelLoader.hpp"
 
 namespace game
 {
@@ -36,7 +36,7 @@ namespace game
 		collisionBodies.push_back(&top);
 		collisionBodies.push_back(&bottom);
 
-		sound.setBuffer(soundLoader.load(GlobalData::getInstance().res / "sounds/lancer.ogg"));
+		sound.setBuffer(soundLoader.load(res / "sounds/lancer.ogg"));
 	}
 	void Level::handleEvents(const sf::Event& e)
 	{
@@ -98,7 +98,7 @@ namespace game
 	}
 	bool Level::load(const std::filesystem::path& path)
 	{
-		std::unique_ptr<LevelState> level{ levelLoader.loadFromFile(path) };
+		const std::unique_ptr<LevelState> level{ binaryLevelLoader.loadFromFile(path) };
 		if (not level)
 			return false;
 		

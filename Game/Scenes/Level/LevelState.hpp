@@ -10,5 +10,6 @@ namespace game
 	{
 		std::vector<std::unique_ptr<Object>> objects;
 		vec2 top_ground = { 0.f, 7.5f }, bottom_ground = { 0.f, -0.5f };
+		vec2 bg_pos;
 	};
 }

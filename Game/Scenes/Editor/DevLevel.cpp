@@ -1,5 +1,5 @@
 #include "DevLevel.hpp"
-#include "Game/Scenes/Level/LevelLoader.hpp"
+#include "Game/Scenes/Level/BinaryLevelLoader.hpp"
 #include <RandomEngine/API/GlobalData.hpp>
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include "Game/Scenes/Level.hpp"
@@ -18,7 +18,7 @@ namespace game
 	}
 	void DevLevel::addObject(std::unique_ptr<Object> obj)
 	{
-		int posX = int(obj->getPosition().x * 0.1);
+		const int posX = int(obj->getPosition().x * 0.1);
 		std::unique_ptr<LevelPart>& part = parts[posX];
 		if (not part)
 			part = std::make_unique<LevelPart>();
@@ -45,7 +45,7 @@ namespace game
 		target.draw(level->bottom);
 		if (Settings::show_grid)
 			level->drawGrid(target, states);
-		for (auto& part : parts)
+		for (const auto& part : parts)
 		{
 			for (const auto& obj : *part.second)
 			{
@@ -54,7 +54,7 @@ namespace game
 		}
 		if (Settings::show_hitboxes)
 		{
-			for (auto& part : parts)
+			for (const auto& part : parts)
 			{
 				for (const auto& obj : *part.second)
 				{
@@ -66,7 +66,7 @@ namespace game
 	}
 	bool DevLevel::load(const std::filesystem::path& path)
 	{
-		std::unique_ptr<LevelState> levelState(levelLoader.loadFromFile(path));
+		const std::unique_ptr<LevelState> levelState(binaryLevelLoader.loadFromFile(path));
 		if (not levelState)
 			return false;
 

@@ -11,12 +11,10 @@ namespace game
 		registerScene(level);
 		registerScene(ui);
 
-		const auto& res = GlobalData::getInstance().res;
-		const auto& user = GlobalData::getInstance().user;
 		level.loadBounds(res / "img/Ground.png");
 		level.loadBackground(res / "img/background.png");
 		level.loadPlayer(res / "img/Cube004.png");
-		dev_level.load(user / "levels/first.json");
+		dev_level.load(user / "levels/first.lvl");
 	}
 	void Editor::setMode(Mode mode)
 	{

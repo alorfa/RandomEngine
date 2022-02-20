@@ -4,12 +4,14 @@
 #include <RandomEngine/API/GlobalData.hpp>
 #include <RandomEngine/API/System/Mouse.hpp>
 #include <RandomEngine/API/Graphics/Shape.hpp>
-#include "Game/Scenes/Level/LevelLoader.hpp"
 #include "Game/Scenes/Editor/DevLevel.hpp"
 #include "Game/Object.hpp"
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
 #include "Game/Settings.hpp"
+#include "Game/Scenes/Level/BinaryLevelLoader.hpp"
+#include "Game/Scenes/Level.hpp"
+#include "Game/Object/SpriteObjectBuilder.hpp"
 
 namespace
 {
@@ -20,8 +22,6 @@ namespace game
 {
 	ObjectsMenu::ObjectsMenu(const Camera& camera, DevLevel& devLevel)
 	{
-		const auto& res = GlobalData::getInstance().res;
-
 		for (auto& vert : select_vertices)
 			vert.color = sf::Color::Green;
 
@@ -50,14 +50,14 @@ namespace game
 		component->onReleased = [](Button& button) {
 			auto& objects = button.owner->owner->as<ObjectsMenu>();
 			objects.setActiveObject(button.as<SelectableButton>(),
-				LevelLoader::createObject(1, {}, hitbox));
+				spriteObjectBuilder.build(1));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 		component->sprite.setArea({ 0.1f, 0.9f }, { 0.2f, 1.f });
 		component->onReleased = [](Button& button) {
 			auto& objects = button.owner->owner->as<ObjectsMenu>();
 			objects.setActiveObject(button.as<SelectableButton>(),
-				LevelLoader::createObject(2, {}, hitbox));
+				spriteObjectBuilder.build(2));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 
@@ -75,21 +75,21 @@ namespace game
 		component->onReleased = [](Button& button) {
 			auto& objects = button.owner->owner->as<ObjectsMenu>();
 			objects.setActiveObject(button.as<SelectableButton>(),
-				LevelLoader::createObject(3, {}, hitbox));
+				spriteObjectBuilder.build(3));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 		component->sprite.setArea({ 0.3f, 0.9f }, { 0.4f, 1.f });
 		component->onReleased = [](Button& button) {
 			auto& objects = button.owner->owner->as<ObjectsMenu>();
 			objects.setActiveObject(button.as<SelectableButton>(), 
-				LevelLoader::createObject(4, {}, hitbox));
+				spriteObjectBuilder.build(4));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 		component->sprite.setArea({ 0.4f, 0.9f }, { 0.5f, 1.f });
 		component->onReleased = [](Button& button) {
 			auto& objects = button.owner->owner->as<ObjectsMenu>();
 			objects.setActiveObject(button.as<SelectableButton>(),
-				LevelLoader::createObject(5, {}, hitbox));
+				spriteObjectBuilder.build(5));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 
@@ -171,6 +171,13 @@ namespace game
 	{
 		if (e.type == sf::Event::Resized)
 			updateComponentsAlignment();
+
+		if (e.type == sf::Event::KeyPressed and e.key.code == sf::Keyboard::S)
+		{
+			BinaryLevelLoader loader;
+			//dev_level->level->create(*dev_level);
+			loader.saveToFile("user/levels/first.lvl", *dev_level);
+		}
 
 		for (auto& comp : comps)
 			comp->handleEvents(e);

@@ -16,6 +16,9 @@ namespace random_engine
 
 		inline Rect(const vec2& min = {}, const vec2& max = {})
 			: min(min), max(max) {}
+
+		bool operator==(const Rect& other) const;
+		bool operator!=(const Rect& other) const;
 	};
 	struct PhysicalRect : Rect
 	{

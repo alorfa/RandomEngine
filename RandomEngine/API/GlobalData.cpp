@@ -12,4 +12,6 @@ namespace random_engine
 		static GlobalData* instance = new GlobalData;
 		return *instance;
 	}
+
+	std::filesystem::path res = "res", user = "user";
 }

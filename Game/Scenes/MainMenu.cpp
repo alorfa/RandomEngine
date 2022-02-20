@@ -15,7 +15,6 @@ namespace game
 	}
 	MainMenu::MainMenu()
 	{
-		const std::filesystem::path& res = GlobalData::getInstance().res;
 		camera.setPosition(0.f, 0.f);
 		camera.setSize(3.f, 3.f);
 		center.sprite.setTexture(textureLoader.load(res / "img/button1.jpg"));

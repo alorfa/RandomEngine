@@ -13,9 +13,10 @@ namespace random_engine
 		GlobalData();
 	public:
 		sf::RenderWindow window;
-		std::filesystem::path res, user;
 		Camera camera;
 
 		static GlobalData& getInstance();
 	};
+
+	extern std::filesystem::path res, user;
 }
