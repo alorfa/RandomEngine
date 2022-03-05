@@ -17,10 +17,10 @@ namespace game
 	}
 	void ObjectActions::toCube(Player& p)
 	{
-		p.game_mode = GameMode::cube;
+		p.setGameMode(GameModeInfo::cube);
 	}
 	void ObjectActions::toShip(Player& p)
 	{
-		p.game_mode = GameMode::ship;
+		p.setGameMode(GameModeInfo::ship);
 	}
 }

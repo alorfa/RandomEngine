@@ -13,11 +13,8 @@
 namespace game
 {
 	void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	{		
-		sprite.setPosition(getPosition());
-		sprite.setScale(getScale());
-		sprite.setRotation(getRotation());
-		target.draw(sprite, states);
+	{
+		view->draw(target, states);
 
 		if (Settings::show_hitboxes)
 		{
@@ -35,15 +32,18 @@ namespace game
 		target.draw(path_vertices.data(), path_vertices.size(), sf::PrimitiveType::LinesStrip, states);
 	}
 	Player::Player()
-		: game_mode(GameMode::cube)
+		: game_mode(GameModeInfo::cube)
 	{
+		main_color = sf::Color::Green;
+		side_color = sf::Color::Cyan;
+
 		for (size_t i = 0; i < 5; i++)
 		{
 			hitbox_vertices[i].color = sf::Color::Green;
 			death_area_vertices[i].color = sf::Color::Red;
 		}
 
-		reset(CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameMode::cube));
+		reset(CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameModeInfo::cube));
 	}
 
 	void Player::reset(const CheckPoint& checkpoint)
@@ -52,7 +52,7 @@ namespace game
 		prev_position = checkpoint.position;
 		setPosition(prev_position);
 		direction = checkpoint.direction;
-		game_mode = checkpoint.game_mode;
+		setGameMode(checkpoint.game_mode);
 
 		path_vertices.clear();
 		path_vertices.push_back(sf::Vertex(checkpoint.position, sf::Color::Green));
@@ -74,6 +74,11 @@ namespace game
 		isDead = true;
 		sound.setBuffer(soundLoader.load(res / "sounds/explode_11.ogg"));
 		sound.play();
+	}
+	void Player::setGameMode(const GameModeInfo& mode)
+	{
+		game_mode = mode;
+		view = PlayerView::createView(mode.type, main_color, side_color, icons, *this);
 	}
 	void Player::handleEvents(const sf::Event& e)
 	{
@@ -102,11 +107,6 @@ namespace game
 			game_mode.onHold(*this, delta);
 		}
 		move(direction * delta);
-		setColor({ 1.f, 1.f, 1.f });
-	}
-	void Player::setTexture(const Texture& t)
-	{
-		sprite.setTexture(t);
 	}
 	void Player::collisionBegin()
 	{
@@ -172,12 +172,6 @@ namespace game
 		{
 			path_vertices.push_back(sf::Vertex(getPosition(), sf::Color::Green));
 		}
-	}
-	void Player::setColor(const color3f& color)
-	{
-		auto* vertices = sprite.changeVertices();
-		for (int i = 0; i < 4; i++)
-			vertices[i].color = color.toSfColor();
 	}
 	const PhysicalRect& Player::getPhysicalRect() const
 	{

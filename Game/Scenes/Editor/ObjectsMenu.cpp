@@ -43,62 +43,86 @@ namespace game
 		button.sprite.setArea({ 0.f, 0.9f }, { 0.1f, 1.f });
 
 		Tabs::ComponentsList blocks;
-		SelectableButton* component = new SelectableButton;
+		auto component = std::make_unique<SelectableButton>();
 		component->select_color = sf::Color(127, 127, 127, 255);
 		component->sprite.setTexture(textureLoader.load(res / "img/objects.png"));
 		component->sprite.setArea({ 0.f, 0.9f }, { 0.1f, 1.f });
-		component->onReleased = [](Button& button) {
-			auto& objects = button.owner->owner->as<ObjectsMenu>();
-			objects.setActiveObject(button.as<SelectableButton>(),
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(),
 				spriteObjectBuilder.build(1));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 		component->sprite.setArea({ 0.1f, 0.9f }, { 0.2f, 1.f });
-		component->onReleased = [](Button& button) {
-			auto& objects = button.owner->owner->as<ObjectsMenu>();
-			objects.setActiveObject(button.as<SelectableButton>(),
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(),
 				spriteObjectBuilder.build(2));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 
-		Tabs::Tab* tab = new Tabs::Tab;
+		auto tab = std::make_unique<Tabs::Tab>();
 		tab->tab = button;
 		tab->comps = std::move(blocks);
 		tab->name = "blocks";
 
-		tabs.setTab(std::unique_ptr<Tabs::Tab>(tab));
+		tabs.setTab(std::move(tab));
 
 		button.sprite.setArea({ 0.2f, 0.9f }, { 0.3f, 1.f });
 
 		blocks.clear();
 		component->sprite.setArea({ 0.2f, 0.9f }, { 0.3f, 1.f });
-		component->onReleased = [](Button& button) {
-			auto& objects = button.owner->owner->as<ObjectsMenu>();
-			objects.setActiveObject(button.as<SelectableButton>(),
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(),
 				spriteObjectBuilder.build(3));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 		component->sprite.setArea({ 0.3f, 0.9f }, { 0.4f, 1.f });
-		component->onReleased = [](Button& button) {
-			auto& objects = button.owner->owner->as<ObjectsMenu>();
-			objects.setActiveObject(button.as<SelectableButton>(), 
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(), 
 				spriteObjectBuilder.build(4));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 		component->sprite.setArea({ 0.4f, 0.9f }, { 0.5f, 1.f });
-		component->onReleased = [](Button& button) {
-			auto& objects = button.owner->owner->as<ObjectsMenu>();
-			objects.setActiveObject(button.as<SelectableButton>(),
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(),
 				spriteObjectBuilder.build(5));
 		};
 		blocks.push_back(std::make_unique<SelectableButton>(*component));
 
-		tab = new Tabs::Tab;
+		tab = std::make_unique<Tabs::Tab>();
 		tab->tab = button;
 		tab->comps = std::move(blocks);
 		tab->name = "spikes";
 
-		tabs.setTab(std::unique_ptr<Tabs::Tab>(tab));
+		tabs.setTab(std::move(tab));
+
+		button.sprite.setTexture(textureLoader.load(res / "img/portals.png"));
+		button.sprite.setScale(0.33f, 1.f);
+		button.sprite.setArea({ 0.f, 0.f }, { 0.1f, 1.f });
+
+		blocks.clear();
+		component->sprite.setScale(0.33f, 1.f);
+		component->sprite.setTexture(textureLoader.load(res / "img/portals.png"));
+		component->sprite.setArea({ 0.f, 0.f }, { 0.1f, 1.f });
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(),
+				spriteObjectBuilder.build(101));
+		};
+		blocks.push_back(std::make_unique<SelectableButton>(*component));
+
+		component->sprite.setArea({ 0.1f, 0.f }, { 0.2f, 1.f });
+		component->onReleased = [this](Button& button) {
+			setActiveObject(button.as<SelectableButton>(),
+				spriteObjectBuilder.build(102));
+		};
+		blocks.push_back(std::make_unique<SelectableButton>(*component));
+
+		tab = std::make_unique<Tabs::Tab>();
+		tab->tab = button;
+		tab->comps = std::move(blocks);
+		tab->name = "portals";
+
+		tabs.setTab(std::move(tab));
+
 		tabs.setActiveTab("spikes");
 
 		updateComponentsAlignment();
@@ -169,14 +193,9 @@ namespace game
 
 	void ObjectsMenu::handleEvents(const sf::Event& e)
 	{
-		if (e.type == sf::Event::Resized)
-			updateComponentsAlignment();
-
 		if (e.type == sf::Event::KeyPressed and e.key.code == sf::Keyboard::S)
 		{
-			BinaryLevelLoader loader;
-			//dev_level->level->create(*dev_level);
-			loader.saveToFile("user/levels/first.lvl", *dev_level);
+			binaryLevelLoader.saveToFile("user/levels/first.lvl", *dev_level);
 		}
 
 		for (auto& comp : comps)

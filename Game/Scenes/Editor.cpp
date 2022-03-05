@@ -13,7 +13,6 @@ namespace game
 
 		level.loadBounds(res / "img/Ground.png");
 		level.loadBackground(res / "img/background.png");
-		level.loadPlayer(res / "img/Cube004.png");
 		dev_level.load(user / "levels/first.lvl");
 	}
 	void Editor::setMode(Mode mode)
@@ -25,7 +24,7 @@ namespace game
 			break;
 		case Mode::Play:
 			if (this->mode == Mode::Create)
-				level.player.reset(Player::CheckPoint(vec2{ 0.f, 0.f }, { 10.4f, 0.f }, GameMode::cube));
+				level.player.reset(Player::CheckPoint(vec2{ 0.f, 0.f }, { 10.4f, 0.f }, GameModeInfo::cube));
 			level.create(dev_level);
 			level.sound.play();
 			break;

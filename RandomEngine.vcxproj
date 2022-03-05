@@ -164,6 +164,9 @@
     <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
     <ClCompile Include="Game\Object\ObjectActions.cpp" />
     <ClCompile Include="Game\Object\SpriteObjectBuilder.cpp" />
+    <ClCompile Include="Game\Player\PlayerView.cpp" />
+    <ClCompile Include="Game\Player\PlayerView\CubeView.cpp" />
+    <ClCompile Include="Game\Player\PlayerView\ShipView.cpp" />
     <ClCompile Include="Game\Scenes\Editor\HotkeyHandler.cpp" />
     <ClCompile Include="Game\Scenes\Editor\ObjectsMenu.cpp" />
     <ClCompile Include="Game\Scenes\Level\Background.cpp" />
@@ -208,9 +211,15 @@
     <ClCompile Include="RandomEngine\API\UI\UIComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Collision\DynamicBody.hpp" />
     <ClInclude Include="Game\Collision\Hitbox.hpp" />
     <ClInclude Include="Game\Object\ObjectActions.hpp" />
     <ClInclude Include="Game\Object\SpriteObjectBuilder.hpp" />
+    <ClInclude Include="Game\Player\IconNumbers.hpp" />
+    <ClInclude Include="Game\Player\PlayerView.hpp" />
+    <ClInclude Include="Game\Player\PlayerView\CubeView.hpp" />
+    <ClInclude Include="Game\Player\PlayerView\IconUnits.hpp" />
+    <ClInclude Include="Game\Player\PlayerView\ShipView.hpp" />
     <ClInclude Include="Game\Scenes\Editor\HotkeyHandler.hpp" />
     <ClInclude Include="Game\Scenes\Editor\ObjectsMenu.hpp" />
     <ClInclude Include="Game\Scenes\Level\Background.hpp" />

@@ -11,7 +11,7 @@ using namespace random_engine;
 
 namespace game
 {
-	class Object : public random_engine::Object, public StaticBody, public ITransformableObject
+	class Object : public GameObjectBase, public StaticBody, public ITransformableObject
 	{
 		vec2 prev_position;
 	protected:

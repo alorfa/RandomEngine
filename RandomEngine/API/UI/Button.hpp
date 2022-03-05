@@ -3,6 +3,7 @@
 #include <SFML/Window/Event.hpp>
 #include "RandomEngine/API/UI/UIComponent.hpp"
 #include "RandomEngine/API/Graphics/Sprite.hpp"
+#include <functional>
 
 namespace random_engine
 {
@@ -14,7 +15,7 @@ namespace random_engine
 	public:
 		Sprite sprite;
 
-		using Event = void (*)(Button& self);
+		using Event = std::function<void(Button&)>;
 
 		Event onPressed = nullptr;
 		Event onReleased = nullptr;

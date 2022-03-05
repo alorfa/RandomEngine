@@ -7,16 +7,17 @@
 #include <RandomEngine/API/Math/CollisionFunctions.hpp>
 #include "Game/Collision/StaticBody.hpp"
 #include "Game/Player/GameMode.hpp"
+#include "Game/Player/PlayerView.hpp"
+#include "Game/Player/IconNumbers.hpp"
 
 using namespace random_engine;
 
 namespace game
 {
-	class Player : public random_engine::Object
+	class Player : public GameObjectBase
 	{
 		friend struct GameMode;
 
-		mutable Sprite sprite;
 		mutable PhysicalRect physical_rect, death_area;
 		mutable sf::Vertex hitbox_vertices[5];
 		mutable sf::Vertex death_area_vertices[5];
@@ -30,13 +31,19 @@ namespace game
 		bool onGround = false;
 
 		bool is_pressed = false;
+
+		std::unique_ptr<PlayerView> view;
 	public:
+		GameMode game_mode;
+		IconNumbers icons;
+		sf::Color main_color, side_color;
+
 		struct CheckPoint
 		{
-			GameMode game_mode;
+			GameModeInfo game_mode;
 			vec2 position, direction;
 
-			inline explicit CheckPoint(const vec2& position, const vec2& direction, const GameMode& gm)
+			inline explicit CheckPoint(const vec2& position, const vec2& direction, const GameModeInfo& gm)
 				: game_mode(gm), position(position), direction(direction) {}
 		};
 
@@ -44,7 +51,6 @@ namespace game
 		// sets the default state
 		void reset(const CheckPoint& checkpoint);
 
-		GameMode game_mode;
 		vec2 direction;
 		bool isDead = false;
 
@@ -52,12 +58,12 @@ namespace game
 		void jump(float strength);
 		void die();
 
+		void setGameMode(const GameModeInfo& mode);
+
 		void handleEvents(const sf::Event& e);
 		void update(float delta);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		void drawPath(sf::RenderTarget& target, const sf::RenderStates& states) const;
-
-		void setTexture(const Texture& t);
 
 		void collisionBegin();
 		void collisionProcess(const StaticBody& bodies);
@@ -67,8 +73,6 @@ namespace game
 			return prev_position;
 		}
 		void collisionEnd();
-
-		void setColor(const color3f& color);
 
 		const PhysicalRect& getPhysicalRect() const;
 		const PhysicalRect& getDeathArea() const;

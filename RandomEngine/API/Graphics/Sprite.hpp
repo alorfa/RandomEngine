@@ -5,7 +5,7 @@
 
 namespace random_engine
 {
-	class Sprite : public Object
+	class Sprite : public GameObjectBase
 	{
 	protected:
 		SpriteModel model;

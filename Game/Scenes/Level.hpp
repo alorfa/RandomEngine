@@ -33,7 +33,6 @@ namespace game
 		void update(float delta) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		void loadPlayer(const std::filesystem::path& path);
 		bool load(const std::filesystem::path& path);
 		void create(const DevLevel& dev);
 		void sortObjects();

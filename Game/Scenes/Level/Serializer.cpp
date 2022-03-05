@@ -25,7 +25,7 @@ namespace game
 	}
 	void Serializer::writeString(const std::string_view string)
 	{
-		writeAsBytes((int)string.size());
+		writeAsBytes((int32)string.size());
 		stream.write(string.data(), string.size());
 	}
 	void Serializer::writeObject(const game::Object& obj)
@@ -37,7 +37,7 @@ namespace game
 			const auto& info = SpriteObjectBuilder::id_map.at(object.getId());
 
 			// id
-			writeAsBytes(object.getId());
+			writeAsBytes((int16)object.getId());
 
 			// transform
 			writeAsBytes(object.getPosition());
@@ -54,20 +54,20 @@ namespace game
 				writeAsBytes('h');
 				writeAsBytes(object.hitbox);
 			}
-			writeAsBytes(object.collisionMode);
+			writeAsBytes((int8)object.collisionMode);
 			if (object.collisionMode == StaticBody::OnClick or
 				object.collisionMode == StaticBody::Touch)
 			{
 				if (object.action == ObjectActions::die)
-					writeAsBytes(1);
+					writeAsBytes((int8)1);
 				if (object.action == ObjectActions::normalJump)
-					writeAsBytes(2);
+					writeAsBytes((int8)2);
 				if (object.action == ObjectActions::littleJump)
-					writeAsBytes(3);
+					writeAsBytes((int8)3);
 				if (object.action == ObjectActions::toShip)
-					writeAsBytes(4);
+					writeAsBytes((int8)4);
 				if (object.action == ObjectActions::toCube)
-					writeAsBytes(5);
+					writeAsBytes((int8)5);
 			}
 		}
 	}
@@ -89,7 +89,7 @@ namespace game
 		if (objectType == 's')
 		{
 			SpriteObjectBuilder builder;
-			builder.setObjectId(readFromBytes<int>());
+			builder.setObjectId(readFromBytes<int16>());
 			auto result = builder.build();
 
 			// transform
@@ -106,11 +106,11 @@ namespace game
 			else
 				move(-1);
 
-			readFromBytes(result->collisionMode);
+			result->collisionMode = (StaticBody::CollisionMode)readFromBytes<int8>();
 			if (result->collisionMode == StaticBody::OnClick or
 				result->collisionMode == StaticBody::Touch)
 			{
-				result->action = builder.idToAction(readFromBytes<int>());
+				result->action = builder.idToAction(readFromBytes<int8>());
 			}
 			return result;
 		}

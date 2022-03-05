@@ -46,6 +46,9 @@
     <ClCompile Include="Game\Scenes\Level\Serializer.cpp" />
     <ClCompile Include="Game\Object\ObjectActions.cpp" />
     <ClCompile Include="Game\Object\SpriteObjectBuilder.cpp" />
+    <ClCompile Include="Game\Player\PlayerView.cpp" />
+    <ClCompile Include="Game\Player\PlayerView\CubeView.cpp" />
+    <ClCompile Include="Game\Player\PlayerView\ShipView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -109,6 +112,12 @@
     <ClInclude Include="Game\Scenes\Level\Serializer.hpp" />
     <ClInclude Include="Game\Object\ObjectActions.hpp" />
     <ClInclude Include="Game\Object\SpriteObjectBuilder.hpp" />
+    <ClInclude Include="Game\Player\PlayerView.hpp" />
+    <ClInclude Include="Game\Player\PlayerView\CubeView.hpp" />
+    <ClInclude Include="Game\Collision\DynamicBody.hpp" />
+    <ClInclude Include="Game\Player\IconNumbers.hpp" />
+    <ClInclude Include="Game\Player\PlayerView\ShipView.hpp" />
+    <ClInclude Include="Game\Player\PlayerView\IconUnits.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -76,7 +76,11 @@ namespace game
 	void EditorUI::handleEvents(const sf::Event& e)
 	{
 		if (e.type == sf::Event::Resized)
+		{
 			updateComponentsAlignment();
+			for (auto& comp : components)
+				comp->updateComponentsAlignment();
+		}
 
 		for (auto* comp : getActiveComps())
 			comp->handleEvents(e);

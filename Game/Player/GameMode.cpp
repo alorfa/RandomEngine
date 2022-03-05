@@ -1,6 +1,7 @@
 #include "GameMode.hpp"
 #include "Game/Player.hpp"
 #include <RandomEngine/API/Math/Functions.hpp>
+#include "PlayerView/CubeView.hpp"
 
 namespace
 {
@@ -71,11 +72,26 @@ namespace game
 		head_collision(head_collision)
 	{}
 
-	const GameMode GameMode::cube(nullptr, nullptr, nullptr, [](Player& p, float _) {
+	GameModeInfo::GameModeInfo(PlayerView::Type type, 
+		Callback onClick,
+		Callback onClickOnGround,
+		Callback onHold,
+		Callback onHoldOnGround,
+		UpdateDirectionCallback updateDir,
+		float gravity,
+		float jumpStrength,
+		bool head_collision)
+
+		: type(type),
+		GameMode(onClick, onClickOnGround, onHold, onHoldOnGround, 
+			updateDir, gravity, jumpStrength, head_collision)
+	{}
+
+	const GameModeInfo GameModeInfo::cube(PlayerView::Cube, nullptr, nullptr, nullptr, [](Player& p, float _) {
 		p.jump(1.f);
 	}, default_dir_cb, -70.f, 17.f
 	);
-	const GameMode GameMode::ship(nullptr, nullptr, [](Player& p, float delta) {
+	const GameModeInfo GameModeInfo::ship(PlayerView::Ship, nullptr, nullptr, [](Player& p, float delta) {
 		p.direction.y += 90.f * delta  * -(float)Math::sign(p.game_mode.gravity);
 	}, nullptr, default_dir_cb, -40.f, 17.f, true
 	);

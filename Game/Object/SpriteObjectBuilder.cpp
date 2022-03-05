@@ -72,8 +72,8 @@ namespace
 			pair(3, { vec2{0.2f, 0.9f}, vec2{0.2f, 0.8f}}, 1, Rect({ -0.17f, -0.5f }, { 0.17f, 0.15f }), CMode::Touch, 1),
 			pair(4, vec2{0.3f, 0.9f}, 1, HITBOX, CMode::OnClick, 2),
 			pair(5, vec2{0.4f, 0.9f}, 1, HITBOX, CMode::OnClick, 3),
-			pair(101, vec2{0.f, 0.f}, 2, HITBOX, CMode::Touch, 4),
-			pair(102, vec2{0.1f, 0.f}, 2, HITBOX, CMode::Touch, 5)
+			pair(101, vec2{0.f, 0.f}, 2, HITBOX, CMode::Touch, 4, vec2{1.f, 3.f}),
+			pair(102, vec2{0.1f, 0.f}, 2, HITBOX, CMode::Touch, 5, vec2{1.f, 3.f})
 			});
 		return result;
 	}
@@ -90,8 +90,8 @@ namespace game
 		case 1: return ObjectActions::die; 
 		case 2: return ObjectActions::normalJump;
 		case 3: return ObjectActions::littleJump;
-		case 4: return ObjectActions::toCube;
-		case 5: return ObjectActions::toShip;
+		case 4: return ObjectActions::toShip;
+		case 5: return ObjectActions::toCube;
 		default:
 			DEBUG("ACTION ID FAILED");
 		}

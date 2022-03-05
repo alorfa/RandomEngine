@@ -1,6 +1,7 @@
 #pragma once
 
 #include <RandomEngine/API/Math/vec2.hpp>
+#include "Game/Player/PlayerView.hpp"
 
 using namespace random_engine;
 
@@ -10,6 +11,7 @@ namespace game
 
 	struct GameMode
 	{
+	public:
 		using Callback = void (*)(Player&, float delta);
 		using UpdateDirectionCallback = vec2(*)(const Player&, vec2 dir, float delta);
 
@@ -29,10 +31,20 @@ namespace game
 
 		bool head_collision;
 
-		static const GameMode cube;
-		static const GameMode ship;
-
 		GameMode(Callback onClick, Callback onClickOnGround, Callback onHold, Callback onHoldOnGround,
+			UpdateDirectionCallback updateDir,
+			float gravity, float jumpStrength, bool head_collision = false);
+	};
+
+	struct GameModeInfo : GameMode
+	{
+		PlayerView::Type type;
+
+		static const GameModeInfo cube;
+		static const GameModeInfo ship;
+
+		GameModeInfo(PlayerView::Type type,
+			Callback onClick, Callback onClickOnGround, Callback onHold, Callback onHoldOnGround,
 			UpdateDirectionCallback updateDir,
 			float gravity, float jumpStrength, bool head_collision = false);
 	};

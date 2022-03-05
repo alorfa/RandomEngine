@@ -8,7 +8,7 @@
 
 namespace random_engine
 {
-	struct VertexObject : public Object
+	struct VertexObject : public GameObjectBase
 	{
 	protected:
 		void draw(sf::RenderTarget&, sf::RenderStates states) const override;

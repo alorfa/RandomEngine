@@ -6,7 +6,7 @@
 
 namespace random_engine
 {
-	class MultiSprite : public Object
+	class MultiSprite : public GameObjectBase
 	{
 		std::vector<SpriteModel> models;
 	public:

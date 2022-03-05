@@ -31,7 +31,7 @@ namespace game
 		}
 	}
 	Level::Level()
-		: checkpoint({0.f, 0.f}, {10.4f, 0.f}, GameMode::cube)
+		: checkpoint({0.f, 0.f}, {10.4f, 0.f}, GameModeInfo::cube)
 	{
 		collisionBodies.push_back(&top);
 		collisionBodies.push_back(&bottom);
@@ -91,10 +91,6 @@ namespace game
 			if (player.testCollisions(*body))
 				player.die();
 		}
-	}
-	void Level::loadPlayer(const std::filesystem::path& path)
-	{
-		player.setTexture(textureLoader.load(path));
 	}
 	bool Level::load(const std::filesystem::path& path)
 	{
