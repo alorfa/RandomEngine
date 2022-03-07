@@ -15,6 +15,7 @@ namespace game
 		void setMainColor(const sf::Color& color);
 		void setSideColor(const sf::Color& color);
 
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void update(float delta) override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	};
 }

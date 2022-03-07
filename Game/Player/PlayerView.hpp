@@ -18,10 +18,18 @@ namespace game
 		{
 			Cube, Ship
 		};
+	private:
+		Type _type;
+	public:
+		PlayerView(Type type);
+		inline Type type() const {
+			return _type;
+		}
 
 		virtual void setMainColor(const sf::Color& color) = 0;
 		virtual void setSideColor(const sf::Color& color) = 0;
 
+		virtual void update(float delta) = 0;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 		static std::unique_ptr<PlayerView> createView(PlayerView::Type type,

@@ -49,6 +49,7 @@
     <ClCompile Include="Game\Player\PlayerView.cpp" />
     <ClCompile Include="Game\Player\PlayerView\CubeView.cpp" />
     <ClCompile Include="Game\Player\PlayerView\ShipView.cpp" />
+    <ClCompile Include="Game\Collision\DynamicBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomEngine\API\Application.hpp" />
@@ -71,7 +72,7 @@
     <ClInclude Include="Game\Object\Group.hpp" />
     <ClInclude Include="RandomEngine\API\Math\color.hpp" />
     <ClInclude Include="RandomEngine\API\Tests\ShapeTests.hpp" />
-    <ClInclude Include="RandomEngine\API\Graphics\Object.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\GameObjectBase.hpp" />
     <ClInclude Include="RandomEngine\API\Math\Functions.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\VertexObject.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Shape.hpp" />

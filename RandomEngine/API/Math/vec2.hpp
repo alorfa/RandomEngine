@@ -60,6 +60,12 @@ namespace random_engine
 	}
 
 	template <typename T>
+	float operator^(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
+	{
+		return v1.x * v2.x + v1.y * v2.y;
+	}
+
+	template <typename T>
 	vector2<T> operator/(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2)
 	{
 		return vector2<T>(

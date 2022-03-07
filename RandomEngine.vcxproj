@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Collision\DynamicBody.cpp" />
     <ClCompile Include="Game\Collision\RectangleHitbox.cpp" />
     <ClCompile Include="Game\Object\ObjectActions.cpp" />
     <ClCompile Include="Game\Object\SpriteObjectBuilder.cpp" />
@@ -260,7 +261,7 @@
     <ClInclude Include="RandomEngine\API\Auxiliary\DEBUG.hpp" />
     <ClInclude Include="RandomEngine\API\Auxiliary\print_vectors.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Camera.hpp" />
-    <ClInclude Include="RandomEngine\API\Graphics\Object.hpp" />
+    <ClInclude Include="RandomEngine\API\Graphics\GameObjectBase.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Shape.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\Sprite.hpp" />
     <ClInclude Include="RandomEngine\API\Graphics\VertexObject.hpp" />

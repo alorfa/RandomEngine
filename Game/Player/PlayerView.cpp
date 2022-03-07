@@ -9,6 +9,9 @@
 
 namespace game
 {
+	PlayerView::PlayerView(Type type)
+		: _type(type) {}
+
 	std::unique_ptr<PlayerView> PlayerView::createView(PlayerView::Type type,
 		const sf::Color& main, const sf::Color& side, 
 		const IconNumbers& icons, const Player& player)

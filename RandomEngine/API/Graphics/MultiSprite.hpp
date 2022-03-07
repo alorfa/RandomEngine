@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RandomEngine/API/Graphics/Object.hpp"
+#include "RandomEngine/API/Graphics/GameObjectBase.hpp"
 #include "RandomEngine/API/Graphics/SpriteModel.hpp"
 #include <vector>
 

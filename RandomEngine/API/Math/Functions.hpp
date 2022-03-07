@@ -44,6 +44,11 @@ namespace random_engine
 		{
 			return a + (b - a) * t;
 		}
-		static vec2 linearSmooth(const vec2& cur_pos, const vec2& end_pos, float speed, float delta);
+		template <typename T>
+		static T linearSmooth(const T& cur_pos, const T& end_pos, float speed, float delta)
+		{
+			const float offset = clamp(speed * delta, 0.f, 1.f);
+			return linearInterpolate(cur_pos, end_pos, offset);
+		}
 	};
 }

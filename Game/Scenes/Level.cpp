@@ -85,6 +85,7 @@ namespace game
 		for (const auto* body : collisionBodies)
 			player.collisionProcess(*body);
 		player.collisionEnd();
+		player.updateView(delta);
 
 		for (const auto* body : collisionBodies)
 		{

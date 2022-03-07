@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <RandomEngine/API/Graphics/Object.hpp>
+#include <RandomEngine/API/Graphics/GameObjectBase.hpp>
 #include "Game/Collision/StaticBody.hpp"
 #include "Game/Object/Group.hpp"
 #include "Game/Object/Trigger/ITransformableObject.h"

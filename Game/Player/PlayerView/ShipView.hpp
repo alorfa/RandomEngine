@@ -9,6 +9,7 @@ namespace game
 	{
 		mutable sf::Transformable transform;
 		MultiSprite ship, cube;
+		float rotation = 0.f;
 		const Player* player = nullptr;
 	public:
 		ShipView(const sf::Color& main, const sf::Color& side, 
@@ -17,6 +18,7 @@ namespace game
 		void setMainColor(const sf::Color& color);
 		void setSideColor(const sf::Color& color);
 
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void update(float delta) override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	};
 }

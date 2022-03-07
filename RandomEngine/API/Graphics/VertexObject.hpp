@@ -3,7 +3,7 @@
 #include <vector>
 #include <SFML/Graphics/Vertex.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
-#include "RandomEngine/API/Graphics/Object.hpp"
+#include "RandomEngine/API/Graphics/GameObjectBase.hpp"
 #include "RandomEngine/API/System/types.hpp"
 
 namespace random_engine

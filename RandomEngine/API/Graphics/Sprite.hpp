@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SpriteModel.hpp"
-#include "RandomEngine/API/Graphics/Object.hpp"
+#include "RandomEngine/API/Graphics/GameObjectBase.hpp"
 
 namespace random_engine
 {

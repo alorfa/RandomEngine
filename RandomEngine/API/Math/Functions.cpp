@@ -24,10 +24,4 @@ namespace random_engine
 		result.y = sin(rad) * size.y;
 		return result;
 	}
-	vec2 Math::linearSmooth(const vec2& cur_pos, const vec2& end_pos, float speed, float delta)
-	{
-		float offset = speed * delta;
-		offset = clamp(offset, 0.f, 1.f);
-		return linearInterpolate(cur_pos, end_pos, offset);
-	}
 }

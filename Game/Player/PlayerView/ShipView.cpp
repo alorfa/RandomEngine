@@ -4,11 +4,13 @@
 #include <RandomEngine/API/Math/CollisionFunctions.hpp>
 #include "IconUnits.hpp"
 #include "Game/Player.hpp"
+#include "RandomEngine/API/Auxiliary/DEBUG.hpp"
 
 namespace game
 {
 	ShipView::ShipView(const sf::Color& main, const sf::Color& side, 
 		uint32 ship_id, uint32 cube_id, const Player& p)
+		: PlayerView(Ship)
 	{
 		ship.setCount(2);
 		cube.setCount(2);
@@ -46,11 +48,15 @@ namespace game
 		ship[1].setColor(color);
 		cube[1].setColor(color);
 	}
+	void ShipView::update(float delta)
+	{
+		rotation = Math::linearSmooth(rotation, player->direction.y * 2.f, 20.f, delta);
+		transform.setRotation(rotation);
+	}
 	void ShipView::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		transform.setPosition(player->getPosition());
 		transform.setScale(player->getScale());
-		transform.setRotation(player->direction.y * 2.f);
 		states.transform *= transform.getTransform();
 		cube.drawReverse(target, states);
 		ship.drawReverse(target, states);
