@@ -6,6 +6,6 @@ namespace game
 {
 	struct IconNumbers
 	{
-		uint32 cube = 0, ship = 0;
+		uint32 cube = 0, ship = 0, ball = 0;
 	};
 }

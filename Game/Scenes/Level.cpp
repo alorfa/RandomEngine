@@ -31,12 +31,14 @@ namespace game
 		}
 	}
 	Level::Level()
-		: checkpoint({0.f, 0.f}, {10.4f, 0.f}, GameModeInfo::cube)
+		: checkpoint({0.f, 0.f}, {10.4f, 0.f}, GameModeInfo::ball)
 	{
 		collisionBodies.push_back(&top);
 		collisionBodies.push_back(&bottom);
 
 		sound.setBuffer(soundLoader.load(res / "sounds/lancer.ogg"));
+
+		player.reset(checkpoint);
 	}
 	void Level::handleEvents(const sf::Event& e)
 	{

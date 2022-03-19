@@ -8,6 +8,8 @@ using namespace random_engine;
 
 namespace game
 {
+	class SpriteObject;
+	class VertexObject;
 	class Object;
 
 	class Serializer
@@ -30,7 +32,10 @@ namespace game
 			stream.write((const char*)&obj, sizeof(T));
 		}
 		void writeString(const std::string_view string);
-		void writeObject(const game::Object& obj);
+		void writeObjectInfo(const Object& object, const vec2& size, const Rect& hitbox);
+		void writeSpriteObject(const SpriteObject& object);
+		void writeVertexObject(const VertexObject& object);
+		void writeObject(const Object& object);
 
 		template <typename T>
 		void readFromBytes(T& out)
@@ -47,6 +52,9 @@ namespace game
 			return result;
 		}
 		std::string readString();
+		void readObjectInfo(Object& object);
+		std::unique_ptr<SpriteObject> readSpriteObject();
+		std::unique_ptr<VertexObject> readVertexObject();
 		std::unique_ptr<Object> readObject();
 	};
 }

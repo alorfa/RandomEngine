@@ -4,7 +4,6 @@
 #include <RandomEngine/API/Auxiliary/DEBUG.hpp>
 #include <RandomEngine/API/Auxiliary/print_vectors.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
-#include <RandomEngine/API/Graphics/VertexObject.hpp>
 #include <RandomEngine/API/Graphics/Sprite.hpp>
 
 namespace random_engine

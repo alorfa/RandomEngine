@@ -43,7 +43,7 @@ namespace game
 			death_area_vertices[i].color = sf::Color::Red;
 		}
 
-		reset(CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameModeInfo::cube));
+		reset(CheckPoint({ 0.f, 0.f }, { 10.4f, 0.f }, GameModeInfo::ball));
 	}
 
 	void Player::reset(const CheckPoint& checkpoint)
@@ -70,6 +70,22 @@ namespace game
 		isDead = true;
 		sound.setBuffer(soundLoader.load(res / "sounds/explode_11.ogg"));
 		sound.play();
+	}
+	void Player::updateGameMode(const GameModeInfo& mode)
+	{
+		game_mode.gravity = -Math::sign(game_mode.gravity) * mode.gravity;
+		game_mode.head_collision = mode.head_collision;
+		game_mode.jumpStrength = mode.jumpStrength;
+		game_mode.onClickCallback = mode.onClickCallback;
+		game_mode.onClickOnGroundCallback = mode.onClickOnGroundCallback;
+		game_mode.onHoldCallback = mode.onHoldCallback;
+		game_mode.onHoldOnGroundCallback = mode.onHoldOnGroundCallback;
+		game_mode.updateDirCallback = mode.updateDirCallback;
+		//game_mode = mode;
+		if (not view or view->type() != mode.type)
+		{
+			view = PlayerView::createView(mode.type, main_color, side_color, icons, *this);
+		}
 	}
 	void Player::setGameMode(const GameModeInfo& mode)
 	{

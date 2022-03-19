@@ -15,6 +15,7 @@ namespace random_engine
 		static float rad(float deg);
 		static float deg(float rad);
 		static vec2 getCirclePoint(float rad, const vec2& size);
+		static float getAngle(const vec2& normalized_vector);
 
 		template <typename T>
 		static int sign(T value)

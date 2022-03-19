@@ -73,7 +73,8 @@ namespace
 			pair(4, vec2{0.3f, 0.9f}, 1, HITBOX, CMode::OnClick, 2),
 			pair(5, vec2{0.4f, 0.9f}, 1, HITBOX, CMode::OnClick, 3),
 			pair(101, vec2{0.f, 0.f}, 2, HITBOX, CMode::Touch, 4, vec2{1.f, 3.f}),
-			pair(102, vec2{0.1f, 0.f}, 2, HITBOX, CMode::Touch, 5, vec2{1.f, 3.f})
+			pair(102, vec2{0.1f, 0.f}, 2, HITBOX, CMode::Touch, 5, vec2{1.f, 3.f}),
+			pair(103, vec2{0.2f, 0.f}, 2, HITBOX, CMode::Touch, 6, vec2{1.f, 3.f})
 			});
 		return result;
 	}

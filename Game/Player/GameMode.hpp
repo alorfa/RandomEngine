@@ -42,6 +42,7 @@ namespace game
 
 		static const GameModeInfo cube;
 		static const GameModeInfo ship;
+		static const GameModeInfo ball;
 
 		GameModeInfo(PlayerView::Type type,
 			Callback onClick, Callback onClickOnGround, Callback onHold, Callback onHoldOnGround,

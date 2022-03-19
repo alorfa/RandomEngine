@@ -16,7 +16,7 @@ namespace game
 	public:
 		enum Type
 		{
-			Cube, Ship
+			Cube, Ship, Ball
 		};
 	private:
 		Type _type;

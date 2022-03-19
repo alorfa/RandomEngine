@@ -24,4 +24,14 @@ namespace random_engine
 		result.y = sin(rad) * size.y;
 		return result;
 	}
+	float Math::getAngle(const vec2& vector)
+	{
+		const float asine = asinf(vector.y);
+		const float acosine = acosf(vector.x);
+
+		if (asine >= 0.f)
+			return acosine;
+		//return acosine - (PI - acosine);
+		return TAU - acosine;
+	}
 }

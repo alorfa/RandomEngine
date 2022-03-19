@@ -6,6 +6,7 @@
 
 #include "PlayerView/CubeView.hpp"
 #include "PlayerView/ShipView.hpp"
+#include "PlayerView/BallView.hpp"
 
 namespace game
 {
@@ -22,6 +23,8 @@ namespace game
 			return std::make_unique<CubeView>(main, side, icons.cube, player);
 		case Type::Ship:
 			return std::make_unique<ShipView>(main, side, icons.ship, icons.cube, player);
+		case Type::Ball:
+			return std::make_unique<BallView>(main, side, icons.ball, player);
 		}
 		return std::make_unique<CubeView>(main, side, icons.cube, player);
 		

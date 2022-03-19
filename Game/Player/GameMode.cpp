@@ -95,4 +95,9 @@ namespace game
 		p.direction.y += 90.f * delta  * -(float)Math::sign(p.game_mode.gravity);
 	}, nullptr, default_dir_cb, -40.f, 17.f, true
 	);
+	const GameModeInfo GameModeInfo::ball(PlayerView::Ball, nullptr, [](Player& p, float delta) {
+		p.jump(0.1f);
+		p.game_mode.gravity *= -1.f;
+		}, nullptr, nullptr, default_dir_cb, -45.f, 12.f, true
+	);
 }

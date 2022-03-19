@@ -24,7 +24,7 @@ namespace game
 			break;
 		case Mode::Play:
 			if (this->mode == Mode::Create)
-				level.player.reset(Player::CheckPoint(vec2{ 0.f, 0.f }, { 10.4f, 0.f }, GameModeInfo::cube));
+				level.player.reset(Player::CheckPoint(vec2{ 0.f, 0.f }, { 10.4f, 0.f }, GameModeInfo::ball));
 			level.create(dev_level);
 			level.sound.play();
 			break;

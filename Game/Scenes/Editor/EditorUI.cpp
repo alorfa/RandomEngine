@@ -68,6 +68,7 @@ namespace game
 	void EditorUI::updateComponentsAlignment()
 	{
 		camera.updateNativeSize();
+		objects.updateComponentsAlignment();
 		setCompAlignment(copypaste.sprite, UI::Right, { -1.f, 0.f });
 		setCompAlignment(play.sprite, UI::Left, { 1.f, 0.f });
 		setCompAlignment(stop.sprite, UI::Left, { 1.f, 0.f });

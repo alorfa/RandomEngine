@@ -29,6 +29,7 @@ namespace game
 		left.onReleased = right.onReleased = center.onReleased = [](Button& self) {
 			auto& mscene = self.owner->owner->as<MainScene>();
 			mscene.active_scene = &mscene.editor;
+			mscene.editor.ui.updateComponentsAlignment();
 		};
 	}
 	void MainMenu::updateComponentsAlignment()

@@ -56,7 +56,10 @@ namespace game
 	void ShipView::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		transform.setPosition(player->getPosition());
-		transform.setScale(player->getScale());
+		if (Math::sign(player->game_mode.gravity) == -1)
+			transform.setScale(player->getScale());
+		else
+			transform.setScale(player->getScale() * vec2(1.f, -1.f));
 		states.transform *= transform.getTransform();
 		cube.drawReverse(target, states);
 		ship.drawReverse(target, states);

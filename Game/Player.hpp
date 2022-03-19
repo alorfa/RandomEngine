@@ -51,6 +51,7 @@ namespace game
 		void jump(float strength);
 		void die();
 
+		void updateGameMode(const GameModeInfo& mode);
 		void setGameMode(const GameModeInfo& mode);
 
 		void handleEvents(const sf::Event& e);

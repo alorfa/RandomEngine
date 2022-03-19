@@ -12,19 +12,23 @@ namespace
 	{
 		constexpr float ROTATION = 0.7070707f;
 
+		float place_rotation = Math::deg(Math::getAngle(place_normal)) - 90.f;
+		/*if (place_rotation <= 0.f)
+			place_rotation += 360.f;*/
+
 		const vec2 player_look = Math::getCirclePoint(Math::rad(sprite_rotation + 90.f), { 1.f, 1.f });
 		const float scalar = player_look ^ place_normal;
 		//bottom
 		if (Math::inRange(scalar, ROTATION, 1.f))
 		{
 			if (sprite_rotation > 180.f)
-				return 360.f;
-			return 0.f;
+				return 360.f + place_rotation;
+			return 0.f + place_rotation;
 		}
 		//top
 		else if (Math::inRange(scalar, -1.f, -ROTATION))
 		{
-			return 180.f;
+			return 180.f + place_rotation;
 		}
 		else
 		{
@@ -34,12 +38,12 @@ namespace
 			//left
 			if (Math::inRange(scalar, ROTATION, 1.f))
 			{
-				return 90.f;
+				return 90.f + place_rotation;
 			}
 			//right
 			else
 			{
-				return 270.f;
+				return 270.f + place_rotation;
 			}
 		}
 	}
@@ -78,7 +82,10 @@ namespace game
 		const auto& offsets = player->getContactOffsets();
 		if (offsets.size() == 0)
 		{
-			sprite.rotate(-340.f * delta);
+			if (player->game_mode.gravity < 0.f)
+				sprite.rotate(-340.f * delta);
+			else
+				sprite.rotate(340.f * delta);
 			return;
 		}
 
@@ -90,8 +97,12 @@ namespace game
 
 		}
 
-		float rotation = sprite.getRotation();
-		const float needed_rotation = computeNeededRotation(to_offset, rotation);
+		const float rotation = sprite.getRotation();
+		float needed_rotation = computeNeededRotation(to_offset, rotation);
+		if (needed_rotation - rotation >= 180.f)
+			needed_rotation -= 360.f;
+		else if (rotation - needed_rotation >= 180.f)
+			needed_rotation += 360.f;
 		sprite.setRotation(Math::linearSmooth(rotation, needed_rotation, 50.f, delta));
 	}
 	void CubeView::draw(sf::RenderTarget& target, sf::RenderStates states) const
